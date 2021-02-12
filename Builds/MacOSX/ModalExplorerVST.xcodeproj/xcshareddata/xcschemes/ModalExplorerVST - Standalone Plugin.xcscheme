@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B6015EF05C0F8013AF983EE"
+               BlueprintIdentifier = "42DCB91DCD03AD2BC8C829BB"
                BuildableName = "ModalExplorerVST.app"
                BlueprintName = "ModalExplorerVST - Standalone Plugin"
                ReferencedContainer = "container:ModalExplorerVST.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B6015EF05C0F8013AF983EE"
+            BlueprintIdentifier = "42DCB91DCD03AD2BC8C829BB"
             BuildableName = "ModalExplorerVST.app"
             BlueprintName = "ModalExplorerVST - Standalone Plugin"
             ReferencedContainer = "container:ModalExplorerVST.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B6015EF05C0F8013AF983EE"
+            BlueprintIdentifier = "42DCB91DCD03AD2BC8C829BB"
             BuildableName = "ModalExplorerVST.app"
             BlueprintName = "ModalExplorerVST - Standalone Plugin"
             ReferencedContainer = "container:ModalExplorerVST.xcodeproj">

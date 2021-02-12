@@ -154,7 +154,9 @@ void ModalExplorerVSTAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
     {
         auto* channelData = buffer.getWritePointer (channel);
 
-        // ..do something to the data...
+        // 4 Do audio processing and test with a constant value...
+        // 6 Make processing dynamic with the variable created in the processor header file (step 5)
+        
     }
 }
 

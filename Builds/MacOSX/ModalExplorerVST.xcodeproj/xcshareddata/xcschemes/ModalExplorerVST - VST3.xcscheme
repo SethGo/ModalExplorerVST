@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CC56104DF83A7BBD204285E5"
+               BlueprintIdentifier = "136D87441DA7C980A82BF658"
                BuildableName = "ModalExplorerVST.vst3"
                BlueprintName = "ModalExplorerVST - VST3"
                ReferencedContainer = "container:ModalExplorerVST.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B6015EF05C0F8013AF983EE"
+            BlueprintIdentifier = "42DCB91DCD03AD2BC8C829BB"
             BuildableName = "ModalExplorerVST.app"
             BlueprintName = "ModalExplorerVST - Standalone Plugin"
             ReferencedContainer = "container:ModalExplorerVST.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CC56104DF83A7BBD204285E5"
+            BlueprintIdentifier = "136D87441DA7C980A82BF658"
             BuildableName = "ModalExplorerVST.vst3"
             BlueprintName = "ModalExplorerVST - VST3"
             ReferencedContainer = "container:ModalExplorerVST.xcodeproj">
