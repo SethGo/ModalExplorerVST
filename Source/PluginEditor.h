@@ -121,11 +121,11 @@ private:
     juce::Slider invKnobT;
     juce::Slider invKnobB;
     
-    // Oscillator waveform selection knobs
+    // Oscillator waveform selection combo boxes
     
-    // Oscillator mix sliders
+    // Oscillator mix horizontal slider bars
     
-    // Filter ADSR
+    // Filter ADSR slider bars
     
     // Cutoff and resonance rotary sliders
     
