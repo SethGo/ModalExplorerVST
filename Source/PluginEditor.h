@@ -21,7 +21,7 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
     void drawRotarySlider (juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
         {
             float outlineThickness = 2.5f;
-            float diameter = width - (outlineThickness + 30); // +10 so outline doesn't get cut off
+            float diameter = width - (outlineThickness + 30); // +30 so outline doesn't get cut off
             float radius = diameter/2;
             float centerX = x + width/2;
             float centerY = y + height /2;
@@ -90,7 +90,8 @@ public:
     void comboBoxChanged (juce::ComboBox* comboBox) override;
 
 private:
-    // 1 instantiate the object
+    // TODO: Create lables where needed
+    
     // Key knob
     juce::Slider keyKnob;
     
@@ -103,7 +104,7 @@ private:
     juce::Slider noteAltSlider7;
     
     // Negative harmony button
-    juce::TextButton negHarmBtn { " " };
+    juce::TextButton negHarmBtn { "off" };
     
     // RB mode knob
     juce::Slider rbKnob;
@@ -147,9 +148,6 @@ private:
     
     // Output knob
     juce::Slider outputKnob;
-    
-    
-    // Output knob
     
     // Custom LookAndFeel's
     KnobLookAndFeel knobLookAndFeel;

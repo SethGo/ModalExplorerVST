@@ -53,8 +53,6 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    // 5 Make a control variable for the gui to affect, and processor to read such as..
-//    float mGain {0.5}; //
     // Key knob value
     int keyVal;
     

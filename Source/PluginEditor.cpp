@@ -13,11 +13,7 @@
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // 2 Construct the objects by setting parameters
-    
-    // 11 Add listener to the object such as...
-    
-    // Eventually most of this needs to go into a custom LookAndFeel...
+    // TODO: most of these attributes needs to come from a custom LookAndFeel...
     
     // Key knob
     addAndMakeVisible(keyKnob);
@@ -141,6 +137,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscSelectComboS.addItem("saw", 1);
     oscSelectComboS.addItem("sqr", 2);
     oscSelectComboS.addItem("sin", 3);
+    oscSelectComboS.setColour (juce::ComboBox::backgroundColourId, juce::Colour(5, 41, 66));
+    oscSelectComboS.setColour (juce::ComboBox::arrowColourId, juce::Colour(224, 114, 82));
+    oscSelectComboS.setColour (juce::ComboBox::outlineColourId, juce::Colour(123, 234, 243));
+    oscSelectComboS.setColour (juce::ComboBox::textColourId, juce::Colour(123, 234, 243));
     oscSelectComboS.setSelectedId(1);
     oscSelectComboS.addListener(this);
     
@@ -148,6 +148,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscSelectComboA.addItem("saw", 1);
     oscSelectComboA.addItem("sqr", 2);
     oscSelectComboA.addItem("sin", 3);
+    oscSelectComboA.setColour (juce::ComboBox::backgroundColourId, juce::Colour(5, 41, 66));
+    oscSelectComboA.setColour (juce::ComboBox::arrowColourId, juce::Colour(224, 114, 82));
+    oscSelectComboA.setColour (juce::ComboBox::outlineColourId, juce::Colour(123, 234, 243));
+    oscSelectComboA.setColour (juce::ComboBox::textColourId, juce::Colour(123, 234, 243));
     oscSelectComboA.setSelectedId(3);
     oscSelectComboA.addListener(this);
     
@@ -155,6 +159,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscSelectComboT.addItem("saw", 1);
     oscSelectComboT.addItem("sqr", 2);
     oscSelectComboT.addItem("sin", 3);
+    oscSelectComboT.setColour (juce::ComboBox::backgroundColourId, juce::Colour(5, 41, 66));
+    oscSelectComboT.setColour (juce::ComboBox::arrowColourId, juce::Colour(224, 114, 82));
+    oscSelectComboT.setColour (juce::ComboBox::outlineColourId, juce::Colour(123, 234, 243));
+    oscSelectComboT.setColour (juce::ComboBox::textColourId, juce::Colour(123, 234, 243));
     oscSelectComboT.setSelectedId(2);
     oscSelectComboT.addListener(this);
     
@@ -162,6 +170,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscSelectComboB.addItem("saw", 1);
     oscSelectComboB.addItem("sqr", 2);
     oscSelectComboB.addItem("sin", 3);
+    oscSelectComboB.setColour (juce::ComboBox::backgroundColourId, juce::Colour(5, 41, 66));
+    oscSelectComboB.setColour (juce::ComboBox::arrowColourId, juce::Colour(224, 114, 82));
+    oscSelectComboB.setColour (juce::ComboBox::outlineColourId, juce::Colour(123, 234, 243));
+    oscSelectComboB.setColour (juce::ComboBox::textColourId, juce::Colour(123, 234, 243));
     oscSelectComboB.setSelectedId(1);
     oscSelectComboB.addListener(this);
     
@@ -290,9 +302,6 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     outputKnob.setLookAndFeel (&knobLookAndFeel);
     outputKnob.addListener(this);
     
-    
-    
-    
     setSize (1100, 750);
 }
 
@@ -306,11 +315,15 @@ void ModalExplorerVSTAudioProcessorEditor::toggleNeg()
     if (audioProcessor.negHarmMode == false)
     {
         negHarmBtn.setToggleState(true, juce::NotificationType::dontSendNotification);
+        negHarmBtn.setColour(juce::TextButton::textColourOnId, juce::Colour(5, 41, 66));
+        negHarmBtn.setButtonText("on");
         audioProcessor.negHarmMode = true;
     }
     else
     {
         negHarmBtn.setToggleState(false, juce::NotificationType::dontSendNotification);
+        negHarmBtn.setColour(juce::TextButton::textColourOffId, juce::Colour(123, 234, 243));
+        negHarmBtn.setButtonText("off");
         audioProcessor.negHarmMode = false;
     }
 }
@@ -318,14 +331,19 @@ void ModalExplorerVSTAudioProcessorEditor::toggleNeg()
 //==============================================================================
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
+    // TODO: Draw boxes to outline sections
+    
     g.fillAll (juce::Colour(5, 41, 66));
 
-    g.setColour (juce::Colours::white);
+    g.setColour (juce::Colour(123, 234, 243));
     g.setFont (15.0f);
+    // draw any needed text here
 }
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
+    // TODO: Try Flexbox placments instead of relative pixel placements
+    
     // Placement and sizing variables
     // Scale
     int keyKnobSize = 85;
@@ -378,8 +396,6 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int outputX = ampADSRX - 5;
     int outputY = cutoffY - 55;
     
-    
-    // 3 Draw the object with .setBounds()
     // Key knob
     keyKnob.setBounds(keyKnobX, keyKnobY - keyKnobSize, keyKnobSize, keyKnobSize);
     
@@ -436,18 +452,11 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     
     // Output
     outputKnob.setBounds(outputX, outputY, outputKnobSize, outputKnobSize);
-    
-    
-    
 }
 
-// 9 Implement gui object listener
 void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *slider) //
 {
-    //10 Connect value of gui object to control variable such as...
-    // "If the slider whose value was heard to have been changed by the listener is THIS particular slider, then do something with this control variable coming from the audio processor."
-    
-    // This should all be one big switch
+    // TODO: Do all this with a switch instead of the endless else-if
     
     // Key knob
     if (slider == &keyKnob)
@@ -585,6 +594,8 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
 // Function to handle combo box oscillator-type selection
 void ModalExplorerVSTAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBox)
 {
+    // TODO: Should be able to do with a switch
+    
     if (comboBox == &oscSelectComboS)
     {
         audioProcessor.oscSelectValS = oscSelectComboS.getSelectedId();
