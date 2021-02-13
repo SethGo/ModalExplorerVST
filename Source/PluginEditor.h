@@ -21,7 +21,7 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
     void drawRotarySlider (juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
         {
             float outlineThickness = 2.5f;
-            float diameter = width - (outlineThickness + 10); // +10 so outline doesn't get cut off
+            float diameter = width - (outlineThickness + 30); // +10 so outline doesn't get cut off
             float radius = diameter/2;
             float centerX = x + width/2;
             float centerY = y + height /2;
@@ -29,11 +29,12 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
             float ry = centerY - radius;
             float angle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
             
+            // Circular knob overlay
             juce::Rectangle<float> knobArea (rx, ry, diameter, diameter);
             g.setColour(juce::Colour(123, 234, 243));
-//            g.drawRect(knobArea);
             g.fillEllipse(knobArea);
             
+            // Knob tick line
             g.setColour(juce::Colours::black );
             juce::Path knobLine;
             knobLine.addRectangle(0, -radius, 4.0f, radius/2);
@@ -86,6 +87,7 @@ public:
     
     // 8 Create override for sliderValueChanged
     void sliderValueChanged (juce::Slider* slider) override;
+    void toggleNeg();
 
 private:
     // 1 instantiate the object
@@ -100,17 +102,11 @@ private:
     juce::Slider noteAltSlider6;
     juce::Slider noteAltSlider7;
     
-    // Negative harmony button TextButton
-//    enum class NegState
-//    {
-//        On,
-//        Off
-//    };
-//    
-//    NegState negState { NegState::Off };
-//    juce::TextButton negHarmBtn { "Off" };
+    // Negative harmony button
+    juce::TextButton negHarmBtn { " " };
     
     // RB mode knob
+    juce::Slider rbKnob;
     
     // Glide
     juce::Slider glideSlider;

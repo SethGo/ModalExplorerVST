@@ -67,7 +67,10 @@ public:
     int noteAltSlider7Val = 1;
     
     // Negative harmony toggle
-//    bool negHarmMode = false;
+    bool negHarmMode = false;
+    
+    // RB mode val
+    int rbModeVal = 0;
     
     // Glide slider val
     int glideSliderVal = 0;

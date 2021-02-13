@@ -76,19 +76,31 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider7.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider7.addListener(this);
     
+    // Negative harmony button
+    addAndMakeVisible(negHarmBtn);
+    negHarmBtn.setToggleState(false, juce::NotificationType::dontSendNotification);
+    negHarmBtn.setColour(juce::TextButton::buttonColourId, juce::Colour(5, 41, 66));
+    negHarmBtn.setColour(juce::TextButton::buttonOnColourId, juce::Colour(123, 234, 243));
+    negHarmBtn.setColour(juce::ComboBox::outlineColourId, juce::Colour(224, 114, 82));
+    negHarmBtn.onClick = [this]() { toggleNeg(); };
+    
+    // RB mode knob
+    addAndMakeVisible(rbKnob);
+    rbKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    rbKnob.setRange (0, 18, 1);
+    rbKnob.setValue (0);
+    rbKnob.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 30, 20);
+    rbKnob.setLookAndFeel (&knobLookAndFeel);
+    rbKnob.addListener(this);
+    
     // Glide slider
     addAndMakeVisible(glideSlider);
-    glideSlider.setSliderStyle (juce::Slider::SliderStyle::LinearBarVertical);
+    glideSlider.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
     glideSlider.setRange (0.0f, 1.0f, 0.01f);
     glideSlider.setValue (0.0);
-    glideSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 20, 20);
+    glideSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 40, 20);
     glideSlider.setLookAndFeel (&customLookAndFeel);
     glideSlider.addListener(this);
-    
-    // Negative harmony button
-//    addAndMakeVisible(negHarmBtn);
-//    negHarmBtn.setToggleState(false, juce::NotificationType::dontSendNotification);
-//    negHarmBtn.onClick = [this]() { stop(); };
     
     // Inversion knobs
     addAndMakeVisible(invKnobS); //Soprano
@@ -133,6 +145,21 @@ ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
 {
 }
 
+// Negative harmony toggle function
+void ModalExplorerVSTAudioProcessorEditor::toggleNeg()
+{
+    if (audioProcessor.negHarmMode == false)
+    {
+        negHarmBtn.setToggleState(true, juce::NotificationType::dontSendNotification);
+        audioProcessor.negHarmMode = true;
+    }
+    else
+    {
+        negHarmBtn.setToggleState(false, juce::NotificationType::dontSendNotification);
+        audioProcessor.negHarmMode = false;
+    }
+}
+
 //==============================================================================
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
@@ -145,19 +172,23 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
     // Placement and sizing variables
-    int keyKnobSize = 75;
+    int keyKnobSize = 85;
     int keyKnobX = 80;
-    int keyKnobY = 150;
+    int keyKnobY = 160;
     int firstInvKnobY = keyKnobY * 1.5;
-    int invKnobSize = 105;
+    int invKnobSize = 125;
     int invKnobVertSpacing = 100;
-    int noteAltsliderWidth = 20;
-    int noteAltSliderHeight = 80;
-    int firstNoteAltSliderX = keyKnobX + 130;
-    int noteAltSliderY = keyKnobY - keyKnobSize - 4;
-    int noteAltSliderHorizSpacing = 100;
-    int negHarmBtnX = firstNoteAltSliderX + noteAltSliderHorizSpacing*6;
-    int glideSliderX = negHarmBtnX + noteAltSliderHorizSpacing*2;
+    int noteAltsliderWidth = 40;
+    int noteAltSliderHeight = 90;
+    int noteAltSliderHorizSpacing = 90;
+    int firstNoteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth;
+    int noteAltSliderY = keyKnobY - keyKnobSize - 8;
+    int negHarmBtnX = firstNoteAltSliderX + noteAltSliderHorizSpacing*6 + 10;
+    int negHarmBtnY = noteAltSliderY + 12;
+    int rbKnobSize = keyKnobSize;
+    int rbKnobX = negHarmBtnX + noteAltSliderHorizSpacing;
+    int rbKnobY = keyKnobY - 45;
+    int glideSliderX = rbKnobX + noteAltSliderHorizSpacing + 17;
     
     
     // 3 Draw the object with .setBounds()
@@ -172,12 +203,13 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     noteAltSlider7.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing*5, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
     
     // Negative harmony button
-//    negHarmBtn.setBounds(negHarmBtnX, noteAltSliderY, 60, 60);
+    negHarmBtn.setBounds(negHarmBtnX, negHarmBtnY, 60, 60);
     
     // RB mode knob
+    rbKnob.setBounds(rbKnobX, rbKnobY-40, rbKnobSize, rbKnobSize);
     
     // Glide slider
-    glideSlider.setBounds(glideSliderX, noteAltSliderY, 30, 120);
+    glideSlider.setBounds(glideSliderX, noteAltSliderY, 40, 120);
     
     // Inversion knobs
     invKnobS.setBounds(keyKnobX, firstInvKnobY, invKnobSize, invKnobSize);
@@ -227,10 +259,16 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         audioProcessor.noteAltSlider7Val = static_cast<int>(noteAltSlider7.getValue());
     }
     
+    // RB knob
+    else if (slider == &rbKnob)
+    {
+        audioProcessor.rbModeVal = static_cast<int>(rbKnob.getValue());
+    }
+    
     // Glide slider
     else if (slider == &glideSlider)
     {
-        audioProcessor.glideSliderVal = static_cast<int>(glideSlider.getValue());
+        audioProcessor.glideSliderVal = glideSlider.getValue();
     }
     
     // Inversion knobs
