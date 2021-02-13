@@ -55,33 +55,61 @@ public:
 
     // 5 Make a control variable for the gui to affect, and processor to read such as..
 //    float mGain {0.5}; //
-    // Val from keyKnob
-    int keyVal = 0;
+    // Key knob value
+    int keyVal;
     
-    // Vals from note alteration sliders (0: flat, 1: natual, 2: sharp)
-    int noteAltSlider2Val = 1;
-    int noteAltSlider3Val = 1;
-    int noteAltSlider4Val = 1;
-    int noteAltSlider5Val = 1;
-    int noteAltSlider6Val = 1;
-    int noteAltSlider7Val = 1;
+    // Note alteration slider values (0: flat, 1: natual, 2: sharp)
+    int noteAltSliderVal2;
+    int noteAltSliderVal3;
+    int noteAltSliderVal4;
+    int noteAltSliderVal5;
+    int noteAltSliderVal6;
+    int noteAltSliderVal7;
     
     // Negative harmony toggle
     bool negHarmMode = false;
     
-    // RB mode val
-    int rbModeVal = 0;
+    // RB mode values
+    int rbModeVal;
     
-    // Glide slider val
-    int glideSliderVal = 0;
+    // Glide slider values
+    float glideSliderVal;
     
-    // Vals from inversion knobs
-    int invKnobSVal = 7;
-    int invKnobAVal = 5;
-    int invKnobTVal = 3;
-    int invKnobBVal = 1;
+    // Inversion knob values
+    int invKnobValS;
+    int invKnobValA;
+    int invKnobValT;
+    int invKnobValB;
+    
+    // Osciallator select combo box values
+    int oscSelectValS;
+    int oscSelectValA;
+    int oscSelectValT;
+    int oscSelectValB;
+    
+    // Oscillator mix bars (need conversion to db)
+    float oscMixValS;
+    float oscMixValA;
+    float oscMixValT;
+    float oscMixValB;
+    
+    // Filter ADSR values
+    float filterAVal;
+    float filterDVal;
+    float filterSVal;
+    float filterRVal;
+    
+    // Amp ADSR values
+    float ampAVal;
+    float ampDVal;
+    float ampSVal;
+    float ampRVal;
+    
+    // Cutoff, res, output
+    float cutoffVal;
+    float resVal;
+    float outputVal;
 
-    
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModalExplorerVSTAudioProcessor)

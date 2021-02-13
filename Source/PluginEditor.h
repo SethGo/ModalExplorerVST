@@ -41,7 +41,6 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
             g.fillPath(knobLine, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
             g.setColour(juce::Colour(224, 114, 82));
             g.drawEllipse(rx, ry, diameter, diameter, outlineThickness);
-            
         }
 };
 
@@ -74,8 +73,8 @@ class CustomLookAndFeelCat : public CustomLookAndFeel
 
 class ModalExplorerVSTAudioProcessorEditor  : public juce::AudioProcessorEditor,
                                               // 7 Add any component listeners such as...
-                                              public juce::Slider::Listener
-//                                              public juce::TextButton::Listener
+                                              public juce::Slider::Listener,
+                                              public juce::ComboBox::Listener
 {
 public:
     ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor&);
@@ -88,6 +87,7 @@ public:
     // 8 Create override for sliderValueChanged
     void sliderValueChanged (juce::Slider* slider) override;
     void toggleNeg();
+    void comboBoxChanged (juce::ComboBox* comboBox) override;
 
 private:
     // 1 instantiate the object
@@ -118,12 +118,36 @@ private:
     juce::Slider invKnobB;
     
     // Oscillator waveform selection combo boxes
+    juce::ComboBox oscSelectComboS;
+    juce::ComboBox oscSelectComboA;
+    juce::ComboBox oscSelectComboT;
+    juce::ComboBox oscSelectComboB;
     
     // Oscillator mix horizontal slider bars
+    juce::Slider oscMixBarS;
+    juce::Slider oscMixBarA;
+    juce::Slider oscMixBarT;
+    juce::Slider oscMixBarB;
     
-    // Filter ADSR slider bars
+    // Filter ADSR sliders
+    juce::Slider filterSliderA;
+    juce::Slider filterSliderD;
+    juce::Slider filterSliderS;
+    juce::Slider filterSliderR;
+    
+    // Amp ADSR sliders
+    juce::Slider ampSliderA;
+    juce::Slider ampSliderD;
+    juce::Slider ampSliderS;
+    juce::Slider ampSliderR;
     
     // Cutoff and resonance rotary sliders
+    juce::Slider cutoffSlider;
+    juce::Slider resSlider;
+    
+    // Output knob
+    juce::Slider outputKnob;
+    
     
     // Output knob
     

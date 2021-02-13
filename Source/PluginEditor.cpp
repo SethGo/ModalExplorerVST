@@ -17,6 +17,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     
     // 11 Add listener to the object such as...
     
+    // Eventually most of this needs to go into a custom LookAndFeel...
     
     // Key knob
     addAndMakeVisible(keyKnob);
@@ -97,8 +98,8 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     addAndMakeVisible(glideSlider);
     glideSlider.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
     glideSlider.setRange (0.0f, 1.0f, 0.01f);
-    glideSlider.setValue (0.0);
-    glideSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 40, 20);
+    glideSlider.setValue (0.25);
+    glideSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     glideSlider.setLookAndFeel (&customLookAndFeel);
     glideSlider.addListener(this);
     
@@ -133,7 +134,161 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     invKnobB.setValue (1);
     invKnobB.setTextBoxStyle (juce::Slider::TextBoxRight, false, 20, 20);
     invKnobB.setLookAndFeel (&knobLookAndFeel);
-    invKnobS.addListener(this);
+    invKnobB.addListener(this);
+    
+    // Oscillator selection combo boxes
+    addAndMakeVisible(oscSelectComboS); // Soprano
+    oscSelectComboS.addItem("saw", 1);
+    oscSelectComboS.addItem("sqr", 2);
+    oscSelectComboS.addItem("sin", 3);
+    oscSelectComboS.setSelectedId(1);
+    oscSelectComboS.addListener(this);
+    
+    addAndMakeVisible(oscSelectComboA); // Alto
+    oscSelectComboA.addItem("saw", 1);
+    oscSelectComboA.addItem("sqr", 2);
+    oscSelectComboA.addItem("sin", 3);
+    oscSelectComboA.setSelectedId(3);
+    oscSelectComboA.addListener(this);
+    
+    addAndMakeVisible(oscSelectComboT); // Tenor
+    oscSelectComboT.addItem("saw", 1);
+    oscSelectComboT.addItem("sqr", 2);
+    oscSelectComboT.addItem("sin", 3);
+    oscSelectComboT.setSelectedId(2);
+    oscSelectComboT.addListener(this);
+    
+    addAndMakeVisible(oscSelectComboB); // Bass
+    oscSelectComboB.addItem("saw", 1);
+    oscSelectComboB.addItem("sqr", 2);
+    oscSelectComboB.addItem("sin", 3);
+    oscSelectComboB.setSelectedId(1);
+    oscSelectComboB.addListener(this);
+    
+    // Oscillator mix bars
+    addAndMakeVisible(oscMixBarS); // Soprano
+    oscMixBarS.setSliderStyle (juce::Slider::SliderStyle::LinearBar);
+    oscMixBarS.setRange (-100.0f, 10.0f, 0.01f);
+    oscMixBarS.setValue (-10.0);
+    oscMixBarS.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    oscMixBarS.setLookAndFeel (&customLookAndFeel);
+    oscMixBarS.addListener(this);
+    
+    addAndMakeVisible(oscMixBarA); // Alto
+    oscMixBarA.setSliderStyle (juce::Slider::SliderStyle::LinearBar);
+    oscMixBarA.setRange (-100.0f, 10.0f, 0.01f);
+    oscMixBarA.setValue (-10.0);
+    oscMixBarA.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    oscMixBarA.setLookAndFeel (&customLookAndFeel);
+    oscMixBarA.addListener(this);
+    
+    addAndMakeVisible(oscMixBarT); // Tenor
+    oscMixBarT.setSliderStyle (juce::Slider::SliderStyle::LinearBar);
+    oscMixBarT.setRange (-100.0f, 10.0f, 0.01f);
+    oscMixBarT.setValue (-10.0);
+    oscMixBarT.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    oscMixBarT.setLookAndFeel (&customLookAndFeel);
+    oscMixBarT.addListener(this);
+    
+    addAndMakeVisible(oscMixBarB); // Bass
+    oscMixBarB.setSliderStyle (juce::Slider::SliderStyle::LinearBar);
+    oscMixBarB.setRange (-100.0f, 10.0f, 0.01f);
+    oscMixBarB.setValue (-10.0);
+    oscMixBarB.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    oscMixBarB.setLookAndFeel (&customLookAndFeel);
+    oscMixBarB.addListener(this);
+    
+    // Filter ADSR sliders
+    addAndMakeVisible(filterSliderA); // Attack
+    filterSliderA.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    filterSliderA.setRange (0.0f, 1.0f, 0.01f);
+    filterSliderA.setValue (0.08);
+    filterSliderA.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    filterSliderA.setLookAndFeel (&customLookAndFeel);
+    filterSliderA.addListener(this);
+    
+    addAndMakeVisible(filterSliderD); // Decay
+    filterSliderD.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    filterSliderD.setRange (0.0f, 1.0f, 0.01f);
+    filterSliderD.setValue (0.63);
+    filterSliderD.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    filterSliderD.setLookAndFeel (&customLookAndFeel);
+    filterSliderD.addListener(this);
+    
+    addAndMakeVisible(filterSliderS); // Sustain
+    filterSliderS.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    filterSliderS.setRange (0.0f, 1.0f, 0.01f);
+    filterSliderS.setValue (0.33);
+    filterSliderS.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    filterSliderS.setLookAndFeel (&customLookAndFeel);
+    filterSliderS.addListener(this);
+    
+    addAndMakeVisible(filterSliderR); // Release
+    filterSliderR.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    filterSliderR.setRange (0.0f, 1.0f, 0.01f);
+    filterSliderR.setValue (0.3);
+    filterSliderR.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    filterSliderR.setLookAndFeel (&customLookAndFeel);
+    filterSliderR.addListener(this);
+    
+    // Amp ADSR sliders
+    addAndMakeVisible(ampSliderA); // Attack
+    ampSliderA.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    ampSliderA.setRange (0.0f, 1.0f, 0.01f);
+    ampSliderA.setValue (0.16f);
+    ampSliderA.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    ampSliderA.setLookAndFeel (&customLookAndFeel);
+    ampSliderA.addListener(this);
+    
+    addAndMakeVisible(ampSliderD); // Decay
+    ampSliderD.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    ampSliderD.setRange (0.0f, 1.0f, 0.01f);
+    ampSliderD.setValue (0.0f);
+    ampSliderD.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    ampSliderD.setLookAndFeel (&customLookAndFeel);
+    ampSliderD.addListener(this);
+    
+    addAndMakeVisible(ampSliderS); // Sustain
+    ampSliderS.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    ampSliderS.setRange (0.0f, 1.0f, 0.01f);
+    ampSliderS.setValue (1.0f);
+    ampSliderS.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    ampSliderS.setLookAndFeel (&customLookAndFeel);
+    ampSliderS.addListener(this);
+    
+    addAndMakeVisible(ampSliderR); // Release
+    ampSliderR.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    ampSliderR.setRange (0.0f, 1.0f, 0.01f);
+    ampSliderR.setValue (0.49f);
+    ampSliderR.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    ampSliderR.setLookAndFeel (&customLookAndFeel);
+    ampSliderR.addListener(this);
+    
+    // Filter controls
+    addAndMakeVisible(resSlider); // Resonance
+    resSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    resSlider.setRange (0.0f, 1.0f, 0.01f);
+    resSlider.setValue (0.2f);
+    resSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    resSlider.setLookAndFeel (&customLookAndFeel);
+    cutoffSlider.addListener(this);
+    
+    addAndMakeVisible(cutoffSlider); // Cutoff
+    cutoffSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    cutoffSlider.setRange (2000.0f, 20000.0f, 1.0f);
+    cutoffSlider.setValue (16000.0f);
+    cutoffSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    cutoffSlider.setLookAndFeel (&customLookAndFeel);
+    cutoffSlider.addListener(this);
+    
+    //Output knob
+    addAndMakeVisible(outputKnob); // Cutoff
+    outputKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    outputKnob.setRange (0.0f, 1.0f, 0.01f);
+    outputKnob.setValue (0.5);
+    outputKnob.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    outputKnob.setLookAndFeel (&knobLookAndFeel);
+    outputKnob.addListener(this);
     
     
     
@@ -172,38 +327,72 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
     // Placement and sizing variables
+    // Scale
     int keyKnobSize = 85;
     int keyKnobX = 80;
     int keyKnobY = 160;
-    int firstInvKnobY = keyKnobY * 1.5;
-    int invKnobSize = 125;
-    int invKnobVertSpacing = 100;
     int noteAltsliderWidth = 40;
     int noteAltSliderHeight = 90;
     int noteAltSliderHorizSpacing = 90;
-    int firstNoteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth;
-    int noteAltSliderY = keyKnobY - keyKnobSize - 8;
-    int negHarmBtnX = firstNoteAltSliderX + noteAltSliderHorizSpacing*6 + 10;
-    int negHarmBtnY = noteAltSliderY + 12;
+    int noteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth;
+    int noteAltSliderY = keyKnobY - keyKnobSize - 3;
+    
+    // Extras (Neg-Harm, RB mode, Glide)
+    int negHarmBtnSize = 50;
+    int negHarmBtnX = noteAltSliderX + noteAltSliderHorizSpacing*6 + 10;
+    int negHarmBtnY = noteAltSliderY + 25;
     int rbKnobSize = keyKnobSize;
     int rbKnobX = negHarmBtnX + noteAltSliderHorizSpacing;
-    int rbKnobY = keyKnobY - 45;
+    int rbKnobY = keyKnobY - 35;
     int glideSliderX = rbKnobX + noteAltSliderHorizSpacing + 17;
+    
+    // Inversion
+    int invKnobX = keyKnobX - 5;
+    int invKnobY = keyKnobY * 1.5;
+    int invKnobSize = 125;
+    int invKnobVertSpacing = 100;
+    
+    // Oscillators
+    int oscComboBoxWidth = 70;
+    int oscComboX = keyKnobX + noteAltSliderHorizSpacing * 3.5;
+    int oscComboY = invKnobY + invKnobSize/2 - 10;
+    int oscMixBarX = oscComboX + noteAltSliderHorizSpacing + 20;
+    int oscMixBarY = oscComboY;
+    
+    // Fliter and amp ADSR
+    int filterADSRX = oscMixBarX + 172;
+    int adsrY = oscMixBarY - 5;
+    int adsrSpacing = 35;
+    int ampADSRX = filterADSRX + adsrSpacing*5;
+    int adsrWidth = 40;
+    int adsrHeight = 130;
+    
+    // Cutoff, res, output
+    int cutoffSize = 100;
+    int cutoffX = filterADSRX + 25;
+    int cutoffY = oscMixBarY + invKnobVertSpacing*2.5;
+    int resSize = 65;
+    int resX = cutoffX + 18;
+    int resY = cutoffY - invKnobVertSpacing;
+    int outputKnobSize = 155;
+    int outputX = ampADSRX - 5;
+    int outputY = cutoffY - 55;
     
     
     // 3 Draw the object with .setBounds()
+    // Key knob
     keyKnob.setBounds(keyKnobX, keyKnobY - keyKnobSize, keyKnobSize, keyKnobSize);
     
     // Note alteration sliders
-    noteAltSlider2.setBounds(firstNoteAltSliderX, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
-    noteAltSlider3.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
-    noteAltSlider4.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing*2, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
-    noteAltSlider5.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing*3, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
-    noteAltSlider6.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing*4, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
-    noteAltSlider7.setBounds(firstNoteAltSliderX + noteAltSliderHorizSpacing*5, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider2.setBounds(noteAltSliderX, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider3.setBounds(noteAltSliderX + noteAltSliderHorizSpacing, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider4.setBounds(noteAltSliderX + noteAltSliderHorizSpacing*2, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider5.setBounds(noteAltSliderX + noteAltSliderHorizSpacing*3, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider6.setBounds(noteAltSliderX + noteAltSliderHorizSpacing*4, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
+    noteAltSlider7.setBounds(noteAltSliderX + noteAltSliderHorizSpacing*5, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
     
     // Negative harmony button
-    negHarmBtn.setBounds(negHarmBtnX, negHarmBtnY, 60, 60);
+    negHarmBtn.setBounds(negHarmBtnX, negHarmBtnY, negHarmBtnSize, negHarmBtnSize);
     
     // RB mode knob
     rbKnob.setBounds(rbKnobX, rbKnobY-40, rbKnobSize, rbKnobSize);
@@ -212,11 +401,41 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     glideSlider.setBounds(glideSliderX, noteAltSliderY, 40, 120);
     
     // Inversion knobs
-    invKnobS.setBounds(keyKnobX, firstInvKnobY, invKnobSize, invKnobSize);
-    invKnobA.setBounds(keyKnobX, firstInvKnobY + invKnobVertSpacing, invKnobSize, invKnobSize);
-    invKnobT.setBounds(keyKnobX, firstInvKnobY + invKnobVertSpacing*2, invKnobSize, invKnobSize);
-    invKnobB.setBounds(keyKnobX, firstInvKnobY + invKnobVertSpacing*3, invKnobSize, invKnobSize);
+    invKnobS.setBounds(invKnobX, invKnobY, invKnobSize, invKnobSize);
+    invKnobA.setBounds(invKnobX, invKnobY + invKnobVertSpacing, invKnobSize, invKnobSize);
+    invKnobT.setBounds(invKnobX, invKnobY + invKnobVertSpacing*2, invKnobSize, invKnobSize);
+    invKnobB.setBounds(invKnobX, invKnobY + invKnobVertSpacing*3, invKnobSize, invKnobSize);
     
+    // Oscillator selection combo boxes
+    oscSelectComboS.setBounds(oscComboX, oscComboY, oscComboBoxWidth, 20);
+    oscSelectComboA.setBounds(oscComboX, oscComboY + invKnobVertSpacing, oscComboBoxWidth, 20);
+    oscSelectComboT.setBounds(oscComboX, oscComboY + invKnobVertSpacing*2, oscComboBoxWidth, 20);
+    oscSelectComboB.setBounds(oscComboX, oscComboY + invKnobVertSpacing*3, oscComboBoxWidth, 20);
+    
+    // Oscillator mix slider bars
+    oscMixBarS.setBounds(oscMixBarX, oscMixBarY, 130, 20);
+    oscMixBarA.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing, 130, 20);
+    oscMixBarT.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing*2, 130, 20);
+    oscMixBarB.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing*3, 130, 20);
+    
+    // Filter ADSR
+    filterSliderA.setBounds(filterADSRX, adsrY, adsrWidth, adsrHeight);
+    filterSliderD.setBounds(filterADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
+    filterSliderS.setBounds(filterADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
+    filterSliderR.setBounds(filterADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
+    
+    // Amp ADSR
+    ampSliderA.setBounds(ampADSRX, adsrY, adsrWidth, adsrHeight);
+    ampSliderD.setBounds(ampADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
+    ampSliderS.setBounds(ampADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
+    ampSliderR.setBounds(ampADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
+    
+    // Filter cutoff and resonance
+    cutoffSlider.setBounds(cutoffX, cutoffY, cutoffSize, cutoffSize);
+    resSlider.setBounds(resX, resY, resSize, resSize);
+    
+    // Output
+    outputKnob.setBounds(outputX, outputY, outputKnobSize, outputKnobSize);
     
     
     
@@ -227,6 +446,9 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
 {
     //10 Connect value of gui object to control variable such as...
     // "If the slider whose value was heard to have been changed by the listener is THIS particular slider, then do something with this control variable coming from the audio processor."
+    
+    // This should all be one big switch
+    
     // Key knob
     if (slider == &keyKnob)
     {
@@ -236,27 +458,27 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
     // Note alteration sliders
     else if (slider == &noteAltSlider2)
     {
-        audioProcessor.noteAltSlider2Val = static_cast<int>(noteAltSlider2.getValue());
+        audioProcessor.noteAltSliderVal2 = static_cast<int>(noteAltSlider2.getValue());
     }
     else if (slider == &noteAltSlider3)
     {
-        audioProcessor.noteAltSlider3Val = static_cast<int>(noteAltSlider3.getValue());
+        audioProcessor.noteAltSliderVal3 = static_cast<int>(noteAltSlider3.getValue());
     }
     else if (slider == &noteAltSlider4)
     {
-        audioProcessor.noteAltSlider4Val = static_cast<int>(noteAltSlider4.getValue());
+        audioProcessor.noteAltSliderVal4 = static_cast<int>(noteAltSlider4.getValue());
     }
     else if (slider == &noteAltSlider5)
     {
-        audioProcessor.noteAltSlider5Val = static_cast<int>(noteAltSlider5.getValue());
+        audioProcessor.noteAltSliderVal5 = static_cast<int>(noteAltSlider5.getValue());
     }
     else if (slider == &noteAltSlider6)
     {
-        audioProcessor.noteAltSlider6Val = static_cast<int>(noteAltSlider6.getValue());
+        audioProcessor.noteAltSliderVal6 = static_cast<int>(noteAltSlider6.getValue());
     }
     else if (slider == &noteAltSlider7)
     {
-        audioProcessor.noteAltSlider7Val = static_cast<int>(noteAltSlider7.getValue());
+        audioProcessor.noteAltSliderVal7 = static_cast<int>(noteAltSlider7.getValue());
     }
     
     // RB knob
@@ -274,19 +496,110 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
     // Inversion knobs
     else if (slider == &invKnobS)
     {
-        audioProcessor.invKnobSVal = static_cast<int>(invKnobS.getValue());
+        audioProcessor.invKnobValS = static_cast<int>(invKnobS.getValue());
     }
     else if (slider == &invKnobA)
     {
-        audioProcessor.invKnobAVal = static_cast<int>(invKnobA.getValue());
+        audioProcessor.invKnobValA = static_cast<int>(invKnobA.getValue());
     }
     else if (slider == &invKnobT)
     {
-        audioProcessor.invKnobTVal = static_cast<int>(invKnobT.getValue());
+        audioProcessor.invKnobValT = static_cast<int>(invKnobT.getValue());
     }
     else if (slider == &invKnobB)
     {
-        audioProcessor.invKnobBVal = static_cast<int>(invKnobB.getValue());
+        audioProcessor.invKnobValB = static_cast<int>(invKnobB.getValue());
     }
     
+    // Oscillator mix slider bars
+    else if (slider == &oscMixBarS)
+    {
+        audioProcessor.oscMixValS = oscMixBarS.getValue();
+    }
+    else if (slider == &oscMixBarA)
+    {
+        audioProcessor.oscMixValA = oscMixBarA.getValue();
+    }
+    else if (slider == &oscMixBarT)
+    {
+        audioProcessor.oscMixValT = oscMixBarT.getValue();
+    }
+    else if (slider == &oscMixBarB)
+    {
+        audioProcessor.oscMixValB = oscMixBarB.getValue();
+    }
+    
+    // Filter ADSR
+    else if (slider == &filterSliderA)
+    {
+        audioProcessor.filterAVal = filterSliderA.getValue();
+    }
+    else if (slider == &filterSliderD)
+    {
+        audioProcessor.filterDVal = filterSliderD.getValue();
+    }
+    else if (slider == &filterSliderS)
+    {
+        audioProcessor.filterSVal = filterSliderS.getValue();
+    }
+    else if (slider == &filterSliderR)
+    {
+        audioProcessor.filterRVal = filterSliderR.getValue();
+    }
+    
+    // Amp ADSR
+    else if (slider == &ampSliderA)
+    {
+        audioProcessor.ampAVal = ampSliderA.getValue();
+    }
+    else if (slider == &ampSliderD)
+    {
+        audioProcessor.ampDVal = ampSliderD.getValue();
+    }
+    else if (slider == &ampSliderS)
+    {
+        audioProcessor.ampSVal = ampSliderS.getValue();
+    }
+    else if (slider == &ampSliderR)
+    {
+        audioProcessor.ampRVal = ampSliderR.getValue();
+    }
+    
+    // Cutoff and res
+    else if (slider == &cutoffSlider)
+    {
+        audioProcessor.cutoffVal = cutoffSlider.getValue();
+    }
+    else if (slider == &resSlider)
+    {
+        audioProcessor.resVal = resSlider.getValue();
+    }
+    
+    // Output knob
+    else if (slider == &outputKnob)
+    {
+        audioProcessor.outputVal = outputKnob.getValue();
+    }
 }
+
+// Function to handle combo box oscillator-type selection
+void ModalExplorerVSTAudioProcessorEditor::comboBoxChanged (juce::ComboBox *comboBox)
+{
+    if (comboBox == &oscSelectComboS)
+    {
+        audioProcessor.oscSelectValS = oscSelectComboS.getSelectedId();
+    }
+    else if (comboBox == &oscSelectComboA)
+    {
+        audioProcessor.oscSelectValA = oscSelectComboA.getSelectedId();
+    }
+    else if (comboBox == &oscSelectComboT)
+    {
+        audioProcessor.oscSelectValT = oscSelectComboT.getSelectedId();
+    }
+    else if (comboBox == &oscSelectComboB)
+    {
+        audioProcessor.oscSelectValB = oscSelectComboB.getSelectedId();
+    }
+}
+
