@@ -17,12 +17,22 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     
     // Key knob
     addAndMakeVisible(keyKnob);
-    keyKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    keyKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     keyKnob.setRange (0, 11, 1);
     keyKnob.setValue (0);
     keyKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     keyKnob.setLookAndFeel (&knobLookAndFeel);
     keyKnob.addListener(this);
+    addAndMakeVisible(keyKnobLabel);
+    keyKnobLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    keyKnobLabel.setFont(25.0f);
+    keyKnobLabel.setText("C", juce::NotificationType::dontSendNotification);
+    keyKnobLabel.setJustificationType(juce::Justification::centred);
+    addAndMakeVisible(keyRomanNumLabel);
+    keyRomanNumLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    keyRomanNumLabel.setFont(25.0f);
+    keyRomanNumLabel.setJustificationType(juce::Justification::centred);
+    keyRomanNumLabel.setText("I", juce::NotificationType::dontSendNotification);
     
     // Note alteration sliders
     addAndMakeVisible(noteAltSlider2);
@@ -32,6 +42,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider2.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider2.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider2.addListener(this);
+    addAndMakeVisible(noteAltLabel2);
+    noteAltLabel2.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel2.setFont(25.0f);
+    noteAltLabel2.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(noteAltSlider3);
     noteAltSlider3.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -40,6 +54,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider3.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider3.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider3.addListener(this);
+    addAndMakeVisible(noteAltLabel3);
+    noteAltLabel3.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel3.setFont(25.0f);
+    noteAltLabel3.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(noteAltSlider4);
     noteAltSlider4.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -48,6 +66,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider4.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider4.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider4.addListener(this);
+    addAndMakeVisible(noteAltLabel4);
+    noteAltLabel4.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel4.setFont(25.0f);
+    noteAltLabel4.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(noteAltSlider5);
     noteAltSlider5.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -56,6 +78,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider5.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider5.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider5.addListener(this);
+    addAndMakeVisible(noteAltLabel5);
+    noteAltLabel5.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel5.setFont(25.0f);
+    noteAltLabel5.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(noteAltSlider6);
     noteAltSlider6.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -64,6 +90,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider6.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider6.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider6.addListener(this);
+    addAndMakeVisible(noteAltLabel6);
+    noteAltLabel6.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel6.setFont(25.0f);
+    noteAltLabel6.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(noteAltSlider7);
     noteAltSlider7.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -72,6 +102,10 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider7.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider7.setLookAndFeel (&customLookAndFeelCat);
     noteAltSlider7.addListener(this);
+    addAndMakeVisible(noteAltLabel7);
+    noteAltLabel7.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    noteAltLabel7.setFont(25.0f);
+    noteAltLabel7.setJustificationType(juce::Justification::centred);
     
     // Negative harmony button
     addAndMakeVisible(negHarmBtn);
@@ -83,12 +117,17 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     
     // RB mode knob
     addAndMakeVisible(rbKnob);
-    rbKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    rbKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     rbKnob.setRange (0, 18, 1);
     rbKnob.setValue (0);
-    rbKnob.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 30, 20);
+    rbKnob.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     rbKnob.setLookAndFeel (&knobLookAndFeel);
     rbKnob.addListener(this);
+    addAndMakeVisible(rbModeLabel);
+    rbModeLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    rbModeLabel.setFont(25.0f);
+    rbModeLabel.setJustificationType(juce::Justification::centred);
+    rbModeLabel.setText("off", juce::NotificationType::dontSendNotification);
     
     // Glide slider
     addAndMakeVisible(glideSlider);
@@ -99,38 +138,58 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     glideSlider.setLookAndFeel (&customLookAndFeel);
     glideSlider.addListener(this);
     
-    // Inversion knobs
+    // Inversion knobs and labels
     addAndMakeVisible(invKnobS); //Soprano
-    invKnobS.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    invKnobS.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     invKnobS.setRange (0, 7, 1);
     invKnobS.setValue (7);
-    invKnobS.setTextBoxStyle (juce::Slider::TextBoxRight, false, 20, 20);
+    invKnobS.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobS.setLookAndFeel (&knobLookAndFeel);
     invKnobS.addListener(this);
+    addAndMakeVisible(invKnobLabelS);
+    invKnobLabelS.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    invKnobLabelS.setFont(25.0f);
+    invKnobLabelS.setJustificationType(juce::Justification::centred);
+    invKnobLabelS.attachToComponent(&invKnobS, false);
     
     addAndMakeVisible(invKnobA); //Alto
-    invKnobA.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    invKnobA.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     invKnobA.setRange (0, 7, 1);
     invKnobA.setValue (5);
-    invKnobA.setTextBoxStyle (juce::Slider::TextBoxRight, false, 20, 20);
+    invKnobA.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobA.setLookAndFeel (&knobLookAndFeel);
     invKnobA.addListener(this);
-    
+    addAndMakeVisible(invKnobLabelA);
+    invKnobLabelA.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    invKnobLabelA.setFont(25.0f);
+    invKnobLabelA.setJustificationType(juce::Justification::centred);
+    invKnobLabelS.attachToComponent(&invKnobA, false);
+
     addAndMakeVisible(invKnobT); //Tenor
-    invKnobT.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    invKnobT.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     invKnobT.setRange (0, 7, 1);
     invKnobT.setValue (3);
-    invKnobT.setTextBoxStyle (juce::Slider::TextBoxRight, false, 20, 20);
+    invKnobT.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobT.setLookAndFeel (&knobLookAndFeel);
     invKnobT.addListener(this);
-    
+    addAndMakeVisible(invKnobLabelT);
+    invKnobLabelT.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    invKnobLabelT.setFont(25.0f);
+    invKnobLabelT.setJustificationType(juce::Justification::centred);
+    invKnobLabelS.attachToComponent(&invKnobT, false);
+
     addAndMakeVisible(invKnobB); //Bass
-    invKnobB.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    invKnobB.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     invKnobB.setRange (0, 7, 1);
     invKnobB.setValue (1);
-    invKnobB.setTextBoxStyle (juce::Slider::TextBoxRight, false, 20, 20);
+    invKnobB.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobB.setLookAndFeel (&knobLookAndFeel);
     invKnobB.addListener(this);
+    addAndMakeVisible(invKnobLabelB);
+    invKnobLabelB.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    invKnobLabelB.setFont(25.0f);
+    invKnobLabelB.setJustificationType(juce::Justification::centred);
+    invKnobLabelS.attachToComponent(&invKnobB, false);
     
     // Oscillator selection combo boxes
     addAndMakeVisible(oscSelectComboS); // Soprano
@@ -177,6 +236,13 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscSelectComboB.setSelectedId(1);
     oscSelectComboB.addListener(this);
     
+    addAndMakeVisible(oscTypeLabel);
+    oscTypeLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    oscTypeLabel.setFont(25.0f);
+    oscTypeLabel.setJustificationType(juce::Justification::centredBottom);
+    oscTypeLabel.setText("type", juce::NotificationType::dontSendNotification);
+    
+    
     // Oscillator mix bars
     addAndMakeVisible(oscMixBarS); // Soprano
     oscMixBarS.setSliderStyle (juce::Slider::SliderStyle::LinearBar);
@@ -210,6 +276,12 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     oscMixBarB.setLookAndFeel (&customLookAndFeel);
     oscMixBarB.addListener(this);
     
+    addAndMakeVisible(oscMixLabel);
+    oscMixLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    oscMixLabel.setFont(25.0f);
+    oscMixLabel.setJustificationType(juce::Justification::centredBottom);
+    oscMixLabel.setText("mix", juce::NotificationType::dontSendNotification);
+    
     // Filter ADSR sliders
     addAndMakeVisible(filterSliderA); // Attack
     filterSliderA.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -218,6 +290,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     filterSliderA.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     filterSliderA.setLookAndFeel (&customLookAndFeel);
     filterSliderA.addListener(this);
+    addAndMakeVisible(filterLabelA);
+    filterLabelA.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    filterLabelA.setFont(25.0f);
+    filterLabelA.setJustificationType(juce::Justification::centredBottom);
+    filterLabelA.setText("A", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(filterSliderD); // Decay
     filterSliderD.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -226,6 +303,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     filterSliderD.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     filterSliderD.setLookAndFeel (&customLookAndFeel);
     filterSliderD.addListener(this);
+    addAndMakeVisible(filterLabelD);
+    filterLabelD.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    filterLabelD.setFont(25.0f);
+    filterLabelD.setJustificationType(juce::Justification::centredBottom);
+    filterLabelD.setText("D", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(filterSliderS); // Sustain
     filterSliderS.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -234,6 +316,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     filterSliderS.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     filterSliderS.setLookAndFeel (&customLookAndFeel);
     filterSliderS.addListener(this);
+    addAndMakeVisible(filterLabelS);
+    filterLabelS.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    filterLabelS.setFont(25.0f);
+    filterLabelS.setJustificationType(juce::Justification::centredBottom);
+    filterLabelS.setText("S", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(filterSliderR); // Release
     filterSliderR.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -242,6 +329,18 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     filterSliderR.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     filterSliderR.setLookAndFeel (&customLookAndFeel);
     filterSliderR.addListener(this);
+    addAndMakeVisible(filterLabelR);
+    filterLabelR.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    filterLabelR.setFont(25.0f);
+    filterLabelR.setJustificationType(juce::Justification::centredBottom);
+    filterLabelR.setText("R", juce::NotificationType::dontSendNotification);
+    
+    addAndMakeVisible(filterTitleLabel);
+    filterTitleLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    filterTitleLabel.setFont(25.0f);
+    filterTitleLabel.setJustificationType(juce::Justification::centredBottom);
+    filterTitleLabel.setText("filter", juce::NotificationType::dontSendNotification);
+    
     
     // Amp ADSR sliders
     addAndMakeVisible(ampSliderA); // Attack
@@ -251,6 +350,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     ampSliderA.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     ampSliderA.setLookAndFeel (&customLookAndFeel);
     ampSliderA.addListener(this);
+    addAndMakeVisible(ampLabelA);
+    ampLabelA.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    ampLabelA.setFont(25.0f);
+    ampLabelA.setJustificationType(juce::Justification::centredBottom);
+    ampLabelA.setText("A", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(ampSliderD); // Decay
     ampSliderD.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -259,6 +363,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     ampSliderD.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     ampSliderD.setLookAndFeel (&customLookAndFeel);
     ampSliderD.addListener(this);
+    addAndMakeVisible(ampLabelD);
+    ampLabelD.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    ampLabelD.setFont(25.0f);
+    ampLabelD.setJustificationType(juce::Justification::centredBottom);
+    ampLabelD.setText("D", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(ampSliderS); // Sustain
     ampSliderS.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -267,6 +376,11 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     ampSliderS.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     ampSliderS.setLookAndFeel (&customLookAndFeel);
     ampSliderS.addListener(this);
+    addAndMakeVisible(ampLabelS);
+    ampLabelS.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    ampLabelS.setFont(25.0f);
+    ampLabelS.setJustificationType(juce::Justification::centredBottom);
+    ampLabelS.setText("S", juce::NotificationType::dontSendNotification);
     
     addAndMakeVisible(ampSliderR); // Release
     ampSliderR.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -275,34 +389,64 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     ampSliderR.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     ampSliderR.setLookAndFeel (&customLookAndFeel);
     ampSliderR.addListener(this);
+    addAndMakeVisible(ampLabelR);
+    ampLabelR.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    ampLabelR.setFont(25.0f);
+    ampLabelR.setJustificationType(juce::Justification::centredBottom);
+    ampLabelR.setText("R", juce::NotificationType::dontSendNotification);
+    
+    addAndMakeVisible(ampTitleLabel);
+    ampTitleLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    ampTitleLabel.setFont(25.0f);
+    ampTitleLabel.setJustificationType(juce::Justification::centredBottom);
+    ampTitleLabel.setText("amp", juce::NotificationType::dontSendNotification);
+    
     
     // Filter controls
     addAndMakeVisible(resSlider); // Resonance
-    resSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    resSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     resSlider.setRange (0.0f, 1.0f, 0.01f);
     resSlider.setValue (0.2f);
     resSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     resSlider.setLookAndFeel (&customLookAndFeel);
-    cutoffSlider.addListener(this);
+    resSlider.addListener(this);
+    addAndMakeVisible(resLabel);
+    resLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    resLabel.setFont(25.0f);
+    resLabel.setJustificationType(juce::Justification::centred);
+    resLabel.setText("res", juce::NotificationType::dontSendNotification);
+    resLabel.attachToComponent(&resSlider, false);
     
     addAndMakeVisible(cutoffSlider); // Cutoff
-    cutoffSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    cutoffSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     cutoffSlider.setRange (2000.0f, 20000.0f, 1.0f);
     cutoffSlider.setValue (16000.0f);
     cutoffSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     cutoffSlider.setLookAndFeel (&customLookAndFeel);
     cutoffSlider.addListener(this);
+    addAndMakeVisible(cuttoffLabel);
+    cuttoffLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    cuttoffLabel.setFont(25.0f);
+    cuttoffLabel.setJustificationType(juce::Justification::centred);
+    cuttoffLabel.setText("cutoff", juce::NotificationType::dontSendNotification);
+    cuttoffLabel.attachToComponent(&resSlider, false);
     
     //Output knob
     addAndMakeVisible(outputKnob); // Cutoff
-    outputKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    outputKnob.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
     outputKnob.setRange (0.0f, 1.0f, 0.01f);
     outputKnob.setValue (0.5);
     outputKnob.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     outputKnob.setLookAndFeel (&knobLookAndFeel);
     outputKnob.addListener(this);
+    addAndMakeVisible(outputLabel);
+    outputLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
+    outputLabel.setFont(25.0f);
+    outputLabel.setJustificationType(juce::Justification::centred);
+    outputLabel.setText("output", juce::NotificationType::dontSendNotification);
+    outputLabel.attachToComponent(&resSlider, false);
     
-    setSize (1100, 750);
+    setSize (1035, 735);
 }
 
 ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
@@ -331,51 +475,125 @@ void ModalExplorerVSTAudioProcessorEditor::toggleNeg()
 //==============================================================================
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // TODO: Draw boxes to outline sections
-    
     g.fillAll (juce::Colour(5, 41, 66));
 
     g.setColour (juce::Colour(123, 234, 243));
     g.setFont (15.0f);
-    // draw any needed text here
+    
+    // Section boxe placement variables
+    float corner = 8.5;
+    int lineThickness = 7;
+    int edgeMargin = 10;
+    int scaleTitleXOffset = 50;
+    int splitBetweenScaleAndVoicing = 190;
+    int scaleSectionXOffset = 638;
+    int negHarmXOffset = 109;
+    int subtitleYOffset = 40;
+    int inversionXOffest = 155;
+    int chordXOffset = inversionXOffest;
+    int oscXOffset = 288;
+    int envelopeXOffset = 367;
+    
+    
+    
+    // Full outline
+    g.setColour(juce::Colour(123, 234, 243));
+    g.drawRoundedRectangle(edgeMargin, edgeMargin, getWidth() - 20, getHeight() - 20, corner, lineThickness);
+
+    // Scale vertical title
+    g.drawRoundedRectangle(edgeMargin, edgeMargin, scaleTitleXOffset, splitBetweenScaleAndVoicing, corner, lineThickness);
+    
+    // Voicing vertical title
+    g.drawRoundedRectangle(edgeMargin, splitBetweenScaleAndVoicing + edgeMargin, scaleTitleXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2, corner, lineThickness);
+    
+    // Scale section
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, edgeMargin, scaleSectionXOffset, splitBetweenScaleAndVoicing, corner, lineThickness);
+    
+    // Neg-harm title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // Neg-Harm mode
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
+    
+    // RB mode title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // RB mode
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
+    
+    // Glide title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset*2, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // Glide
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset*2, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
+    
+    // Inversion title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, splitBetweenScaleAndVoicing + edgeMargin, inversionXOffest, subtitleYOffset, corner, lineThickness);
+    
+    // Inversion
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, inversionXOffest, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
+    
+    // Chord title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest, splitBetweenScaleAndVoicing + edgeMargin, chordXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // Chord
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, chordXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
+    
+    // Oscillators titles
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset, splitBetweenScaleAndVoicing + edgeMargin, oscXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // Oscillators
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, oscXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
+    
+    // Envelopes title
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset + oscXOffset, splitBetweenScaleAndVoicing + edgeMargin, envelopeXOffset, subtitleYOffset, corner, lineThickness);
+    
+    // Envelopes
+    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset + oscXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, envelopeXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
 }
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
-    // TODO: Try Flexbox placments instead of relative pixel placements
-    
     // Placement and sizing variables
     // Scale
     int keyKnobSize = 85;
     int keyKnobX = 80;
     int keyKnobY = 160;
+    int keyKnobLabelX = keyKnobX + 10;
+    int keyKnobLabelY = keyKnobY + 4;
+    int keyRomanNumLabelX = 103;
+    int keyRomanNumLabelY = 50;
     int noteAltsliderWidth = 40;
     int noteAltSliderHeight = 90;
-    int noteAltSliderHorizSpacing = 90;
+    int noteAltSliderHorizSpacing = 85;
     int noteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth;
     int noteAltSliderY = keyKnobY - keyKnobSize - 3;
-    
+
     // Extras (Neg-Harm, RB mode, Glide)
     int negHarmBtnSize = 50;
-    int negHarmBtnX = noteAltSliderX + noteAltSliderHorizSpacing*6 + 10;
+    int negHarmBtnX = noteAltSliderX + noteAltSliderHorizSpacing*6 + 14;
     int negHarmBtnY = noteAltSliderY + 25;
     int rbKnobSize = keyKnobSize;
-    int rbKnobX = negHarmBtnX + noteAltSliderHorizSpacing;
-    int rbKnobY = keyKnobY - 35;
-    int glideSliderX = rbKnobX + noteAltSliderHorizSpacing + 17;
+    int rbKnobX = negHarmBtnX + noteAltSliderHorizSpacing + 6;
+    int rbKnobY = 75;
+    int rbKnobLabelX = 841;
+    int glideSliderX = rbKnobX + noteAltSliderHorizSpacing + 42;
+    int glideSliderY = 63;
     
     // Inversion
-    int invKnobX = keyKnobX - 5;
+    int invKnobX = keyKnobX - 18;
     int invKnobY = keyKnobY * 1.5;
     int invKnobSize = 125;
-    int invKnobVertSpacing = 100;
+    int invKnobVertSpacing = 110;
     
     // Oscillators
     int oscComboBoxWidth = 70;
-    int oscComboX = keyKnobX + noteAltSliderHorizSpacing * 3.5;
+    int oscComboX = 400;
     int oscComboY = invKnobY + invKnobSize/2 - 10;
     int oscMixBarX = oscComboX + noteAltSliderHorizSpacing + 20;
     int oscMixBarY = oscComboY;
+    int oscTypeLabelX = oscComboX + 2;
+    int oscMixLabelX = oscMixBarX + 42;
     
     // Fliter and amp ADSR
     int filterADSRX = oscMixBarX + 172;
@@ -384,20 +602,25 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int ampADSRX = filterADSRX + adsrSpacing*5;
     int adsrWidth = 40;
     int adsrHeight = 130;
+    int filterTitleX = filterADSRX + 44;
+    int ampTitleX = ampADSRX + 44;
+    int adsrTitleY = adsrY - 33;
     
     // Cutoff, res, output
     int cutoffSize = 100;
-    int cutoffX = filterADSRX + 25;
-    int cutoffY = oscMixBarY + invKnobVertSpacing*2.5;
+    int cutoffX = filterADSRX + 22;
+    int cutoffY = oscMixBarY + 300;
     int resSize = 65;
     int resX = cutoffX + 18;
-    int resY = cutoffY - invKnobVertSpacing;
+    int resY = cutoffY - 100;
     int outputKnobSize = 155;
     int outputX = ampADSRX - 5;
-    int outputY = cutoffY - 55;
+    int outputY = cutoffY - 65;
     
     // Key knob
     keyKnob.setBounds(keyKnobX, keyKnobY - keyKnobSize, keyKnobSize, keyKnobSize);
+    keyKnobLabel.setBounds(keyKnobLabelX, keyKnobLabelY, 65, 20);
+    keyRomanNumLabel.setBounds(keyRomanNumLabelX, keyRomanNumLabelY, 40, 20);
     
     // Note alteration sliders
     noteAltSlider2.setBounds(noteAltSliderX, noteAltSliderY, noteAltsliderWidth, noteAltSliderHeight);
@@ -411,10 +634,11 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     negHarmBtn.setBounds(negHarmBtnX, negHarmBtnY, negHarmBtnSize, negHarmBtnSize);
     
     // RB mode knob
-    rbKnob.setBounds(rbKnobX, rbKnobY-40, rbKnobSize, rbKnobSize);
+    rbKnob.setBounds(rbKnobX, rbKnobY, rbKnobSize, rbKnobSize);
+    rbModeLabel.setBounds(rbKnobLabelX, keyKnobLabelY, 40, 20);
     
     // Glide slider
-    glideSlider.setBounds(glideSliderX, noteAltSliderY, 40, 120);
+    glideSlider.setBounds(glideSliderX, glideSliderY, 40, 120);
     
     // Inversion knobs
     invKnobS.setBounds(invKnobX, invKnobY, invKnobSize, invKnobSize);
@@ -427,73 +651,217 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     oscSelectComboA.setBounds(oscComboX, oscComboY + invKnobVertSpacing, oscComboBoxWidth, 20);
     oscSelectComboT.setBounds(oscComboX, oscComboY + invKnobVertSpacing*2, oscComboBoxWidth, 20);
     oscSelectComboB.setBounds(oscComboX, oscComboY + invKnobVertSpacing*3, oscComboBoxWidth, 20);
+    oscTypeLabel.setBounds(oscTypeLabelX, adsrTitleY, 70, 30);
     
     // Oscillator mix slider bars
     oscMixBarS.setBounds(oscMixBarX, oscMixBarY, 130, 20);
     oscMixBarA.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing, 130, 20);
     oscMixBarT.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing*2, 130, 20);
     oscMixBarB.setBounds(oscMixBarX, oscMixBarY + invKnobVertSpacing*3, 130, 20);
+    oscMixLabel.setBounds(oscMixLabelX, adsrTitleY, 50, 30);
     
     // Filter ADSR
     filterSliderA.setBounds(filterADSRX, adsrY, adsrWidth, adsrHeight);
     filterSliderD.setBounds(filterADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
     filterSliderS.setBounds(filterADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
     filterSliderR.setBounds(filterADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
+    filterLabelA.setBounds(filterADSRX, adsrY + 130, 40, 25);
+    filterLabelD.setBounds(filterADSRX + adsrSpacing, adsrY + 130, 40, 25);
+    filterLabelS.setBounds(filterADSRX + adsrSpacing*2, adsrY + 130, 40, 25);
+    filterLabelR.setBounds(filterADSRX + adsrSpacing*3, adsrY + 130, 40, 25);
+    filterTitleLabel.setBounds(filterTitleX, adsrTitleY, 60, 30);
     
     // Amp ADSR
     ampSliderA.setBounds(ampADSRX, adsrY, adsrWidth, adsrHeight);
     ampSliderD.setBounds(ampADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
     ampSliderS.setBounds(ampADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
     ampSliderR.setBounds(ampADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
+    ampLabelA.setBounds(ampADSRX, adsrY + 130, 40, 25);
+    ampLabelD.setBounds(ampADSRX + adsrSpacing, adsrY + 130, 40, 25);
+    ampLabelS.setBounds(ampADSRX + adsrSpacing*2, adsrY + 130, 40, 25);
+    ampLabelR.setBounds(ampADSRX + adsrSpacing*3, adsrY + 130, 40, 25);
+    ampTitleLabel.setBounds(ampTitleX, adsrTitleY, 60, 30);
     
     // Filter cutoff and resonance
-    cutoffSlider.setBounds(cutoffX, cutoffY, cutoffSize, cutoffSize);
     resSlider.setBounds(resX, resY, resSize, resSize);
+    resLabel.setBounds(resX + 13, resY - 20, 40, 20);
+    cutoffSlider.setBounds(cutoffX, cutoffY, cutoffSize, cutoffSize);
+    cuttoffLabel.setBounds(cutoffX + 15, cutoffY - 20, 70, 20);
     
     // Output
     outputKnob.setBounds(outputX, outputY, outputKnobSize, outputKnobSize);
-}
+    outputLabel.setBounds(outputX + 40, outputY - 25, 75, 30);
+};
+
+std::string keyKnobValToKeyString(int keyKnobVal)
+{
+    std::string str;
+    switch (keyKnobVal) {
+        case 0:
+            str = "C";
+            break;
+        case 1:
+            str = "C#/Db";
+            break;
+        case 2:
+            str = "D";
+            break;
+        case 3:
+            str = "D#/Eb";
+            break;
+        case 4:
+            str = "E";
+            break;
+        case 5:
+            str = "F";
+            break;
+        case 6:
+            str = "F#/Gb";
+            break;
+        case 7:
+            str = "G";
+            break;
+        case 8:
+            str = "G#/Ab";
+            break;
+        case 9:
+            str = "A";
+            break;
+        case 10:
+            str = "A#/Bb";
+            break;
+        case 11:
+            str = "B";
+            break;
+        default:
+            break;
+    }
+    return str;
+};
+
+std::string knobValToInvString(int invKnobVal)
+{
+    std::string str = invKnobVal == 0 ? "off" : std::to_string(invKnobVal);
+    return str;
+};
+
+std::string noteAltValToString(int noteAltSliderVal, std::string sliderNum)
+{
+    std::string alt;
+    switch (noteAltSliderVal) {
+        case 0:
+            alt = "b";
+            break;
+        case 1:
+            alt = " ";
+            break;
+        case 2:
+            alt = "#";
+            break;
+        default:
+            break;
+    }
+    return alt + sliderNum;
+};
+
+std::string rbModeValToString(int rbKnobVal)
+{
+    return "nuh";
+};
 
 void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *slider) //
 {
-    // TODO: Do all this with a switch instead of the endless else-if
+    // TODO: Is there some way to do this with a switch instead of the endless else-if statements? There might be a better way to update labels too...
+
+    // Spacing/sizing variables for updating labels
+    int labelW = 50;
+    int labelH = 20;
+    int keyKnobLabelX = 85;
+    int keyKnobLablY = 164;
+    int noteAltLabelX = 200;
+    int noteAltLabelY = 50;
+    int noteAltLabelSpace = 85;
+    int invKnobLabelX = 165;
+    int invKnobLabelY = 280;
+    int invKnobVertSpace = 110;
+    int rbKnobLabelX = 836;
     
     // Key knob
     if (slider == &keyKnob)
     {
-        audioProcessor.keyVal = static_cast<int>(keyKnob.getValue());
+        int val = static_cast<int>(keyKnob.getValue());
+        audioProcessor.keyVal = val;
+        // Update label
+        std::string str = keyKnobValToKeyString(val);
+        keyKnobLabel.setText(str, juce::NotificationType::dontSendNotification);
+        keyKnobLabel.setBounds(keyKnobLabelX, keyKnobLablY, labelW + 25, labelH);
     }
     
     // Note alteration sliders
     else if (slider == &noteAltSlider2)
     {
-        audioProcessor.noteAltSliderVal2 = static_cast<int>(noteAltSlider2.getValue());
+        int val = static_cast<int>(noteAltSlider2.getValue());
+        audioProcessor.noteAltSliderVal2 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "II");
+        noteAltLabel2.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel2.setBounds(noteAltLabelX, noteAltLabelY, labelW, labelH);
     }
     else if (slider == &noteAltSlider3)
     {
-        audioProcessor.noteAltSliderVal3 = static_cast<int>(noteAltSlider3.getValue());
+        int val = static_cast<int>(noteAltSlider3.getValue());
+        audioProcessor.noteAltSliderVal3 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "III");
+        noteAltLabel3.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel3.setBounds(noteAltLabelX + noteAltLabelSpace, noteAltLabelY, labelW, labelH);
     }
     else if (slider == &noteAltSlider4)
     {
-        audioProcessor.noteAltSliderVal4 = static_cast<int>(noteAltSlider4.getValue());
+        int val = static_cast<int>(noteAltSlider4.getValue());
+        audioProcessor.noteAltSliderVal4 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "IV");
+        noteAltLabel4.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel4.setBounds(noteAltLabelX + noteAltLabelSpace*2, noteAltLabelY, labelW, labelH);
     }
     else if (slider == &noteAltSlider5)
     {
-        audioProcessor.noteAltSliderVal5 = static_cast<int>(noteAltSlider5.getValue());
+        int val = static_cast<int>(noteAltSlider5.getValue());
+        audioProcessor.noteAltSliderVal5 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "V");
+        noteAltLabel5.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel5.setBounds(noteAltLabelX + noteAltLabelSpace*3, noteAltLabelY, labelW, labelH);
     }
     else if (slider == &noteAltSlider6)
     {
-        audioProcessor.noteAltSliderVal6 = static_cast<int>(noteAltSlider6.getValue());
+        int val = static_cast<int>(noteAltSlider6.getValue());
+        audioProcessor.noteAltSliderVal6 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "VI");
+        noteAltLabel6.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel6.setBounds(noteAltLabelX + noteAltLabelSpace*4, noteAltLabelY, labelW, labelH);
     }
     else if (slider == &noteAltSlider7)
     {
-        audioProcessor.noteAltSliderVal7 = static_cast<int>(noteAltSlider7.getValue());
+        int val = static_cast<int>(noteAltSlider7.getValue());
+        audioProcessor.noteAltSliderVal7 = val;
+        // Update label
+        std::string str = noteAltValToString(val, "VII");
+        noteAltLabel7.setText(str, juce::NotificationType::dontSendNotification);
+        noteAltLabel7.setBounds(noteAltLabelX + noteAltLabelSpace*5, noteAltLabelY, labelW, labelH);
     }
     
     // RB knob
     else if (slider == &rbKnob)
     {
-        audioProcessor.rbModeVal = static_cast<int>(rbKnob.getValue());
+        int val = static_cast<int>(rbKnob.getValue());
+        audioProcessor.rbModeVal = val;
+        // Update label
+        std::string str = knobValToInvString(val);
+        rbModeLabel.setText(str, juce::NotificationType::dontSendNotification);
+        rbModeLabel.setBounds(rbKnobLabelX, keyKnobLablY, labelW, labelH);
     }
     
     // Glide slider
@@ -505,19 +873,39 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
     // Inversion knobs
     else if (slider == &invKnobS)
     {
-        audioProcessor.invKnobValS = static_cast<int>(invKnobS.getValue());
+        int val = static_cast<int>(invKnobS.getValue());
+        audioProcessor.invKnobValS = val;
+        // Update label
+        std::string str = knobValToInvString(val);
+        invKnobLabelS.setText(str, juce::NotificationType::dontSendNotification);
+        invKnobLabelS.setBounds(invKnobLabelX, invKnobLabelY, labelW, labelH);
     }
     else if (slider == &invKnobA)
     {
-        audioProcessor.invKnobValA = static_cast<int>(invKnobA.getValue());
+        int val = static_cast<int>(invKnobA.getValue());
+        audioProcessor.invKnobValA = val;
+        // Update label
+        std::string str = knobValToInvString(val);
+        invKnobLabelA.setText(str, juce::NotificationType::dontSendNotification);
+        invKnobLabelA.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace, labelW, labelH);
     }
     else if (slider == &invKnobT)
     {
-        audioProcessor.invKnobValT = static_cast<int>(invKnobT.getValue());
+        int val = static_cast<int>(invKnobT.getValue());
+        audioProcessor.invKnobValT = val;
+        // Update label
+        std::string str = knobValToInvString(val);
+        invKnobLabelT.setText(str, juce::NotificationType::dontSendNotification);
+        invKnobLabelT.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace*2, labelW, labelH);
     }
     else if (slider == &invKnobB)
     {
-        audioProcessor.invKnobValB = static_cast<int>(invKnobB.getValue());
+        int val = static_cast<int>(invKnobB.getValue());
+        audioProcessor.invKnobValB = val;
+        // Update label
+        std::string str = knobValToInvString(val);
+        invKnobLabelB.setText(str, juce::NotificationType::dontSendNotification);
+        invKnobLabelB.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace*3, labelW, labelH);
     }
     
     // Oscillator mix slider bars

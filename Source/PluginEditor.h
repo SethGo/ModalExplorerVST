@@ -72,7 +72,6 @@ class CustomLookAndFeelCat : public CustomLookAndFeel
 };
 
 class ModalExplorerVSTAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                              // 7 Add any component listeners such as...
                                               public juce::Slider::Listener,
                                               public juce::ComboBox::Listener
 {
@@ -94,60 +93,52 @@ private:
     
     // Key knob
     juce::Slider keyKnob;
+    juce::Label keyKnobLabel;
+    juce::Label keyRomanNumLabel;
     
     // Note alteration sliders
-    juce::Slider noteAltSlider2;
-    juce::Slider noteAltSlider3;
-    juce::Slider noteAltSlider4;
-    juce::Slider noteAltSlider5;
-    juce::Slider noteAltSlider6;
-    juce::Slider noteAltSlider7;
+    juce::Slider noteAltSlider2, noteAltSlider3, noteAltSlider4, noteAltSlider5, noteAltSlider6, noteAltSlider7;
+    juce::Label noteAltLabel2, noteAltLabel3, noteAltLabel4, noteAltLabel5, noteAltLabel6, noteAltLabel7;
     
     // Negative harmony button
     juce::TextButton negHarmBtn { "off" };
     
     // RB mode knob
     juce::Slider rbKnob;
+    juce::Label rbModeLabel;
     
     // Glide
     juce::Slider glideSlider;
     
-    // Inversion knobs
-    juce::Slider invKnobS;
-    juce::Slider invKnobA;
-    juce::Slider invKnobT;
-    juce::Slider invKnobB;
+    // Inversion knobs  (given as SATB)
+    juce::Slider invKnobS, invKnobA, invKnobT, invKnobB;
+    juce::Label invKnobLabelS, invKnobLabelA, invKnobLabelT, invKnobLabelB;
     
-    // Oscillator waveform selection combo boxes
-    juce::ComboBox oscSelectComboS;
-    juce::ComboBox oscSelectComboA;
-    juce::ComboBox oscSelectComboT;
-    juce::ComboBox oscSelectComboB;
+    // Oscillator waveform selection combo boxes (given as SATB)
+    juce::ComboBox oscSelectComboS, oscSelectComboA, oscSelectComboT, oscSelectComboB;
+    juce::Label oscTypeLabel;
     
     // Oscillator mix horizontal slider bars
-    juce::Slider oscMixBarS;
-    juce::Slider oscMixBarA;
-    juce::Slider oscMixBarT;
-    juce::Slider oscMixBarB;
+    juce::Slider oscMixBarS, oscMixBarA, oscMixBarT, oscMixBarB;
+    juce::Label oscMixLabel;
     
     // Filter ADSR sliders
-    juce::Slider filterSliderA;
-    juce::Slider filterSliderD;
-    juce::Slider filterSliderS;
-    juce::Slider filterSliderR;
+    juce::Slider filterSliderA, filterSliderD, filterSliderS, filterSliderR;
+    juce::Label filterLabelA, filterLabelD, filterLabelS, filterLabelR;
+    juce::Label filterTitleLabel;
     
     // Amp ADSR sliders
-    juce::Slider ampSliderA;
-    juce::Slider ampSliderD;
-    juce::Slider ampSliderS;
-    juce::Slider ampSliderR;
+    juce::Slider ampSliderA, ampSliderD, ampSliderS, ampSliderR;
+    juce::Label ampLabelA, ampLabelD, ampLabelS, ampLabelR;
+    juce::Label ampTitleLabel;
     
     // Cutoff and resonance rotary sliders
-    juce::Slider cutoffSlider;
-    juce::Slider resSlider;
+    juce::Slider cutoffSlider, resSlider;
+    juce::Label cuttoffLabel, resLabel;
     
     // Output knob
     juce::Slider outputKnob;
+    juce::Label outputLabel;
     
     // Custom LookAndFeel's
     KnobLookAndFeel knobLookAndFeel;
