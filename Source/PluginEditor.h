@@ -21,7 +21,7 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
     void drawRotarySlider (juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
         {
             float outlineThickness = 2.5f;
-            float diameter = width - (outlineThickness + 30); // +30 so outline doesn't get cut off
+            float diameter = width - (outlineThickness + 30);
             float radius = diameter/2;
             float centerX = x + width/2;
             float centerY = y + height /2;

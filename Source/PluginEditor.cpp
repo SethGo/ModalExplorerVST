@@ -13,7 +13,7 @@
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // TODO: most of these attributes needs to come from a custom LookAndFeel...
+    // TODO: most of these attributes can come from a custom LookAndFeel. Colors need to be vars.
     
     // Key knob
     addAndMakeVisible(keyKnob);
@@ -341,7 +341,6 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     filterTitleLabel.setJustificationType(juce::Justification::centredBottom);
     filterTitleLabel.setText("filter", juce::NotificationType::dontSendNotification);
     
-    
     // Amp ADSR sliders
     addAndMakeVisible(ampSliderA); // Attack
     ampSliderA.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
@@ -401,7 +400,6 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     ampTitleLabel.setJustificationType(juce::Justification::centredBottom);
     ampTitleLabel.setText("amp", juce::NotificationType::dontSendNotification);
     
-    
     // Filter controls
     addAndMakeVisible(resSlider); // Resonance
     resSlider.setSliderStyle (juce::Slider::SliderStyle::RotaryVerticalDrag);
@@ -446,7 +444,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     outputLabel.setText("output", juce::NotificationType::dontSendNotification);
     outputLabel.attachToComponent(&resSlider, false);
     
-    setSize (1035, 735);
+    setSize (1035, 710);
 }
 
 ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
@@ -480,7 +478,7 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colour(123, 234, 243));
     g.setFont (15.0f);
     
-    // Section boxe placement variables
+    // Section box placement variables
     float corner = 8.5;
     int lineThickness = 7;
     int edgeMargin = 10;
@@ -494,11 +492,9 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
     int oscXOffset = 288;
     int envelopeXOffset = 367;
     
-    
-    
     // Full outline
     g.setColour(juce::Colour(123, 234, 243));
-    g.drawRoundedRectangle(edgeMargin, edgeMargin, getWidth() - 20, getHeight() - 20, corner, lineThickness);
+    g.drawRoundedRectangle(edgeMargin, edgeMargin, getWidth() - edgeMargin*2, getHeight() - edgeMargin*2, corner, lineThickness);
 
     // Scale vertical title
     g.drawRoundedRectangle(edgeMargin, edgeMargin, scaleTitleXOffset, splitBetweenScaleAndVoicing, corner, lineThickness);
@@ -554,6 +550,8 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
+    // TODO: Get rid of all the numbers in the setBounds() calls...
+    
     // Placement and sizing variables
     // Scale
     int keyKnobSize = 85;
@@ -566,7 +564,7 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int noteAltsliderWidth = 40;
     int noteAltSliderHeight = 90;
     int noteAltSliderHorizSpacing = 85;
-    int noteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth;
+    int noteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth; // TODO: Bring closer to keyKnob, de-couple neg-harm, rbKnob, and glideSlider.
     int noteAltSliderY = keyKnobY - keyKnobSize - 3;
 
     // Extras (Neg-Harm, RB mode, Glide)
