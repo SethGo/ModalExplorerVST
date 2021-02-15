@@ -40,7 +40,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider2.setRange (0, 2, 1);
     noteAltSlider2.setValue (1);
     noteAltSlider2.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider2.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider2.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider2.addListener(this);
     addAndMakeVisible(noteAltLabel2);
     noteAltLabel2.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -52,7 +52,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider3.setRange (0, 2, 1);
     noteAltSlider3.setValue (1);
     noteAltSlider3.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider3.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider3.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider3.addListener(this);
     addAndMakeVisible(noteAltLabel3);
     noteAltLabel3.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -64,7 +64,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider4.setRange (0, 2, 1);
     noteAltSlider4.setValue (1);
     noteAltSlider4.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider4.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider4.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider4.addListener(this);
     addAndMakeVisible(noteAltLabel4);
     noteAltLabel4.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -76,7 +76,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider5.setRange (0, 2, 1);
     noteAltSlider5.setValue (1);
     noteAltSlider5.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider5.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider5.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider5.addListener(this);
     addAndMakeVisible(noteAltLabel5);
     noteAltLabel5.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -88,7 +88,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider6.setRange (0, 2, 1);
     noteAltSlider6.setValue (1);
     noteAltSlider6.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider6.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider6.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider6.addListener(this);
     addAndMakeVisible(noteAltLabel6);
     noteAltLabel6.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -100,7 +100,7 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     noteAltSlider7.setRange (0, 2, 1);
     noteAltSlider7.setValue (1);
     noteAltSlider7.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider7.setLookAndFeel (&customLookAndFeelCat);
+    noteAltSlider7.setLookAndFeel (&customLookAndFeelCatSlider);
     noteAltSlider7.addListener(this);
     addAndMakeVisible(noteAltLabel7);
     noteAltLabel7.setColour(juce::Label::ColourIds::textColourId, juce::Colour(224, 114, 82));
@@ -474,9 +474,8 @@ void ModalExplorerVSTAudioProcessorEditor::toggleNeg()
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.fillAll (juce::Colour(5, 41, 66));
-
     g.setColour (juce::Colour(123, 234, 243));
-    g.setFont (15.0f);
+    g.setFont(20.0f);
     
     // Section box placement variables
     float corner = 8.5;
@@ -492,61 +491,91 @@ void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
     int oscXOffset = 288;
     int envelopeXOffset = 367;
     
-    // Full outline
-    g.setColour(juce::Colour(123, 234, 243));
+    // Full outline box
     g.drawRoundedRectangle(edgeMargin, edgeMargin, getWidth() - edgeMargin*2, getHeight() - edgeMargin*2, corner, lineThickness);
 
-    // Scale vertical title
+    // Scale vertical title section
     g.drawRoundedRectangle(edgeMargin, edgeMargin, scaleTitleXOffset, splitBetweenScaleAndVoicing, corner, lineThickness);
     
-    // Voicing vertical title
+    // Voicing vertical title section
     g.drawRoundedRectangle(edgeMargin, splitBetweenScaleAndVoicing + edgeMargin, scaleTitleXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2, corner, lineThickness);
     
-    // Scale section
+    // Scale selection section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, edgeMargin, scaleSectionXOffset, splitBetweenScaleAndVoicing, corner, lineThickness);
     
-    // Neg-harm title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
+    // Neg-harm title section and text
+    juce::Rectangle<float> negHarmTitleRect;
+    negHarmTitleRect.setBounds(edgeMargin + scaleTitleXOffset + scaleSectionXOffset, edgeMargin, negHarmXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(negHarmTitleRect, corner, lineThickness);
+    g.drawFittedText("NEG-HARM", negHarmTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // Neg-Harm mode
+    // Neg-Harm section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
     
-    // RB mode title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
+    // RB mode title section and text
+    juce::Rectangle<float> rbTitleRect;
+    rbTitleRect.setBounds(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset, edgeMargin, negHarmXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(rbTitleRect, corner, lineThickness);
+    g.drawFittedText("RB MODE", rbTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // RB mode
+    // RB mode section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
     
-    // Glide title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset*2, edgeMargin, negHarmXOffset, subtitleYOffset, corner, lineThickness);
-    
-    // Glide
+    // Glide title section and text
+    juce::Rectangle<float> glideTitleRect;
+    glideTitleRect.setBounds(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset*2, edgeMargin, negHarmXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(glideTitleRect, corner, lineThickness);
+
+    g.drawFittedText("GLIDE", glideTitleRect.toNearestInt(), juce::Justification::centred, 0);
+
+    // Glide section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + scaleSectionXOffset + negHarmXOffset*2, edgeMargin + subtitleYOffset, negHarmXOffset, splitBetweenScaleAndVoicing - subtitleYOffset, corner, lineThickness);
     
-    // Inversion title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, splitBetweenScaleAndVoicing + edgeMargin, inversionXOffest, subtitleYOffset, corner, lineThickness);
+    // Inversion title section and text
+    juce::Rectangle<float> invTitleRect;
+    invTitleRect.setBounds(edgeMargin + scaleTitleXOffset, splitBetweenScaleAndVoicing + edgeMargin, inversionXOffest, subtitleYOffset);
+    g.drawRoundedRectangle(invTitleRect, corner, lineThickness);;
+    g.drawFittedText("INVERSION", invTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // Inversion
+    // Inversion section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, inversionXOffest, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
     
-    // Chord title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest, splitBetweenScaleAndVoicing + edgeMargin, chordXOffset, subtitleYOffset, corner, lineThickness);
+    // Chord title section and text
+    juce::Rectangle<float> chordTitleRect;
+    chordTitleRect.setBounds(edgeMargin + scaleTitleXOffset + inversionXOffest, splitBetweenScaleAndVoicing + edgeMargin, chordXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(chordTitleRect, corner, lineThickness);
+    g.drawFittedText("CHORD", chordTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // Chord
+    // Chord section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, chordXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
     
-    // Oscillators titles
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset, splitBetweenScaleAndVoicing + edgeMargin, oscXOffset, subtitleYOffset, corner, lineThickness);
+    // Oscillators title section and text
+    juce::Rectangle<float> oscTitleRect;
+    oscTitleRect.setBounds(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset, splitBetweenScaleAndVoicing + edgeMargin, oscXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(oscTitleRect, corner, lineThickness);
+    g.drawFittedText("OSCILLATORS", oscTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // Oscillators
+    // Oscillators section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, oscXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
     
-    // Envelopes title
-    g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset + oscXOffset, splitBetweenScaleAndVoicing + edgeMargin, envelopeXOffset, subtitleYOffset, corner, lineThickness);
+    // Envelopes title section and text
+    juce::Rectangle<float> envTitleRect;
+    envTitleRect.setBounds(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset + oscXOffset, splitBetweenScaleAndVoicing + edgeMargin, envelopeXOffset, subtitleYOffset);
+    g.drawRoundedRectangle(envTitleRect, corner, lineThickness);
+    g.drawFittedText("ENVELOPES", envTitleRect.toNearestInt(), juce::Justification::centred, 0);
     
-    // Envelopes
+    // Envelopes section
     g.drawRoundedRectangle(edgeMargin + scaleTitleXOffset + inversionXOffest + chordXOffset + oscXOffset, splitBetweenScaleAndVoicing + edgeMargin + subtitleYOffset, envelopeXOffset, getHeight() - splitBetweenScaleAndVoicing - edgeMargin*2 - subtitleYOffset, corner, lineThickness);
-}
+
+    // Vertical text for SCALE and VOICING titles
+    juce::GlyphArrangement ga;
+    ga.addLineOfText(juce::Font(25.0f), "SCALE", -136, 43);
+    ga.addLineOfText(juce::Font(25.0f), "VOICING", -475, 43);
+    juce::Path p;
+    ga.createPath(p);
+    p.applyTransform(juce::AffineTransform().rotated(juce::degreesToRadians(-90.0f), 0, 0));
+    g.fillPath(p);
+};
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
@@ -557,30 +586,30 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int keyKnobSize = 85;
     int keyKnobX = 80;
     int keyKnobY = 160;
-    int keyKnobLabelX = keyKnobX + 10;
-    int keyKnobLabelY = keyKnobY + 4;
+    int keyKnobLabelX = 90;
+    int keyKnobLabelY = 164;
     int keyRomanNumLabelX = 103;
     int keyRomanNumLabelY = 50;
     int noteAltsliderWidth = 40;
     int noteAltSliderHeight = 90;
     int noteAltSliderHorizSpacing = 85;
-    int noteAltSliderX = keyKnobX + noteAltSliderHorizSpacing + noteAltsliderWidth; // TODO: Bring closer to keyKnob, de-couple neg-harm, rbKnob, and glideSlider.
-    int noteAltSliderY = keyKnobY - keyKnobSize - 3;
-
+    int noteAltSliderX = 205; // TODO: Bring closer to keyKnob, de-couple neg-harm, rbKnob, and glideSlider.
+    int noteAltSliderY = 72;
+    
     // Extras (Neg-Harm, RB mode, Glide)
     int negHarmBtnSize = 50;
-    int negHarmBtnX = noteAltSliderX + noteAltSliderHorizSpacing*6 + 14;
+    int negHarmBtnX = 729;
     int negHarmBtnY = noteAltSliderY + 25;
     int rbKnobSize = keyKnobSize;
-    int rbKnobX = negHarmBtnX + noteAltSliderHorizSpacing + 6;
+    int rbKnobX = 820;
     int rbKnobY = 75;
     int rbKnobLabelX = 841;
-    int glideSliderX = rbKnobX + noteAltSliderHorizSpacing + 42;
+    int glideSliderX = 947;
     int glideSliderY = 63;
     
     // Inversion
     int invKnobX = keyKnobX - 18;
-    int invKnobY = keyKnobY * 1.5;
+    int invKnobY = 240;
     int invKnobSize = 125;
     int invKnobVertSpacing = 110;
     
@@ -588,14 +617,14 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int oscComboBoxWidth = 70;
     int oscComboX = 400;
     int oscComboY = invKnobY + invKnobSize/2 - 10;
-    int oscMixBarX = oscComboX + noteAltSliderHorizSpacing + 20;
+    int oscMixBarX = 505;
     int oscMixBarY = oscComboY;
     int oscTypeLabelX = oscComboX + 2;
     int oscMixLabelX = oscMixBarX + 42;
     
     // Fliter and amp ADSR
-    int filterADSRX = oscMixBarX + 172;
-    int adsrY = oscMixBarY - 5;
+    int filterADSRX = 677;
+    int adsrY = oscMixBarY - 13;
     int adsrSpacing = 35;
     int ampADSRX = filterADSRX + adsrSpacing*5;
     int adsrWidth = 40;
@@ -603,19 +632,27 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int filterTitleX = filterADSRX + 44;
     int ampTitleX = ampADSRX + 44;
     int adsrTitleY = adsrY - 33;
+    int adsrLettersY = adsrY + 130;
     
     // Cutoff, res, output
     int cutoffSize = 100;
     int cutoffX = filterADSRX + 22;
-    int cutoffY = oscMixBarY + 300;
+    int cutoffY = 592;
+    int cutoffLabelX = cutoffX + 15;
+    int cutoffLabelY = cutoffY - 20;
     int resSize = 65;
-    int resX = cutoffX + 18;
+    int resX = 717;
     int resY = cutoffY - 100;
+    int resLabelX = resX + 13;
+    int resLabelY = resY - 20;
     int outputKnobSize = 155;
     int outputX = ampADSRX - 5;
-    int outputY = cutoffY - 65;
+    int outputY = 507;
+    int outputLabelX = outputX + 40;
+    int outputLabelY = outputY - 25;
     
     // Key knob
+    
     keyKnob.setBounds(keyKnobX, keyKnobY - keyKnobSize, keyKnobSize, keyKnobSize);
     keyKnobLabel.setBounds(keyKnobLabelX, keyKnobLabelY, 65, 20);
     keyRomanNumLabel.setBounds(keyRomanNumLabelX, keyRomanNumLabelY, 40, 20);
@@ -663,10 +700,10 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     filterSliderD.setBounds(filterADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
     filterSliderS.setBounds(filterADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
     filterSliderR.setBounds(filterADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
-    filterLabelA.setBounds(filterADSRX, adsrY + 130, 40, 25);
-    filterLabelD.setBounds(filterADSRX + adsrSpacing, adsrY + 130, 40, 25);
-    filterLabelS.setBounds(filterADSRX + adsrSpacing*2, adsrY + 130, 40, 25);
-    filterLabelR.setBounds(filterADSRX + adsrSpacing*3, adsrY + 130, 40, 25);
+    filterLabelA.setBounds(filterADSRX, adsrLettersY, 40, 25);
+    filterLabelD.setBounds(filterADSRX + adsrSpacing, adsrLettersY, 40, 25);
+    filterLabelS.setBounds(filterADSRX + adsrSpacing*2, adsrLettersY, 40, 25);
+    filterLabelR.setBounds(filterADSRX + adsrSpacing*3, adsrLettersY, 40, 25);
     filterTitleLabel.setBounds(filterTitleX, adsrTitleY, 60, 30);
     
     // Amp ADSR
@@ -674,21 +711,21 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     ampSliderD.setBounds(ampADSRX + adsrSpacing, adsrY, adsrWidth, adsrHeight);
     ampSliderS.setBounds(ampADSRX + adsrSpacing*2, adsrY, adsrWidth, adsrHeight);
     ampSliderR.setBounds(ampADSRX + adsrSpacing*3, adsrY, adsrWidth, adsrHeight);
-    ampLabelA.setBounds(ampADSRX, adsrY + 130, 40, 25);
-    ampLabelD.setBounds(ampADSRX + adsrSpacing, adsrY + 130, 40, 25);
-    ampLabelS.setBounds(ampADSRX + adsrSpacing*2, adsrY + 130, 40, 25);
-    ampLabelR.setBounds(ampADSRX + adsrSpacing*3, adsrY + 130, 40, 25);
+    ampLabelA.setBounds(ampADSRX, adsrLettersY, 40, 25);
+    ampLabelD.setBounds(ampADSRX + adsrSpacing, adsrLettersY, 40, 25);
+    ampLabelS.setBounds(ampADSRX + adsrSpacing*2, adsrLettersY, 40, 25);
+    ampLabelR.setBounds(ampADSRX + adsrSpacing*3, adsrLettersY, 40, 25);
     ampTitleLabel.setBounds(ampTitleX, adsrTitleY, 60, 30);
     
     // Filter cutoff and resonance
     resSlider.setBounds(resX, resY, resSize, resSize);
-    resLabel.setBounds(resX + 13, resY - 20, 40, 20);
+    resLabel.setBounds(resLabelX, resLabelY, 40, 20);
     cutoffSlider.setBounds(cutoffX, cutoffY, cutoffSize, cutoffSize);
-    cuttoffLabel.setBounds(cutoffX + 15, cutoffY - 20, 70, 20);
+    cuttoffLabel.setBounds(cutoffLabelX, cutoffLabelY, 70, 20);
     
     // Output
     outputKnob.setBounds(outputX, outputY, outputKnobSize, outputKnobSize);
-    outputLabel.setBounds(outputX + 40, outputY - 25, 75, 30);
+    outputLabel.setBounds(outputLabelX, outputLabelY, 75, 30);
 };
 
 std::string keyKnobValToKeyString(int keyKnobVal)
@@ -737,7 +774,7 @@ std::string keyKnobValToKeyString(int keyKnobVal)
     return str;
 };
 
-std::string knobValToInvString(int invKnobVal)
+std::string knobValToString(int invKnobVal)
 {
     std::string str = invKnobVal == 0 ? "off" : std::to_string(invKnobVal);
     return str;
@@ -769,7 +806,7 @@ std::string rbModeValToString(int rbKnobVal)
 
 void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *slider) //
 {
-    // TODO: Is there some way to do this with a switch instead of the endless else-if statements? There might be a better way to update labels too...
+    // TODO: Is there some way to do this with a switch instead of the endless else-if statements?
 
     // Spacing/sizing variables for updating labels
     int labelW = 50;
@@ -857,7 +894,7 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         int val = static_cast<int>(rbKnob.getValue());
         audioProcessor.rbModeVal = val;
         // Update label
-        std::string str = knobValToInvString(val);
+        std::string str = knobValToString(val);
         rbModeLabel.setText(str, juce::NotificationType::dontSendNotification);
         rbModeLabel.setBounds(rbKnobLabelX, keyKnobLablY, labelW, labelH);
     }
@@ -874,7 +911,7 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         int val = static_cast<int>(invKnobS.getValue());
         audioProcessor.invKnobValS = val;
         // Update label
-        std::string str = knobValToInvString(val);
+        std::string str = knobValToString(val);
         invKnobLabelS.setText(str, juce::NotificationType::dontSendNotification);
         invKnobLabelS.setBounds(invKnobLabelX, invKnobLabelY, labelW, labelH);
     }
@@ -883,7 +920,7 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         int val = static_cast<int>(invKnobA.getValue());
         audioProcessor.invKnobValA = val;
         // Update label
-        std::string str = knobValToInvString(val);
+        std::string str = knobValToString(val);
         invKnobLabelA.setText(str, juce::NotificationType::dontSendNotification);
         invKnobLabelA.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace, labelW, labelH);
     }
@@ -892,7 +929,7 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         int val = static_cast<int>(invKnobT.getValue());
         audioProcessor.invKnobValT = val;
         // Update label
-        std::string str = knobValToInvString(val);
+        std::string str = knobValToString(val);
         invKnobLabelT.setText(str, juce::NotificationType::dontSendNotification);
         invKnobLabelT.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace*2, labelW, labelH);
     }
@@ -901,7 +938,7 @@ void ModalExplorerVSTAudioProcessorEditor::sliderValueChanged (juce::Slider *sli
         int val = static_cast<int>(invKnobB.getValue());
         audioProcessor.invKnobValB = val;
         // Update label
-        std::string str = knobValToInvString(val);
+        std::string str = knobValToString(val);
         invKnobLabelB.setText(str, juce::NotificationType::dontSendNotification);
         invKnobLabelB.setBounds(invKnobLabelX, invKnobLabelY + invKnobVertSpace*3, labelW, labelH);
     }

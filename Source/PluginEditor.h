@@ -22,6 +22,7 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
         {
             float outlineThickness = 2.5f;
             float diameter = width - (outlineThickness + 30);
+            
             float radius = diameter/2;
             float centerX = x + width/2;
             float centerY = y + height /2;
@@ -43,7 +44,6 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
             g.drawEllipse(rx, ry, diameter, diameter, outlineThickness);
         }
 };
-
 class CustomLookAndFeel : public juce::LookAndFeel_V4
 {
     public:
@@ -60,10 +60,10 @@ class CustomLookAndFeel : public juce::LookAndFeel_V4
 };
 
 // Custom LookAndFeel, (for categorical sliders)
-class CustomLookAndFeelCat : public CustomLookAndFeel
+class CustomLookAndFeelCatSlider : public CustomLookAndFeel
 {
     public:
-    CustomLookAndFeelCat()
+    CustomLookAndFeelCatSlider()
     {
         setColour(juce::Slider::rotarySliderFillColourId, juce::Colour(123, 234, 243));
         
@@ -140,10 +140,19 @@ private:
     juce::Slider outputKnob;
     juce::Label outputLabel;
     
+    // Section heading titles
+    juce::Label scaleHeading;
+    juce::Label voicingHeading;
+    juce::Label glideHeading;
+    juce::Label invHeading;
+    juce::Label chordHeading;
+    juce::Label oscHeading;
+    juce::Label envHeading;
+    
     // Custom LookAndFeel's
     KnobLookAndFeel knobLookAndFeel;
     CustomLookAndFeel customLookAndFeel;
-    CustomLookAndFeelCat customLookAndFeelCat;
+    CustomLookAndFeelCatSlider customLookAndFeelCatSlider;
     
     
     ModalExplorerVSTAudioProcessor& audioProcessor;
