@@ -15,7 +15,41 @@
 /**
 */
 // Custom LookAndFeels
-class KnobLookAndFeel : public juce::LookAndFeel_V4
+class CustomLookAndFeel : public juce::LookAndFeel_V4
+{
+    public:
+    CustomLookAndFeel()
+    {
+        auto orangePastel = juce::Colour(224, 114, 82);
+        auto darkBlue = juce::Colour(5, 41, 66);
+        auto brightBlue = juce::Colour(123, 234, 243);
+        
+        // Knob settings
+        setColour (juce::Slider::thumbColourId, orangePastel);
+        setColour (juce::Slider::rotarySliderOutlineColourId, brightBlue);
+        setColour (juce::Slider::rotarySliderFillColourId, orangePastel);
+        
+        // Slider settings
+        setColour (juce::Slider::backgroundColourId, brightBlue);
+        setColour (juce::Slider::trackColourId, orangePastel);
+        
+        // ComboBox settings
+        setColour (juce::ComboBox::backgroundColourId, darkBlue);
+        setColour (juce::ComboBox::arrowColourId, orangePastel);
+        setColour (juce::ComboBox::outlineColourId, brightBlue);
+        setColour (juce::ComboBox::textColourId, brightBlue);
+        
+        // TextButton settings
+        setColour (juce::TextButton::textColourOffId, brightBlue);
+        setColour (juce::TextButton::buttonColourId, darkBlue);
+        setColour (juce::TextButton::buttonOnColourId, brightBlue);
+        
+        // Label settings
+        setColour (juce::Label::ColourIds::textColourId, orangePastel);
+    }
+};
+
+class KnobLookAndFeel : public CustomLookAndFeel
 {
     public:
     void drawRotarySlider (juce::Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider &slider) override
@@ -32,42 +66,27 @@ class KnobLookAndFeel : public juce::LookAndFeel_V4
             
             // Circular knob overlay
             juce::Rectangle<float> knobArea (rx, ry, diameter, diameter);
-            g.setColour(juce::Colour(123, 234, 243));
-            g.fillEllipse(knobArea);
+            g.setColour (juce::Colour(123, 234, 243));
+            g.fillEllipse (knobArea);
             
             // Knob tick line
-            g.setColour(juce::Colours::black );
+            g.setColour (juce::Colours::black );
             juce::Path knobLine;
-            knobLine.addRectangle(0, -radius, 4.0f, radius/2);
-            g.fillPath(knobLine, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
-            g.setColour(juce::Colour(224, 114, 82));
-            g.drawEllipse(rx, ry, diameter, diameter, outlineThickness);
+            knobLine.addRectangle (0, -radius, 4.0f, radius/2);
+            g.fillPath (knobLine, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
+            g.setColour (juce::Colour(224, 114, 82));
+            g.drawEllipse (rx, ry, diameter, diameter, outlineThickness);
         }
 };
-class CustomLookAndFeel : public juce::LookAndFeel_V4
-{
-    public:
-    CustomLookAndFeel()
-    {
-        setColour(juce::Slider::thumbColourId, juce::Colour(224, 114, 82));
-        setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colour(123, 234, 243));
-        setColour(juce::Slider::rotarySliderFillColourId, juce::Colour(224, 114, 82));
-        
-        setColour(juce::Slider::backgroundColourId, juce::Colour(123, 234, 243));
-        setColour(juce::Slider::trackColourId, juce::Colour(224, 114, 82));
-        
-    }
-};
 
-// Custom LookAndFeel, (for categorical sliders)
+// For sliders that control categorical parameters
 class CustomLookAndFeelCatSlider : public CustomLookAndFeel
 {
     public:
     CustomLookAndFeelCatSlider()
     {
-        setColour(juce::Slider::rotarySliderFillColourId, juce::Colour(123, 234, 243));
-        
-        setColour(juce::Slider::trackColourId, juce::Colour(123, 234, 243));
+        setColour (juce::Slider::rotarySliderFillColourId, juce::Colour(123, 234, 243));
+        setColour (juce::Slider::trackColourId, juce::Colour(123, 234, 243));
     }
 };
 
@@ -83,14 +102,11 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    // 8 Create override for sliderValueChanged
     void sliderValueChanged (juce::Slider* slider) override;
     void toggleNeg();
     void comboBoxChanged (juce::ComboBox* comboBox) override;
 
 private:
-    // TODO: Create lables where needed
-    
     // Key knob
     juce::Slider keyKnob;
     juce::Label keyKnobLabel;
@@ -148,6 +164,11 @@ private:
     juce::Label chordHeading;
     juce::Label oscHeading;
     juce::Label envHeading;
+    
+    // Colours
+    juce::Colour orangePastel = juce::Colour(224, 114, 82);
+    juce::Colour darkBlue = juce::Colour(5, 41, 66);
+    juce::Colour brightBlue = juce::Colour(123, 234, 243);
     
     // Custom LookAndFeel's
     KnobLookAndFeel knobLookAndFeel;
