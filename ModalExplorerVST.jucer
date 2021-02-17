@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="SLuyZF" name="ModalExplorerVST" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginEditorRequiresKeys,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
-  <MAINGROUP id="oH8ejZ" name="ModalExplorerVST">
-    <GROUP id="{98B9BC43-75A4-CFFD-7CB2-C1F1EC27D502}" name="Source">
-      <FILE id="Ki88ql" name="PluginProcessor.cpp" compile="1" resource="0"
+<JUCERPROJECT id="bn0fO0" name="ModalExplorerVST" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="Osfnb8" name="ModalExplorerVST">
+    <GROUP id="{8A15C553-1129-496E-26E0-A97FE3974868}" name="Source">
+      <FILE id="x49y2Q" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="E8luls" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="KRbp8N" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="G1JxTf" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="LwNyV6" name="ChordSection.cpp" compile="1" resource="0"
+            file="Source/ChordSection.cpp"/>
+      <FILE id="Rt6QOh" name="ChordSection.h" compile="0" resource="0" file="Source/ChordSection.h"/>
+      <FILE id="XLuFNQ" name="InversionSection.cpp" compile="1" resource="0"
+            file="Source/InversionSection.cpp"/>
+      <FILE id="yJJ4XT" name="InversionSection.h" compile="0" resource="0"
+            file="Source/InversionSection.h"/>
+      <FILE id="ndlzzT" name="NegHarmSection.cpp" compile="1" resource="0"
+            file="Source/NegHarmSection.cpp"/>
+      <FILE id="dYpw38" name="NegHarmSection.h" compile="0" resource="0"
+            file="Source/NegHarmSection.h"/>
+      <FILE id="QARfvl" name="OutputLevelSection.cpp" compile="1" resource="0"
+            file="Source/OutputLevelSection.cpp"/>
+      <FILE id="MrSrxu" name="OutputLevelSection.h" compile="0" resource="0"
+            file="Source/OutputLevelSection.h"/>
+      <FILE id="lMDErU" name="RbSection.cpp" compile="1" resource="0" file="Source/RbSection.cpp"/>
+      <FILE id="ZEZcnl" name="RbSection.h" compile="0" resource="0" file="Source/RbSection.h"/>
+      <FILE id="OpWXnx" name="ScaleSection.cpp" compile="1" resource="0"
+            file="Source/ScaleSection.cpp"/>
+      <FILE id="P5WxW4" name="MixSection.cpp" compile="1" resource="0" file="Source/MixSection.cpp"/>
+      <FILE id="mkyCpX" name="MixSection.h" compile="0" resource="0" file="Source/MixSection.h"/>
+      <FILE id="gx2eBq" name="VerticalTitleSection.cpp" compile="1" resource="0"
+            file="Source/VerticalTitleSection.cpp"/>
+      <FILE id="BuSMld" name="VerticalTitleSection.h" compile="0" resource="0"
+            file="Source/VerticalTitleSection.h"/>
+      <FILE id="sbjej9" name="ScaleSection.h" compile="0" resource="0" file="Source/ScaleSection.h"/>
+      <FILE id="qfTjLd" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="T7ePo9" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="zt99p9" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
@@ -22,18 +47,18 @@
         <CONFIGURATION isDebug="0" name="Release" targetName="ModalExplorerVST"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
