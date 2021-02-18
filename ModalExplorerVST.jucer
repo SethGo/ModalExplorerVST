@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="bn0fO0" name="ModalExplorerVST" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="Osfnb8" name="ModalExplorerVST">
     <GROUP id="{8A15C553-1129-496E-26E0-A97FE3974868}" name="Source">
       <FILE id="x49y2Q" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -33,6 +34,7 @@
             file="Source/VerticalTitleSection.cpp"/>
       <FILE id="BuSMld" name="VerticalTitleSection.h" compile="0" resource="0"
             file="Source/VerticalTitleSection.h"/>
+      <FILE id="UXGjF4" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="sbjej9" name="ScaleSection.h" compile="0" resource="0" file="Source/ScaleSection.h"/>
       <FILE id="qfTjLd" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
