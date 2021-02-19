@@ -4,6 +4,8 @@
 
 ### macOS ###
 # General
+/Builds/
+/JuceLibraryCode/
 .DS_Store
 .AppleDouble
 .LSOverride
