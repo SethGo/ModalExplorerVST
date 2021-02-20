@@ -23,6 +23,22 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void toggleNegHarm()
+    {
+        negHarmOn = !negHarmOn;
+        negHarmBtn.setToggleState (negHarmOn, juce::NotificationType::dontSendNotification);
+        if (negHarmOn)
+        {
+            negHarmBtn.setButtonText ("on");
+        }
+        else
+        {
+            negHarmBtn.setButtonText ("off");
+        }
+    }
+    
+    bool negHarmOn = false; // Initialize false
 
 private:
     juce::TextButton negHarmBtn;

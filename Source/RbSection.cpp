@@ -23,7 +23,8 @@ RbSection::RbSection()
     addAndMakeVisible (rbKnob);
     rbKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     rbKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    rbKnob.setRange (0, 19, 1);
+    rbKnob.setRange (0, 18, 1);
+    rbKnob.onValueChange = [this] { changeRbMode(); };
     
     // Mode status display (to be made dynamic eventually)
     addAndMakeVisible (modeDisplay);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "JuceHeader.h"
+#include <JuceHeader.h>
 
 class MidiProcessor
 {
@@ -22,7 +22,7 @@ public:
         {
             if (currentMessage.isNoteOnOrOff())
             {
-                DBG(currentMessage.getNoteNumber());
+//                DBG(currentMessage.getNoteNumber());
                 addTransposedNotes (currentMessage, samplePos);
             }
             processedBuffer.addEvent (currentMessage, samplePos); // Root (user selected midi note)
@@ -35,16 +35,16 @@ public:
         auto oldNoteNum = transposedMessage.getNoteNumber();
         transposedMessage.setNoteNumber (oldNoteNum + 3); // min 3rd
         processedBuffer.addEvent (transposedMessage, samplePos);
-//        
-//        auto transposedMessage2  = currentMessage;
-//        auto oldNoteNum2 = transposedMessage2.getNoteNumber();
-//        transposedMessage2.setNoteNumber (oldNoteNum2 + 7); // 5th
-//        processedBuffer.addEvent (transposedMessage2, samplePos);
-//        
-//        auto transposedMessage3  = currentMessage;
-//        auto oldNoteNum3 = transposedMessage3.getNoteNumber();
-//        transposedMessage3.setNoteNumber (oldNoteNum3 + 14); // 9th
-//        processedBuffer.addEvent (transposedMessage3, samplePos);
+
+        auto transposedMessage2  = currentMessage;
+        auto oldNoteNum2 = transposedMessage2.getNoteNumber();
+        transposedMessage2.setNoteNumber (oldNoteNum2 + 7); // 5th
+        processedBuffer.addEvent (transposedMessage2, samplePos);
+
+        auto transposedMessage3  = currentMessage;
+        auto oldNoteNum3 = transposedMessage3.getNoteNumber();
+        transposedMessage3.setNoteNumber (oldNoteNum3 + 14); // 9th
+        processedBuffer.addEvent (transposedMessage3, samplePos);
     }
     juce::MidiBuffer processedBuffer;
 };

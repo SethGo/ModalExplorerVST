@@ -22,6 +22,8 @@ NegHarmSection::NegHarmSection()
     // Neg-harm button
     addAndMakeVisible (negHarmBtn);
     negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
+    negHarmBtn.setButtonText ("off");
+    negHarmBtn.onClick = [this] { toggleNegHarm(); };
 }
 
 NegHarmSection::~NegHarmSection()

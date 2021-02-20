@@ -18,6 +18,7 @@
 #include "InversionSection.h"
 #include "ChordSection.h"
 #include "MixSection.h"
+#include "ChordProcessor.h"
 
 //==============================================================================
 /**

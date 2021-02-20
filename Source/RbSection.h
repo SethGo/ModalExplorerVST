@@ -23,6 +23,23 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void changeRbMode()
+    {
+        std::string str;
+        rbMode = (int)rbKnob.getValue();
+        if (rbMode > 0)
+        {
+            str = std::to_string(rbMode);
+        }
+        else
+        {
+            str = "off";
+        }
+        modeDisplay.setText (str, juce::NotificationType::dontSendNotification);
+    }
+    
+    int rbMode = 0; // Initialize RB mode off
 
 private:
     juce::Label sectionHeading;

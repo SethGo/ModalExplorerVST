@@ -32,6 +32,8 @@
       <FILE id="mkyCpX" name="MixSection.h" compile="0" resource="0" file="Source/MixSection.h"/>
       <FILE id="gx2eBq" name="VerticalTitleSection.cpp" compile="1" resource="0"
             file="Source/VerticalTitleSection.cpp"/>
+      <FILE id="ZSxYu9" name="ChordProcessor.h" compile="0" resource="0"
+            file="Source/ChordProcessor.h"/>
       <FILE id="BuSMld" name="VerticalTitleSection.h" compile="0" resource="0"
             file="Source/VerticalTitleSection.h"/>
       <FILE id="UXGjF4" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>

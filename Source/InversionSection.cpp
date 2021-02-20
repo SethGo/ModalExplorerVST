@@ -23,22 +23,30 @@ InversionSection::InversionSection()
     addAndMakeVisible (invKnobS); // Soprano
     invKnobS.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     invKnobS.setRange (0, 7, 1);
+    invKnobS.setValue (7);
     invKnobS.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    invKnobS.onValueChange = [this] { changeVoice(3); };
 
     addAndMakeVisible (invKnobA); // Alto
     invKnobA.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     invKnobA.setRange(0, 7, 1);
+    invKnobA.setValue (5);
     invKnobA.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    invKnobA.onValueChange = [this] { changeVoice(2); };
     
     addAndMakeVisible  (invKnobT); // Tenor
     invKnobT.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     invKnobT.setRange (0, 7, 1);
+    invKnobT.setValue (3);
     invKnobT.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    invKnobT.onValueChange = [this] { changeVoice(1); };
     
     addAndMakeVisible (invKnobB); // Bass
     invKnobB.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     invKnobB.setRange (0, 7, 1);
+    invKnobB.setValue (1);
     invKnobB.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    invKnobB.onValueChange = [this] { changeVoice(0); };
     
     // Voice function labels (To be made dynamic eventually)
     addAndMakeVisible (invLabelS);

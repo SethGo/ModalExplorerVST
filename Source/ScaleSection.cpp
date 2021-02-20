@@ -47,6 +47,7 @@ ScaleSection::ScaleSection()
     addAndMakeVisible (keyKnob);
     keyKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     keyKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    keyKnob.onValueChange = [this] { changeKey(); };
     keyKnob.setRange(0, 11, 1);
     
     // Note alteration sliders
@@ -55,36 +56,42 @@ ScaleSection::ScaleSection()
     noteAltSlider2.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider2.setRange (0, 2, 1);
     noteAltSlider2.setValue (1);
+    noteAltSlider2.onValueChange = [this] { changeNote(1); }; // scale degree 2 is '1' in the array
     
     addAndMakeVisible (noteAltSlider3);
     noteAltSlider3.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider3.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider3.setRange (0, 2, 1);
     noteAltSlider3.setValue (1);
+    noteAltSlider3.onValueChange = [this] { changeNote(2); };
     
     addAndMakeVisible (noteAltSlider4);
     noteAltSlider4.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider4.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider4.setRange (0, 2, 1);
     noteAltSlider4.setValue (1);
+    noteAltSlider4.onValueChange = [this] { changeNote(3); };
     
     addAndMakeVisible (noteAltSlider5);
     noteAltSlider5.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider5.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider5.setRange (0, 2, 1);
     noteAltSlider5.setValue (1);
+    noteAltSlider5.onValueChange = [this] { changeNote(4); };
     
     addAndMakeVisible (noteAltSlider6);
     noteAltSlider6.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider6.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider6.setRange (0, 2, 1);
     noteAltSlider6.setValue (1);
+    noteAltSlider6.onValueChange = [this] { changeNote(5); };
     
     addAndMakeVisible (noteAltSlider7);
     noteAltSlider7.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider7.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider7.setRange (0, 2, 1);
     noteAltSlider7.setValue (1);
+    noteAltSlider7.onValueChange = [this] { changeNote(6); };
     
     // Actual note display labels (to be made dynamic eventually)
     addAndMakeVisible (note1);
