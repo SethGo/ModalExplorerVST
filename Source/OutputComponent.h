@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    OutputLevelSection.h
-    Created: 16 Feb 2021 4:17:42pm
+    OutputComponent.h
+    Created: 21 Feb 2021 12:30:09pm
     Author:  Seth Gory
 
   ==============================================================================
@@ -15,11 +15,11 @@
 //==============================================================================
 /*
 */
-class OutputLevelSection  : public juce::Component
+class OutputComponent  : public juce::Component
 {
 public:
-    OutputLevelSection();
-    ~OutputLevelSection() override;
+    OutputComponent();
+    ~OutputComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
@@ -28,5 +28,5 @@ private:
     juce::Slider outputKnob;
     juce::Label sectionHeading;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OutputLevelSection)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OutputComponent)
 };

@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    RbSection.h
-    Created: 16 Feb 2021 4:13:10pm
+    RbComponent.h
+    Created: 21 Feb 2021 4:58:42am
     Author:  Seth Gory
 
   ==============================================================================
@@ -15,29 +15,16 @@
 //==============================================================================
 /*
 */
-class RbSection  : public juce::Component
+class RbComponent  : public juce::Component
 {
 public:
-    RbSection();
-    ~RbSection() override;
+    RbComponent();
+    ~RbComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    void changeRbMode()
-    {
-        std::string str;
-        rbMode = (int)rbKnob.getValue();
-        if (rbMode > 0)
-        {
-            str = std::to_string(rbMode);
-        }
-        else
-        {
-            str = "off";
-        }
-        modeDisplay.setText (str, juce::NotificationType::dontSendNotification);
-    }
+    void changeRbMode();
     
     int rbMode = 0; // Initialize RB mode off
 
@@ -46,5 +33,5 @@ private:
     juce::Slider rbKnob;
     juce::Label modeDisplay;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RbSection)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RbComponent)
 };

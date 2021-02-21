@@ -1,18 +1,18 @@
 /*
   ==============================================================================
 
-    ChordSection.cpp
-    Created: 16 Feb 2021 4:13:59pm
+    ChordComponent.cpp
+    Created: 21 Feb 2021 12:48:23pm
     Author:  Seth Gory
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "ChordSection.h"
+#include "ChordComponent.h"
 
 //==============================================================================
-ChordSection::ChordSection()
+ChordComponent::ChordComponent()
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -37,18 +37,18 @@ ChordSection::ChordSection()
     noteB.setJustificationType (juce::Justification::centred);
 }
 
-ChordSection::~ChordSection()
+ChordComponent::~ChordComponent()
 {
 }
 
-void ChordSection::paint (juce::Graphics& g)
+void ChordComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::white);
     g.drawRect (area);
 }
 
-void ChordSection::resized()
+void ChordComponent::resized()
 {
     auto area = getLocalBounds();
     

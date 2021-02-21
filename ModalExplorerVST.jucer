@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="bn0fO0" name="ModalExplorerVST" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn">
-  <MAINGROUP id="Osfnb8" name="ModalExplorerVST">
-    <GROUP id="{8A15C553-1129-496E-26E0-A97FE3974868}" name="Source">
-      <FILE id="x49y2Q" name="PluginProcessor.cpp" compile="1" resource="0"
+<JUCERPROJECT id="hbpBRr" name="ModalExplorerVST" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="zjIEMo" name="ModalExplorerVST">
+    <GROUP id="{89A7E7EF-9971-66EE-1F55-CB4943957C3C}" name="Source">
+      <FILE id="Fwm7fW" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="KRbp8N" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="bsg3mu" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="LwNyV6" name="ChordSection.cpp" compile="1" resource="0"
-            file="Source/ChordSection.cpp"/>
-      <FILE id="Rt6QOh" name="ChordSection.h" compile="0" resource="0" file="Source/ChordSection.h"/>
-      <FILE id="XLuFNQ" name="InversionSection.cpp" compile="1" resource="0"
-            file="Source/InversionSection.cpp"/>
-      <FILE id="yJJ4XT" name="InversionSection.h" compile="0" resource="0"
-            file="Source/InversionSection.h"/>
-      <FILE id="ndlzzT" name="NegHarmSection.cpp" compile="1" resource="0"
-            file="Source/NegHarmSection.cpp"/>
-      <FILE id="dYpw38" name="NegHarmSection.h" compile="0" resource="0"
-            file="Source/NegHarmSection.h"/>
-      <FILE id="QARfvl" name="OutputLevelSection.cpp" compile="1" resource="0"
-            file="Source/OutputLevelSection.cpp"/>
-      <FILE id="MrSrxu" name="OutputLevelSection.h" compile="0" resource="0"
-            file="Source/OutputLevelSection.h"/>
-      <FILE id="lMDErU" name="RbSection.cpp" compile="1" resource="0" file="Source/RbSection.cpp"/>
-      <FILE id="ZEZcnl" name="RbSection.h" compile="0" resource="0" file="Source/RbSection.h"/>
-      <FILE id="OpWXnx" name="ScaleSection.cpp" compile="1" resource="0"
-            file="Source/ScaleSection.cpp"/>
-      <FILE id="P5WxW4" name="MixSection.cpp" compile="1" resource="0" file="Source/MixSection.cpp"/>
-      <FILE id="mkyCpX" name="MixSection.h" compile="0" resource="0" file="Source/MixSection.h"/>
-      <FILE id="gx2eBq" name="VerticalTitleSection.cpp" compile="1" resource="0"
-            file="Source/VerticalTitleSection.cpp"/>
-      <FILE id="ZSxYu9" name="ChordProcessor.h" compile="0" resource="0"
-            file="Source/ChordProcessor.h"/>
-      <FILE id="BuSMld" name="VerticalTitleSection.h" compile="0" resource="0"
-            file="Source/VerticalTitleSection.h"/>
-      <FILE id="UXGjF4" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
-      <FILE id="sbjej9" name="ScaleSection.h" compile="0" resource="0" file="Source/ScaleSection.h"/>
-      <FILE id="qfTjLd" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="qqd4IR" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="zt99p9" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="nPLfnO" name="ScaleSelectionComponent.cpp" compile="1" resource="0"
+            file="Source/ScaleSelectionComponent.cpp"/>
+      <FILE id="uD53K9" name="RbComponent.cpp" compile="1" resource="0" file="Source/RbComponent.cpp"/>
+      <FILE id="KOKRpu" name="RbComponent.h" compile="0" resource="0" file="Source/RbComponent.h"/>
+      <FILE id="pQRklq" name="ScaleSelectionComponent.h" compile="0" resource="0"
+            file="Source/ScaleSelectionComponent.h"/>
+      <FILE id="hpvJu8" name="NegHarmComponent.cpp" compile="1" resource="0"
+            file="Source/NegHarmComponent.cpp"/>
+      <FILE id="oUbEdo" name="NegHarmComponent.h" compile="0" resource="0"
+            file="Source/NegHarmComponent.h"/>
+      <FILE id="TjwUiC" name="VerticalTitleComponent.cpp" compile="1" resource="0"
+            file="Source/VerticalTitleComponent.cpp"/>
+      <FILE id="FtS7JC" name="VerticalTitleComponent.h" compile="0" resource="0"
+            file="Source/VerticalTitleComponent.h"/>
+      <FILE id="eof7cj" name="InversionComponent.cpp" compile="1" resource="0"
+            file="Source/InversionComponent.cpp"/>
+      <FILE id="TyWPUz" name="ChordComponent.cpp" compile="1" resource="0"
+            file="Source/ChordComponent.cpp"/>
+      <FILE id="MU6bAV" name="ChordComponent.h" compile="0" resource="0"
+            file="Source/ChordComponent.h"/>
+      <FILE id="GapqzT" name="MixComponent.cpp" compile="1" resource="0"
+            file="Source/MixComponent.cpp"/>
+      <FILE id="uL9LI6" name="MixComponent.h" compile="0" resource="0" file="Source/MixComponent.h"/>
+      <FILE id="Ds2VXY" name="OutputComponent.cpp" compile="1" resource="0"
+            file="Source/OutputComponent.cpp"/>
+      <FILE id="gKyGGS" name="OutputComponent.h" compile="0" resource="0"
+            file="Source/OutputComponent.h"/>
+      <FILE id="ctqg8s" name="InversionComponent.h" compile="0" resource="0"
+            file="Source/InversionComponent.h"/>
+      <FILE id="EeLEqK" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

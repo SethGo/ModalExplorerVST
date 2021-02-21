@@ -10,15 +10,16 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "VerticalTitleSection.h"
-#include "ScaleSection.h"
-#include "NegHarmSection.h"
-#include "RbSection.h"
-#include "OutputLevelSection.h"
-#include "InversionSection.h"
-#include "ChordSection.h"
-#include "MixSection.h"
-#include "ChordProcessor.h"
+#include "VerticalTitleComponent.h"
+#include "ScaleSelectionComponent.h"
+#include "NegHarmComponent.h"
+#include "RbComponent.h"
+#include "OutputComponent.h"
+#include "InversionComponent.h"
+#include "ChordComponent.h"
+#include "MixComponent.h"
+
+
 
 //==============================================================================
 /**
@@ -34,14 +35,14 @@ public:
     void resized() override;
 
 private:
-    VerticalTitleSection verticalTitleSection;
-    ScaleSection scaleSection;
-    NegHarmSection negHarmSection;
-    RbSection rbSection;
-    OutputLevelSection outputLevelSection;
-    InversionSection inversionSection;
-    ChordSection chordSection;
-    MixSection mixSection;
+    InversionComponent inversionComponent;
+    ScaleSelectionComponent scaleSelectionComponent;
+    NegHarmComponent negHarmComponent;
+    RbComponent rbComponent;
+    VerticalTitleComponent verticalTitleComponent;
+    OutputComponent outputComponent;
+    ChordComponent chordComponent;
+    MixComponent mixComponent;
     
     ModalExplorerVSTAudioProcessor& audioProcessor;
 

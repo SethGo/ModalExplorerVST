@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    MixSection.h
-    Created: 17 Feb 2021 1:48:23am
+    VerticalTitleComponent.h
+    Created: 21 Feb 2021 5:10:36am
     Author:  Seth Gory
 
   ==============================================================================
@@ -15,18 +15,15 @@
 //==============================================================================
 /*
 */
-class MixSection  : public juce::Component
+class VerticalTitleComponent  : public juce::Component
 {
 public:
-    MixSection();
-    ~MixSection() override;
+    VerticalTitleComponent();
+    ~VerticalTitleComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    juce::Label sectionHeading;
-    juce::Slider mixSliderS, mixSliderA, mixSliderT, mixSliderB;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixSection)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VerticalTitleComponent)
 };

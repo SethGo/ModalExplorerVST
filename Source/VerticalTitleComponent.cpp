@@ -1,31 +1,35 @@
 /*
   ==============================================================================
 
-    VerticalTitleSection.cpp
-    Created: 16 Feb 2021 6:51:10pm
+    VerticalTitleComponent.cpp
+    Created: 21 Feb 2021 5:10:36am
     Author:  Seth Gory
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "VerticalTitleSection.h"
+#include "VerticalTitleComponent.h"
 
 //==============================================================================
-VerticalTitleSection::VerticalTitleSection()
+VerticalTitleComponent::VerticalTitleComponent()
 {
+    // In your constructor, you should add any child components, and
+    // initialise any special settings that your component needs.
 
 }
 
-VerticalTitleSection::~VerticalTitleSection()
+VerticalTitleComponent::~VerticalTitleComponent()
 {
 }
 
-void VerticalTitleSection::paint (juce::Graphics& g)
+void VerticalTitleComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::white);
     g.drawRect (area);
+    
+    g.drawLine(0, getHeight() * 0.35, getWidth(), getHeight() * 0.35);
     
     auto scaleXPos = getHeight() * -0.215f;
     auto voicingXPos = getHeight() * -0.72f;
@@ -43,7 +47,9 @@ void VerticalTitleSection::paint (juce::Graphics& g)
     g.fillPath (p);
 }
 
-void VerticalTitleSection::resized()
+void VerticalTitleComponent::resized()
 {
+    // This method is where you should set the bounds of any child
+    // components that your component contains..
 
 }

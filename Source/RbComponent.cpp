@@ -1,18 +1,18 @@
 /*
   ==============================================================================
 
-    RbSection.cpp
-    Created: 16 Feb 2021 4:13:10pm
+    RbComponent.cpp
+    Created: 21 Feb 2021 4:58:42am
     Author:  Seth Gory
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "RbSection.h"
+#include "RbComponent.h"
 
 //==============================================================================
-RbSection::RbSection()
+RbComponent::RbComponent()
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -30,20 +30,21 @@ RbSection::RbSection()
     addAndMakeVisible (modeDisplay);
     modeDisplay.setText ("off", juce::dontSendNotification);
     modeDisplay.setJustificationType (juce::Justification::centred);
+
 }
 
-RbSection::~RbSection()
+RbComponent::~RbComponent()
 {
 }
 
-void RbSection::paint (juce::Graphics& g)
+void RbComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::white);
     g.drawRect (area);
 }
 
-void RbSection::resized()
+void RbComponent::resized()
 {
     auto area = getLocalBounds();
     
@@ -56,4 +57,19 @@ void RbSection::resized()
     
     // RB knob
     rbKnob.setBounds (area);
+}
+
+void RbComponent::changeRbMode()
+{
+    std::string str;
+    rbMode = (int)rbKnob.getValue();
+    if (rbMode > 0)
+    {
+        str = std::to_string(rbMode);
+    }
+    else
+    {
+        str = "off";
+    }
+    modeDisplay.setText (str, juce::NotificationType::dontSendNotification);
 }

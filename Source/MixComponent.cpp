@@ -1,18 +1,18 @@
 /*
   ==============================================================================
 
-    MixSection.cpp
-    Created: 17 Feb 2021 1:48:23am
+    MixComponent.cpp
+    Created: 21 Feb 2021 12:48:44pm
     Author:  Seth Gory
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "MixSection.h"
+#include "MixComponent.h"
 
 //==============================================================================
-MixSection::MixSection()
+MixComponent::MixComponent()
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -43,20 +43,21 @@ MixSection::MixSection()
     mixSliderB.setRange (0.0f, 1.0f, 0.01f);
     mixSliderB.setValue (0.8f);
     mixSliderB.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 0, 0);
+
 }
 
-MixSection::~MixSection()
+MixComponent::~MixComponent()
 {
 }
 
-void MixSection::paint (juce::Graphics& g)
+void MixComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::white);
     g.drawRect (area);
 }
 
-void MixSection::resized()
+void MixComponent::resized()
 {
     auto area = getLocalBounds();
     
@@ -72,4 +73,5 @@ void MixSection::resized()
     mixSliderA.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
     mixSliderT.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
     mixSliderB.setBounds (area.reduced (reduceX, reduceY));
+
 }

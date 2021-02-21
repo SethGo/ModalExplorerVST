@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    VerticalTitleSection.h
-    Created: 16 Feb 2021 6:51:10pm
+    ChordComponent.h
+    Created: 21 Feb 2021 12:48:23pm
     Author:  Seth Gory
 
   ==============================================================================
@@ -15,15 +15,18 @@
 //==============================================================================
 /*
 */
-class VerticalTitleSection  : public juce::Component
+class ChordComponent  : public juce::Component
 {
 public:
-    VerticalTitleSection();
-    ~VerticalTitleSection() override;
+    ChordComponent();
+    ~ChordComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VerticalTitleSection)
+    juce::Label sectionHeading;
+    juce::Label noteS, noteA, noteT, noteB;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChordComponent)
 };

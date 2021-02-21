@@ -1,18 +1,18 @@
 /*
   ==============================================================================
 
-    InversionSection.cpp
-    Created: 16 Feb 2021 4:13:50pm
+    InversionComponent.cpp
+    Created: 20 Feb 2021 10:42:11pm
     Author:  Seth Gory
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "InversionSection.h"
+#include "InversionComponent.h"
 
 //==============================================================================
-InversionSection::InversionSection()
+InversionComponent::InversionComponent()
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -62,18 +62,18 @@ InversionSection::InversionSection()
     invLabelB.setText ("1", juce::dontSendNotification);
 }
 
-InversionSection::~InversionSection()
+InversionComponent::~InversionComponent()
 {
 }
 
-void InversionSection::paint (juce::Graphics& g)
+void InversionComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::white);
     g.drawRect (area);
 }
 
-void InversionSection::resized()
+void InversionComponent::resized()
 {
     auto area = getLocalBounds();
     
@@ -95,5 +95,39 @@ void InversionSection::resized()
     invLabelA.setBounds (area.removeFromTop (voiceYOffset));
     invLabelT.setBounds (area.removeFromTop (voiceYOffset));
     invLabelB.setBounds (area);
+
 }
 
+void InversionComponent::changeVoice (int voice)
+{
+    int knobVal;
+    std::string str;
+    switch (voice) {
+        case 0:
+            knobVal = (int)invKnobB.getValue();
+            voicingArray[0] = knobVal;
+            str = (knobVal > 0) ? std::to_string(knobVal) : "off";
+            invLabelB.setText (str, juce::NotificationType::dontSendNotification);
+            break;
+        case 1:
+            knobVal = (int)invKnobT.getValue();
+            voicingArray[1] = knobVal;
+            str = (knobVal > 0) ? std::to_string(knobVal) : "off";
+            invLabelT.setText (str, juce::NotificationType::dontSendNotification);
+            break;
+        case 2:
+            knobVal = (int)invKnobA.getValue();
+            voicingArray[2] = knobVal;
+            str = (knobVal > 0) ? std::to_string(knobVal) : "off";
+            invLabelA.setText (str, juce::NotificationType::dontSendNotification);
+            break;
+        case 3:
+            knobVal = (int)invKnobS.getValue();
+            voicingArray[3] = knobVal;
+            str = (knobVal > 0) ? std::to_string(knobVal) : "off";
+            invLabelS.setText (str, juce::NotificationType::dontSendNotification);
+            break;
+        default:
+            break;
+    }
+}

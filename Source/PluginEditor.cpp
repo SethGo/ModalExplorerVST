@@ -13,14 +13,14 @@
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    addAndMakeVisible (verticalTitleSection);
-    addAndMakeVisible (scaleSection);
-    addAndMakeVisible (negHarmSection);
-    addAndMakeVisible (rbSection);
-    addAndMakeVisible (outputLevelSection);
-    addAndMakeVisible (inversionSection);
-    addAndMakeVisible (chordSection);
-    addAndMakeVisible (mixSection);
+    addAndMakeVisible (inversionComponent);
+    addAndMakeVisible (scaleSelectionComponent);
+    addAndMakeVisible (negHarmComponent);
+    addAndMakeVisible (rbComponent);
+    addAndMakeVisible (verticalTitleComponent);
+    addAndMakeVisible (outputComponent);
+    addAndMakeVisible (chordComponent);
+    addAndMakeVisible (mixComponent);
     
     setSize (750, 500);
 }
@@ -32,42 +32,43 @@ ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
 //==============================================================================
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.fillAll(juce::Colours::darkgrey);
+    
 }
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
+    // Change "Section" to "Component"
     auto area = getLocalBounds();
     
-    // Vertical title section
-    auto scaleSectionLabelXOffset = getWidth() * 0.06;
-    verticalTitleSection.setBounds (area.removeFromLeft (scaleSectionLabelXOffset));
+    // Vertical title component
+    auto scaleComponentLabelXOffset = getWidth() * 0.06;
+    verticalTitleComponent.setBounds (area.removeFromLeft (scaleComponentLabelXOffset));
     
-    // Scale section
-    auto scaleSectionYOffset = getHeight() * 0.35;
-    auto topRow = area.removeFromTop (scaleSectionYOffset);
-    auto scaleSectionXOffset = (getWidth()  - scaleSectionLabelXOffset) * 0.65;
-    scaleSection.setBounds (topRow.removeFromLeft (scaleSectionXOffset).removeFromTop (scaleSectionYOffset));
+    // Scale Component
+    auto scaleComponentYOffset = getHeight() * 0.35;
+    auto topRow = area.removeFromTop (scaleComponentYOffset);
+    auto scaleComponentXOffset = (getWidth()  - scaleComponentLabelXOffset) * 0.65;
+    scaleSelectionComponent.setBounds (topRow.removeFromLeft (scaleComponentXOffset).removeFromTop (scaleComponentYOffset));
     
-    // Neg-harm section
-    auto thirdOfRemainingTopRowSpace = (getWidth() - scaleSectionLabelXOffset - scaleSectionXOffset) / 3;
-    negHarmSection.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleSectionYOffset));
+    // Neg-harm Component
+    auto thirdOfRemainingTopRowSpace = (getWidth() - scaleComponentLabelXOffset - scaleComponentXOffset) / 3;
+    negHarmComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset));
     
-    // RB mode section
-    rbSection.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleSectionYOffset));
+    // RB mode Component
+    rbComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset));
     
-    // Output knob section
-    outputLevelSection.setBounds (topRow);
+    // Output knob Component
+    outputComponent.setBounds (topRow);
     
-    // Inversion section
-    auto chordSectionProportionToInvAndMixSections = 0.35;
-    auto invSectionXOffset = (getWidth() - scaleSectionLabelXOffset) * chordSectionProportionToInvAndMixSections;
-    auto chordSectionXOffset = (getWidth() - scaleSectionLabelXOffset - invSectionXOffset * 2);
-    inversionSection.setBounds (area.removeFromLeft (invSectionXOffset));
+    // Inversion Component
+    auto chordComponentProportionToInvAndMixComponents = 0.35;
+    auto invComponentXOffset = (getWidth() - scaleComponentLabelXOffset) * chordComponentProportionToInvAndMixComponents;
+    inversionComponent.setBounds (area.removeFromLeft (invComponentXOffset));
     
-    // Chord display section
-    chordSection.setBounds (area.removeFromLeft (chordSectionXOffset));
-    
-    // Mix section
-    mixSection.setBounds (area);
-};
+    // Chord display Component
+    auto chordComponentXOffset = (getWidth() - scaleComponentLabelXOffset - invComponentXOffset * 2);
+    chordComponent.setBounds (area.removeFromLeft (chordComponentXOffset));
+
+    // Mix Component
+    mixComponent.setBounds (area);
+}

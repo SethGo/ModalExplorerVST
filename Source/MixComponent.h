@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    ChordSection.h
-    Created: 16 Feb 2021 4:13:59pm
+    MixComponent.h
+    Created: 21 Feb 2021 12:48:44pm
     Author:  Seth Gory
 
   ==============================================================================
@@ -11,27 +11,22 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ChordProcessor.h"
 
 //==============================================================================
 /*
 */
-class ChordSection  : public juce::Component
+class MixComponent  : public juce::Component
 {
 public:
-    ChordSection();
-    ~ChordSection() override;
+    MixComponent();
+    ~MixComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
-    // I want to eventually call this here
-//    int chord[4] = chordProcessor.getChord();
-    
 private:
     juce::Label sectionHeading;
-    juce::Label noteS, noteA, noteT, noteB;
-    ChordProcessor chordProcessor;
+    juce::Slider mixSliderS, mixSliderA, mixSliderT, mixSliderB;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChordSection)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixComponent)
 };
