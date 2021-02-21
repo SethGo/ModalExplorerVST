@@ -131,7 +131,9 @@ ScaleSection::~ScaleSection()
 
 void ScaleSection::paint (juce::Graphics& g)
 {
-
+    auto area = getLocalBounds();
+    g.setColour(juce::Colours::white);
+    g.drawRect (area);
 }
 
 void ScaleSection::resized()

@@ -28,11 +28,17 @@ public:
     
     void updateScale()
     {
+        // IF rb mode then ... (including turn off note alt functionality)
+        
+        // ELSE, this normal way of assigning scale...
         for (int i = 0; i < 7; i++)
         {
             scale[i] = (BASE_SCALE[i] + (int)keyKnob.getValue() + alterationArray[i]) % 12;
         }
         
+        // in either case, IF neg-harm on, then change the resulting scale like this...
+        
+        // then after that, in all cases, set the new scale
         note2.setText (noteNames[scale[1]], juce::NotificationType::dontSendNotification);
         note3.setText (noteNames[scale[2]], juce::NotificationType::dontSendNotification);
         note4.setText (noteNames[scale[3]], juce::NotificationType::dontSendNotification);
@@ -84,7 +90,6 @@ public:
         {
             alterationValue = 1;
         }
-        
         return alterationValue;
     }
     
@@ -135,11 +140,12 @@ private:
     juce::Slider keyKnob;
     juce::Slider noteAltSlider2, noteAltSlider3, noteAltSlider4, noteAltSlider5, noteAltSlider6, noteAltSlider7;
     juce::Label note1, note2, note3, note4, note5, note6, note7;
-    
+
     // Scale control variables
     int BASE_SCALE[7] = { 0, 2, 4, 5, 7, 9, 11 };
     std::string noteNames[12] = { "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" };
     int alterationArray[7];
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ScaleSection)
 };

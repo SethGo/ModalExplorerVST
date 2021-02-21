@@ -51,7 +51,9 @@ MixSection::~MixSection()
 
 void MixSection::paint (juce::Graphics& g)
 {
-
+    auto area = getLocalBounds();
+    g.setColour(juce::Colours::white);
+    g.drawRect (area);
 }
 
 void MixSection::resized()

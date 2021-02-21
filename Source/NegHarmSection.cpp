@@ -32,7 +32,9 @@ NegHarmSection::~NegHarmSection()
 
 void NegHarmSection::paint (juce::Graphics& g)
 {
-
+    auto area = getLocalBounds();
+    g.setColour(juce::Colours::white);
+    g.drawRect (area);
 }
 
 void NegHarmSection::resized()
