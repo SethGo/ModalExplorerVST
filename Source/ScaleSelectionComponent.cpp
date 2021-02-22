@@ -12,7 +12,8 @@
 #include "ScaleSelectionComponent.h"
 
 //==============================================================================
-ScaleSelectionComponent::ScaleSelectionComponent()
+ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     // Roman numeral function labels (to be made dynamic eventually to reflect '#' or 'b')
     addAndMakeVisible (romNum1);
@@ -50,6 +51,8 @@ ScaleSelectionComponent::ScaleSelectionComponent()
     keyKnob.onValueChange = [this] { changeKey(); };
     keyKnob.setRange(0, 11, 1);
     
+    keyKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "KEY", keyKnob);
+    
     // Note alteration sliders
     addAndMakeVisible (noteAltSlider2);
     noteAltSlider2.setSliderStyle (juce::Slider::LinearVertical);
@@ -58,12 +61,16 @@ ScaleSelectionComponent::ScaleSelectionComponent()
     noteAltSlider2.setValue (1);
     noteAltSlider2.onValueChange = [this] { changeNote(1); }; // scale degree 2 is '1' in the array
     
+    noteAltSlider2Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT2", noteAltSlider2);
+    
     addAndMakeVisible (noteAltSlider3);
     noteAltSlider3.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider3.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider3.setRange (0, 2, 1);
     noteAltSlider3.setValue (1);
     noteAltSlider3.onValueChange = [this] { changeNote(2); };
+    
+    noteAltSlider3Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT3", noteAltSlider3);
     
     addAndMakeVisible (noteAltSlider4);
     noteAltSlider4.setSliderStyle (juce::Slider::LinearVertical);
@@ -72,12 +79,16 @@ ScaleSelectionComponent::ScaleSelectionComponent()
     noteAltSlider4.setValue (1);
     noteAltSlider4.onValueChange = [this] { changeNote(3); };
     
+    noteAltSlider4Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT4", noteAltSlider4);
+    
     addAndMakeVisible (noteAltSlider5);
     noteAltSlider5.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider5.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider5.setRange (0, 2, 1);
     noteAltSlider5.setValue (1);
     noteAltSlider5.onValueChange = [this] { changeNote(4); };
+    
+    noteAltSlider5Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT5", noteAltSlider5);
     
     addAndMakeVisible (noteAltSlider6);
     noteAltSlider6.setSliderStyle (juce::Slider::LinearVertical);
@@ -86,12 +97,16 @@ ScaleSelectionComponent::ScaleSelectionComponent()
     noteAltSlider6.setValue (1);
     noteAltSlider6.onValueChange = [this] { changeNote(5); };
     
+    noteAltSlider6Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT6", noteAltSlider6);
+    
     addAndMakeVisible (noteAltSlider7);
     noteAltSlider7.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider7.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     noteAltSlider7.setRange (0, 2, 1);
     noteAltSlider7.setValue (1);
     noteAltSlider7.onValueChange = [this] { changeNote(6); };
+    
+    noteAltSlider7Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT7", noteAltSlider7);
     
     // Actual note display labels (to be made dynamic eventually)
     addAndMakeVisible (note1);
@@ -190,16 +205,19 @@ void ScaleSelectionComponent::resized()
 
 void ScaleSelectionComponent::updateScale()
 {
-    // IF rb mode then ... (including turn off note alt functionality)
+
+    // int base[7] = BASE_SCALE;
+    // if NegHarmOn ... change base scale to negative base scale
     
+    // int tempAltArr[7] = alterationArray;
+    // if rb mode then ... turn off note alt functionality, change tempAltArr to rbAltArr, move noteAltSliders
+
     // ELSE, this normal way of assigning scale...
+    
     for (int i = 0; i < 7; i++)
     {
-        if (negHarmOn)
-        {
-            DBG("it works hory shrit");
-        }
         scale[i] = (BASE_SCALE[i] + (int)keyKnob.getValue() + alterationArray[i]) % 12;
+//        scale[i] = (base[i] + (int)keyKnob.getValue() + tempAltArr[i]) % 12;
     }
     
     // in either case, IF neg-harm on, then change the resulting scale like this...

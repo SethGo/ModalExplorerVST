@@ -11,7 +11,7 @@
 
 //==============================================================================
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+: AudioProcessorEditor (&p), scaleSelectionComponent(p), audioProcessor (p) 
 {
     addAndMakeVisible (inversionComponent);
     addAndMakeVisible (scaleSelectionComponent);
@@ -61,7 +61,7 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     outputComponent.setBounds (topRow);
     
     // Inversion Component
-    auto chordComponentProportionToInvAndMixComponents = 0.35;
+    auto chordComponentProportionToInvAndMixComponents = 0.349;
     auto invComponentXOffset = (getWidth() - scaleComponentLabelXOffset) * chordComponentProportionToInvAndMixComponents;
     inversionComponent.setBounds (area.removeFromLeft (invComponentXOffset));
     

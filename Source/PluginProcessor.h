@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "MidiProcessor.h"
 
 //==============================================================================
 /**
@@ -52,8 +53,18 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    void deriveScale(int scale[]);
+    void deriveInversion(int inversion[]);
+    int translateAlterationSliderToChromaticValue(int alterationSliderValue);
+    
+    juce::AudioProcessorValueTreeState apvts;
+    MidiProcessor midiProcessor;
 
 private:
+    const int BASE_SCALE[7] = { 0, 2, 4, 5, 7, 9, 11 };
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModalExplorerVSTAudioProcessor)
 };

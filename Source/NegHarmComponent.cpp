@@ -60,9 +60,11 @@ void NegHarmComponent::toggleNegHarm()
     if (negHarmOn)
     {
         negHarmBtn.setButtonText ("on");
+        negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
     }
     else
     {
         negHarmBtn.setButtonText ("off");
+        negHarmBtn.setToggleState (true, juce::NotificationType::dontSendNotification);
     }
 }
