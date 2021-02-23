@@ -32,33 +32,61 @@ public:
         {
             if (currentMessage.isNoteOnOrOff())
             {
-                // test
-                auto transposed = currentMessage;
-                transposed.setNoteNumber(50);
-                processedBuffer.addEvent (transposed, samplePos);
-//                addTransposedNotes (currentMessage, samplePos);
+                // if user note is one of these {60, 62, 64, 65, 67, 69, 71}, then do all the code... else do nothing
+                
+                // translate user note to chord function // noteNum = currentMessage.getNoteNumber() ... getChordFunctionFromUserNote(noteNum)
+                
+                // use function, scale, and inversion to derive chord // deriveChord()
+                
+                // displace chord notes by octaves according to voice and get midi note numbers // getMidiNotesFromChord(chord)
+                
+                // send midi notes and samplePos to processedBuffer, // addEvent()
+                
+                processedBuffer.addEvent (currentMessage, samplePos);
             }
-//            processedBuffer.addEvent (currentMessage, samplePos); // Root (user selected midi note)
         }
     }
-    
-    void addTransposedNotes (juce::MidiMessage currentMessage, int samplePos)
+
+    int getChordFunctionFromUserNote(int userMidiNote)
     {
-        // test for chord function
-        auto transposedMessage  = currentMessage;
-        auto oldNoteNum = transposedMessage.getNoteNumber();
-        transposedMessage.setNoteNumber (oldNoteNum + 3); // min 3rd
-        processedBuffer.addEvent (transposedMessage, samplePos);
-
-        auto transposedMessage2  = currentMessage;
-        auto oldNoteNum2 = transposedMessage2.getNoteNumber();
-        transposedMessage2.setNoteNumber (oldNoteNum2 + 7); // 5th
-        processedBuffer.addEvent (transposedMessage2, samplePos);
-
-        auto transposedMessage3  = currentMessage;
-        auto oldNoteNum3 = transposedMessage3.getNoteNumber();
-        transposedMessage3.setNoteNumber (oldNoteNum3 + 14); // 9th
-        processedBuffer.addEvent (transposedMessage3, samplePos);
+        int function;
+        switch (userMidiNote) {
+            case 60:
+                function = 0;
+                break;
+            case 62:
+                function = 1;
+                break;
+            case 64:
+                function = 2;
+                break;
+            case 65:
+                function = 3;
+                break;
+            case 67:
+                function = 4;
+                break;
+            case 69:
+                function = 5;
+                break;
+            case 71:
+                function = 6;
+                break;
+            default:
+                break;
+        }
+        return function;
     }
+    
+    void deriveChord(int fucntion, int scale[], int inversion[], int chord[])
+    {
+        //
+    }
+    
+    void getMidiNotesFromChord(int chord, int midiNotes)
+    {
+        //
+    }
+    
     juce::MidiBuffer processedBuffer;
 };

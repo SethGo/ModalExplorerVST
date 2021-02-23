@@ -12,7 +12,8 @@
 #include "RbComponent.h"
 
 //==============================================================================
-RbComponent::RbComponent()
+RbComponent::RbComponent(ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -25,6 +26,7 @@ RbComponent::RbComponent()
     rbKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     rbKnob.setRange (0, 18, 1);
     rbKnob.onValueChange = [this] { changeRbMode(); };
+    rbKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RB", rbKnob);
     
     // Mode status display (to be made dynamic eventually)
     addAndMakeVisible (modeDisplay);

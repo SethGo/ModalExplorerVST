@@ -11,7 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-
+#include "PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -19,7 +19,7 @@
 class NegHarmComponent  : public juce::Component
 {
 public:
-    NegHarmComponent();
+    NegHarmComponent(ModalExplorerVSTAudioProcessor&);
     ~NegHarmComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -31,6 +31,10 @@ public:
 private:
     juce::TextButton negHarmBtn;
     juce::Label sectionHeading;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> negHarmBtnAttachment;
+    
+    ModalExplorerVSTAudioProcessor& audioProcessor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NegHarmComponent)
 };

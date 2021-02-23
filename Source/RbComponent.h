@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -18,7 +19,7 @@
 class RbComponent  : public juce::Component
 {
 public:
-    RbComponent();
+    RbComponent(ModalExplorerVSTAudioProcessor&);
     ~RbComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -32,6 +33,10 @@ private:
     juce::Label sectionHeading;
     juce::Slider rbKnob;
     juce::Label modeDisplay;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> rbKnobAttachment;
+    
+    ModalExplorerVSTAudioProcessor& audioProcessor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RbComponent)
 };

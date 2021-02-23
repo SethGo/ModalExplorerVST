@@ -54,8 +54,8 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void deriveScale(int scale[]);
-    void deriveInversion(int inversion[]);
+    void getScale(int scale[]);
+    void getInversion(int inversion[]);
     int translateAlterationSliderToChromaticValue(int alterationSliderValue);
     
     juce::AudioProcessorValueTreeState apvts;
@@ -63,6 +63,29 @@ public:
 
 private:
     const int BASE_SCALE[7] = { 0, 2, 4, 5, 7, 9, 11 };
+    const int NEGATIVE_BASE_SCALE[7] = { 7, 5, 3, 2, 0, 10, 8 };
+    const int RB_ALTERATION_MATRIX[18][7] =
+    {
+        { 0, -1, 0, 0, 0, -1, 0 },
+        { 0, -1, 0, 0, 0, 0, 0 },
+        { 0, -1, 0, 0, 0, 1, 0 },
+        { 0, -1, 0, 1, 0, -1, 0 },
+        { 0, -1, 0, 1, 0, 0, 0 },
+        { 0, -1, 0, 1, 0, 1, 0 },
+        { 0, 0, 0, 0, 0, -1, 0 },
+        { 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 1, 0 },
+        { 0, 0, 0, 1, 0, -1, 0 },
+        { 0, 0, 0, 1, 0, 0, 0 },
+        { 0, 0, 0, 1, 0, 1, 0 },
+        { 0, 1, 0, 0, 0, -1, 0 },
+        { 0, 1, 0, 0, 0, 0, 0 },
+        { 0, 1, 0, 0, 0, 1, 0 },
+        { 0, 1, 0, 1, 0, -1, 0 },
+        { 0, 1, 0, 1, 0, 0, 0 },
+        { 0, 1, 0, 1, 0, 1, 0 }
+    };
+    
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
     
     //==============================================================================

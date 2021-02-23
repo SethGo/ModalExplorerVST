@@ -220,9 +220,6 @@ void ScaleSelectionComponent::updateScale()
 //        scale[i] = (base[i] + (int)keyKnob.getValue() + tempAltArr[i]) % 12;
     }
     
-    // in either case, IF neg-harm on, then change the resulting scale like this...
-    
-    // then after that, in all cases, set the new scale
     note2.setText (noteNames[scale[1]], juce::NotificationType::dontSendNotification);
     note3.setText (noteNames[scale[2]], juce::NotificationType::dontSendNotification);
     note4.setText (noteNames[scale[3]], juce::NotificationType::dontSendNotification);

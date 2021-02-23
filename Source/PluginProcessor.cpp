@@ -133,10 +133,11 @@ void ModalExplorerVSTAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
 {
     buffer.clear();
     
+    // if (needUpdate) ...
     int scale[7];
-    deriveScale(scale);
     int inversion[4];
-    deriveInversion(inversion);
+    getScale(scale);
+    getInversion(inversion);
 
     midiProcessor.process (midiMessages, scale, inversion);
 }
@@ -177,18 +178,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout ModalExplorerVSTAudioProcess
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
     
-    params.push_back(std::make_unique<juce::AudioParameterInt>("KEY", "Key", 0, 11, 0));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT2", "Alt2", 0, 2, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT3", "Alt3", 0, 2, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT4", "Alt4", 0, 2, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT5", "Alt5", 0, 2, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT6", "Alt6", 0, 2, 1));
-    params.push_back(std::make_unique<juce::AudioParameterInt>("ALT7", "Alt7", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("KEY", "Key", 0, 11, 0));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT2", "Alt2", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT3", "Alt3", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT4", "Alt4", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT5", "Alt5", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT6", "Alt6", 0, 2, 1));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT7", "Alt7", 0, 2, 1));
+    
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("RB", "Rb", 0, 18, 0));
+    params.push_back (std::make_unique<juce::AudioParameterBool> ("NEG", "Neg", false));
     
     return { params.begin(), params.end() };
 };
 
-void ModalExplorerVSTAudioProcessor::deriveScale(int scale[])
+void ModalExplorerVSTAudioProcessor::getScale(int scale[])
 {
     int key = apvts.getRawParameterValue ("KEY")->load();
     int noteAlt2 = apvts.getRawParameterValue ("ALT2")->load();
@@ -198,27 +202,60 @@ void ModalExplorerVSTAudioProcessor::deriveScale(int scale[])
     int noteAlt6 = apvts.getRawParameterValue ("ALT6")->load();
     int noteAlt7 = apvts.getRawParameterValue ("ALT7")->load();
     
-    int rawAlterationArray[7] = { 0, noteAlt2, noteAlt3, noteAlt4, noteAlt5, noteAlt6, noteAlt7 };
-    int alterationArray[7];
-    for (int i = 1; i < 7; i++)
-    {
-        alterationArray[i] = translateAlterationSliderToChromaticValue (rawAlterationArray[i]);
-    }
+    int rbMode = apvts.getRawParameterValue("RB")->load();
+    int negHarmOn = apvts.getRawParameterValue("NEG")->load();
     
+    // Determine alteration array from either RbMode selection or user input
+    int alterationArray[7] = { 0, 0, 0, 0, 0, 0, 0 };
+    if (rbMode > 0)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            alterationArray[i] = RB_ALTERATION_MATRIX[rbMode - 1][i];
+        }
+    }
+    else
+    {
+        int rawAlterationArray[7] = { 0, noteAlt2, noteAlt3, noteAlt4, noteAlt5, noteAlt6, noteAlt7 };
+        for (int i = 1; i < 7; i++)
+        {
+            alterationArray[i] = translateAlterationSliderToChromaticValue (rawAlterationArray[i]);
+        }
+    }
+
+    // Translate to negative mode if it is turned on
+    int base[7];
+    if (!negHarmOn)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            base[i] = BASE_SCALE[i];
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            base[i] = NEGATIVE_BASE_SCALE[i];
+            alterationArray[i] *= -1;
+        }
+    }
+
+    // Set scale, integrate key and alteration data
     for (int i = 0; i < 7; i++)
     {
-        scale[i] = (BASE_SCALE[i] + key + alterationArray[i]) % 12;
+        scale[i] = (base[i] + key + alterationArray[i]) % 12;
     }
 }
 
-void ModalExplorerVSTAudioProcessor::deriveInversion(int inversion[])
+void ModalExplorerVSTAudioProcessor::getInversion(int inversion[])
 {
-    // Get inversion data here
+    // Get inversion knob data here
 }
 
 int ModalExplorerVSTAudioProcessor::translateAlterationSliderToChromaticValue(int alterationSliderValue)
 {
-    int chromaticValue;
+    int chromaticValue = 0;
     switch (alterationSliderValue) {
         case 0: // Flat
             chromaticValue = -1;

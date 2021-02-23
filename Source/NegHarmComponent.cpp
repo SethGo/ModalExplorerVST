@@ -12,7 +12,8 @@
 #include "NegHarmComponent.h"
 
 //==============================================================================
-NegHarmComponent::NegHarmComponent()
+NegHarmComponent::NegHarmComponent(ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     
     addAndMakeVisible (sectionHeading);
@@ -21,9 +22,12 @@ NegHarmComponent::NegHarmComponent()
     
     // Neg-harm button
     addAndMakeVisible (negHarmBtn);
+    negHarmBtn.setClickingTogglesState (true);
     negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
     negHarmBtn.setButtonText ("off");
     negHarmBtn.onClick = [this] { toggleNegHarm(); };
+    
+    negHarmBtnAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (audioProcessor.apvts, "NEG", negHarmBtn);
 
 }
 
@@ -60,11 +64,11 @@ void NegHarmComponent::toggleNegHarm()
     if (negHarmOn)
     {
         negHarmBtn.setButtonText ("on");
-        negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
+//        negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
     }
     else
     {
         negHarmBtn.setButtonText ("off");
-        negHarmBtn.setToggleState (true, juce::NotificationType::dontSendNotification);
+//        negHarmBtn.setToggleState (true, juce::NotificationType::dontSendNotification);
     }
 }

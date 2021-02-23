@@ -11,7 +11,7 @@
 
 //==============================================================================
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
-: AudioProcessorEditor (&p), scaleSelectionComponent(p), audioProcessor (p) 
+: AudioProcessorEditor (&p), scaleSelectionComponent(p), rbComponent(p), negHarmComponent (p), audioProcessor (p)
 {
     addAndMakeVisible (inversionComponent);
     addAndMakeVisible (scaleSelectionComponent);
