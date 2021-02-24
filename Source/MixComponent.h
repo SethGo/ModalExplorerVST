@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -18,7 +19,7 @@
 class MixComponent  : public juce::Component
 {
 public:
-    MixComponent();
+    MixComponent (ModalExplorerVSTAudioProcessor&);
     ~MixComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -27,6 +28,13 @@ public:
 private:
     juce::Label sectionHeading;
     juce::Slider mixSliderS, mixSliderA, mixSliderT, mixSliderB;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderSAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderAAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderTAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderBAttachment;
+    
+    ModalExplorerVSTAudioProcessor& audioProcessor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixComponent)
 };

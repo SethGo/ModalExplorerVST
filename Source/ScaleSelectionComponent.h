@@ -25,7 +25,6 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    void changeKey();
     void updateScale();
     std::string getAccidental (int sliderVal);
     int getAlterationValue (std::string accidental);

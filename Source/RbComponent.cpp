@@ -24,7 +24,6 @@ RbComponent::RbComponent(ModalExplorerVSTAudioProcessor& p)
     addAndMakeVisible (rbKnob);
     rbKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     rbKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    rbKnob.setRange (0, 18, 1);
     rbKnob.onValueChange = [this] { changeRbMode(); };
     rbKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RB", rbKnob);
     

@@ -132,14 +132,14 @@ bool ModalExplorerVSTAudioProcessor::isBusesLayoutSupported (const BusesLayout& 
 void ModalExplorerVSTAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     buffer.clear();
-    
-    // if (needUpdate) ...
     int scale[7];
     int inversion[4];
-    getScale(scale);
-    getInversion(inversion);
+    float velocities[4];
+    getScale (scale);
+    getInversion (inversion);
+    getVelocities (velocities);
 
-    midiProcessor.process (midiMessages, scale, inversion);
+    midiProcessor.process (midiMessages, scale, inversion, velocities);
 }
 
 //==============================================================================
@@ -186,13 +186,24 @@ juce::AudioProcessorValueTreeState::ParameterLayout ModalExplorerVSTAudioProcess
     params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT6", "Alt6", 0, 2, 1));
     params.push_back (std::make_unique<juce::AudioParameterInt> ("ALT7", "Alt7", 0, 2, 1));
     
-    params.push_back (std::make_unique<juce::AudioParameterInt> ("RB", "Rb", 0, 18, 0));
     params.push_back (std::make_unique<juce::AudioParameterBool> ("NEG", "Neg", false));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("RB", "Rb", 0, 18, 0));
+    params.push_back (std::make_unique<juce::AudioParameterFloat> ("OUT", "Out", 0.0f, 1.0f, 0.9f));
+    
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("INVS", "InvS", 0, 7, 7));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("INVA", "InvA", 0, 7, 5));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("INVT", "InvT", 0, 7, 3));
+    params.push_back (std::make_unique<juce::AudioParameterInt> ("INVB", "InvB", 0, 7, 1));
+//
+    params.push_back (std::make_unique<juce::AudioParameterFloat> ("MIXS", "MixS", 0.0f, 1.0f, 0.8f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat> ("MIXA", "MixA", 0.0f, 1.0f, 0.8f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat> ("MIXT", "MixT", 0.0f, 1.0f, 0.8f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat> ("MIXB", "MixB", 0.0f, 1.0f, 0.8f));
     
     return { params.begin(), params.end() };
 };
 
-void ModalExplorerVSTAudioProcessor::getScale(int scale[])
+void ModalExplorerVSTAudioProcessor::getScale (int scale[])
 {
     int key = apvts.getRawParameterValue ("KEY")->load();
     int noteAlt2 = apvts.getRawParameterValue ("ALT2")->load();
@@ -248,12 +259,20 @@ void ModalExplorerVSTAudioProcessor::getScale(int scale[])
     }
 }
 
-void ModalExplorerVSTAudioProcessor::getInversion(int inversion[])
+void ModalExplorerVSTAudioProcessor::getInversion (int inversion[])
 {
-    // Get inversion knob data here
+    int bassVoiceFunction = apvts.getRawParameterValue ("INVB")->load();
+    int tenorVoiceFunction = apvts.getRawParameterValue ("INVT")->load();
+    int altoVoiceFunction = apvts.getRawParameterValue ("INVA")->load();
+    int sopranoVoiceFunction = apvts.getRawParameterValue ("INVS")->load();
+
+    inversion[0] = bassVoiceFunction; // Bass
+    inversion[1] = tenorVoiceFunction; // Tenor
+    inversion[2] = altoVoiceFunction; // Alto
+    inversion[3] = sopranoVoiceFunction; // Soprano
 }
 
-int ModalExplorerVSTAudioProcessor::translateAlterationSliderToChromaticValue(int alterationSliderValue)
+int ModalExplorerVSTAudioProcessor::translateAlterationSliderToChromaticValue (int alterationSliderValue)
 {
     int chromaticValue = 0;
     switch (alterationSliderValue) {
@@ -270,4 +289,18 @@ int ModalExplorerVSTAudioProcessor::translateAlterationSliderToChromaticValue(in
             break;
     }
     return chromaticValue;
+}
+
+void ModalExplorerVSTAudioProcessor::getVelocities (float velocities[])
+{
+    float bassVelocity = apvts.getRawParameterValue ("MIXB")->load();
+    float tenorVelocity = apvts.getRawParameterValue ("MIXT")->load();
+    float altoVelocity = apvts.getRawParameterValue ("MIXA")->load();
+    float sopranoVelocity = apvts.getRawParameterValue ("MIXS")->load();
+    float outputLevel = apvts.getRawParameterValue ("OUT")->load();
+    
+    velocities[0] = bassVelocity * outputLevel;
+    velocities[1] = tenorVelocity * outputLevel;
+    velocities[2] = altoVelocity * outputLevel;
+    velocities[3] = sopranoVelocity * outputLevel;
 }

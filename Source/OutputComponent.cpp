@@ -12,7 +12,8 @@
 #include "OutputComponent.h"
 
 //==============================================================================
-OutputComponent::OutputComponent()
+OutputComponent::OutputComponent (ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -23,7 +24,8 @@ OutputComponent::OutputComponent()
     addAndMakeVisible (outputKnob);
     outputKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     outputKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    outputKnob.setRange (0.0f, 1.0f, 0.01f);
+    
+    outputKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "OUT", outputKnob);
 
 }
 

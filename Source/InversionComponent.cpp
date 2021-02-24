@@ -12,7 +12,8 @@
 #include "InversionComponent.h"
 
 //==============================================================================
-InversionComponent::InversionComponent()
+InversionComponent::InversionComponent (ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -22,44 +23,37 @@ InversionComponent::InversionComponent()
     // Inversion control knobs
     addAndMakeVisible (invKnobS); // Soprano
     invKnobS.setSliderStyle (juce::Slider::RotaryVerticalDrag);
-    invKnobS.setRange (0, 7, 1);
-    invKnobS.setValue (7);
     invKnobS.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobS.onValueChange = [this] { changeVoice(3); };
+    
+    invKnobSAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "INVS", invKnobS);
 
     addAndMakeVisible (invKnobA); // Alto
     invKnobA.setSliderStyle (juce::Slider::RotaryVerticalDrag);
-    invKnobA.setRange(0, 7, 1);
-    invKnobA.setValue (5);
     invKnobA.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobA.onValueChange = [this] { changeVoice(2); };
     
+    invKnobAAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "INVA", invKnobA);
+    
     addAndMakeVisible  (invKnobT); // Tenor
     invKnobT.setSliderStyle (juce::Slider::RotaryVerticalDrag);
-    invKnobT.setRange (0, 7, 1);
-    invKnobT.setValue (3);
     invKnobT.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobT.onValueChange = [this] { changeVoice(1); };
     
+    invKnobTAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "INVT", invKnobT);
+    
     addAndMakeVisible (invKnobB); // Bass
     invKnobB.setSliderStyle (juce::Slider::RotaryVerticalDrag);
-    invKnobB.setRange (0, 7, 1);
-    invKnobB.setValue (1);
     invKnobB.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobB.onValueChange = [this] { changeVoice(0); };
     
-    // Voice function labels (To be made dynamic eventually)
-    addAndMakeVisible (invLabelS);
-    invLabelS.setText ("7", juce::dontSendNotification);
+    invKnobBAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "INVB", invKnobB);
     
+    // Voice function labels
+    addAndMakeVisible (invLabelS);;
     addAndMakeVisible (invLabelA);
-    invLabelA.setText ("5", juce::dontSendNotification);
-    
     addAndMakeVisible (invLabelT);
-    invLabelT.setText ("3", juce::dontSendNotification);
-    
     addAndMakeVisible (invLabelB);
-    invLabelB.setText ("1", juce::dontSendNotification);
 }
 
 InversionComponent::~InversionComponent()
@@ -95,7 +89,6 @@ void InversionComponent::resized()
     invLabelA.setBounds (area.removeFromTop (voiceYOffset));
     invLabelT.setBounds (area.removeFromTop (voiceYOffset));
     invLabelB.setBounds (area);
-
 }
 
 void InversionComponent::changeVoice (int voice)

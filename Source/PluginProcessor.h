@@ -54,9 +54,11 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void getScale(int scale[]);
-    void getInversion(int inversion[]);
-    int translateAlterationSliderToChromaticValue(int alterationSliderValue);
+    void getScale (int scale[]);
+    void getInversion (int inversion[]);
+    int translateAlterationSliderToChromaticValue (int alterationSliderValue);
+    void getVelocities (float velocities[]);
+    int i = 0;
     
     juce::AudioProcessorValueTreeState apvts;
     MidiProcessor midiProcessor;

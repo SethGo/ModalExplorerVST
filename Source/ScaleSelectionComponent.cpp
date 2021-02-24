@@ -48,8 +48,7 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (keyKnob);
     keyKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     keyKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    keyKnob.onValueChange = [this] { changeKey(); };
-    keyKnob.setRange(0, 11, 1);
+    keyKnob.onValueChange = [this] { changeNote(0); };
     
     keyKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "KEY", keyKnob);
     
@@ -57,17 +56,13 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (noteAltSlider2);
     noteAltSlider2.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider2.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider2.setRange (0, 2, 1);
-    noteAltSlider2.setValue (1);
-    noteAltSlider2.onValueChange = [this] { changeNote(1); }; // scale degree 2 is '1' in the array
+    noteAltSlider2.onValueChange = [this] { changeNote(1); };
     
     noteAltSlider2Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT2", noteAltSlider2);
     
     addAndMakeVisible (noteAltSlider3);
     noteAltSlider3.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider3.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider3.setRange (0, 2, 1);
-    noteAltSlider3.setValue (1);
     noteAltSlider3.onValueChange = [this] { changeNote(2); };
     
     noteAltSlider3Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT3", noteAltSlider3);
@@ -75,8 +70,6 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (noteAltSlider4);
     noteAltSlider4.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider4.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider4.setRange (0, 2, 1);
-    noteAltSlider4.setValue (1);
     noteAltSlider4.onValueChange = [this] { changeNote(3); };
     
     noteAltSlider4Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT4", noteAltSlider4);
@@ -84,8 +77,6 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (noteAltSlider5);
     noteAltSlider5.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider5.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider5.setRange (0, 2, 1);
-    noteAltSlider5.setValue (1);
     noteAltSlider5.onValueChange = [this] { changeNote(4); };
     
     noteAltSlider5Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT5", noteAltSlider5);
@@ -93,8 +84,6 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (noteAltSlider6);
     noteAltSlider6.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider6.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider6.setRange (0, 2, 1);
-    noteAltSlider6.setValue (1);
     noteAltSlider6.onValueChange = [this] { changeNote(5); };
     
     noteAltSlider6Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT6", noteAltSlider6);
@@ -102,43 +91,33 @@ ScaleSelectionComponent::ScaleSelectionComponent(ModalExplorerVSTAudioProcessor&
     addAndMakeVisible (noteAltSlider7);
     noteAltSlider7.setSliderStyle (juce::Slider::LinearVertical);
     noteAltSlider7.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
-    noteAltSlider7.setRange (0, 2, 1);
-    noteAltSlider7.setValue (1);
     noteAltSlider7.onValueChange = [this] { changeNote(6); };
     
     noteAltSlider7Attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ALT7", noteAltSlider7);
     
     // Actual note display labels (to be made dynamic eventually)
     addAndMakeVisible (note1);
-    note1.setText ("C", juce::dontSendNotification);
     note1.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note2);
-    note2.setText ("D", juce::dontSendNotification);
     note2.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note3);
-    note3.setText ("E", juce::dontSendNotification);
     note3.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note4);
-    note4.setText ("F", juce::dontSendNotification);
     note4.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note5);
-    note5.setText ("G", juce::dontSendNotification);
     note5.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note6);
-    note6.setText ("A", juce::dontSendNotification);
     note6.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible (note7);
-    note7.setText ("B", juce::dontSendNotification);
     note7.setJustificationType(juce::Justification::centred);
     
-    // TODO: Put as much of this code into custom LookAndFeel's as possible
-
+    updateScale();
 }
 
 ScaleSelectionComponent::~ScaleSelectionComponent()
@@ -200,39 +179,22 @@ void ScaleSelectionComponent::resized()
     romNum7.setBounds (area.removeFromTop (romNumRowSpacing));
     noteAltSlider7.setBounds (area.removeFromTop (sliderRowSpacing));
     note7.setBounds (area);
-
 }
 
 void ScaleSelectionComponent::updateScale()
 {
-
-    // int base[7] = BASE_SCALE;
-    // if NegHarmOn ... change base scale to negative base scale
-    
-    // int tempAltArr[7] = alterationArray;
-    // if rb mode then ... turn off note alt functionality, change tempAltArr to rbAltArr, move noteAltSliders
-
-    // ELSE, this normal way of assigning scale...
-    
     for (int i = 0; i < 7; i++)
     {
         scale[i] = (BASE_SCALE[i] + (int)keyKnob.getValue() + alterationArray[i]) % 12;
-//        scale[i] = (base[i] + (int)keyKnob.getValue() + tempAltArr[i]) % 12;
     }
     
+    note1.setText (noteNames[scale[0]], juce::NotificationType::dontSendNotification);
     note2.setText (noteNames[scale[1]], juce::NotificationType::dontSendNotification);
     note3.setText (noteNames[scale[2]], juce::NotificationType::dontSendNotification);
     note4.setText (noteNames[scale[3]], juce::NotificationType::dontSendNotification);
     note5.setText (noteNames[scale[4]], juce::NotificationType::dontSendNotification);
     note6.setText (noteNames[scale[5]], juce::NotificationType::dontSendNotification);
     note7.setText (noteNames[scale[6]], juce::NotificationType::dontSendNotification);
-}
-
-void ScaleSelectionComponent::changeKey()
-{
-    std::string keyString = noteNames [(int)keyKnob.getValue()];
-    note1.setText (keyString, juce::dontSendNotification);
-    updateScale();
 }
 
 std::string ScaleSelectionComponent::getAccidental (int sliderVal)

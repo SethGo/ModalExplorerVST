@@ -15,42 +15,51 @@
 class MidiProcessor
 {
 public:
-    void process (juce::MidiBuffer& midiMessages, int scale[], int invrsion[])
+    void process (juce::MidiBuffer& midiMessages, int scale[], int inversion[], float velocities[])
     {
         processedBuffer.clear();
-        processMidiInput (midiMessages);
+        processMidiInput (midiMessages, scale, inversion, velocities);
         midiMessages.swapWith (processedBuffer);
     }
     
-    void processMidiInput (const juce::MidiBuffer& midiMessages)
+    void processMidiInput (const juce::MidiBuffer& midiMessages, int scale[], int inversion[], float velocities[])
     {
         juce::MidiBuffer::Iterator it (midiMessages);
         juce::MidiMessage currentMessage;
         int samplePos;
         
-        while (it.getNextEvent(currentMessage, samplePos))
+        while (it.getNextEvent (currentMessage, samplePos))
         {
-            if (currentMessage.isNoteOnOrOff())
+            int userMidiNoteNum = currentMessage.getNoteNumber();
+            if (userSelectedAvailableNote (userMidiNoteNum))
             {
-                // if user note is one of these {60, 62, 64, 65, 67, 69, 71}, then do all the code... else do nothing
-                
-                // translate user note to chord function // noteNum = currentMessage.getNoteNumber() ... getChordFunctionFromUserNote(noteNum)
-                
-                // use function, scale, and inversion to derive chord // deriveChord()
-                
-                // displace chord notes by octaves according to voice and get midi note numbers // getMidiNotesFromChord(chord)
-                
-                // send midi notes and samplePos to processedBuffer, // addEvent()
-                
-                processedBuffer.addEvent (currentMessage, samplePos);
+                int chordNotes[4];
+                int chordMidiNotes[4] = { 0, 0, 0, 0 };
+                int function = getChordFunctionFromUserNote (userMidiNoteNum);
+                deriveChord (function, scale, inversion, chordNotes);
+                getMidiNotesFromChord (chordNotes, chordMidiNotes);
+                addChordToMidiBuffer (currentMessage, chordMidiNotes, velocities, samplePos);
             }
         }
     }
+    
+    bool userSelectedAvailableNote (int userNote)
+    {
+        const int availableNotes[7] = { 60, 62, 64, 65, 67, 69, 71 }; // White keys starting on middle C
+        for (int i = 0; i < 7; i++)
+        {
+            if (userNote == availableNotes[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    int getChordFunctionFromUserNote(int userMidiNote)
+    int getChordFunctionFromUserNote (int userMidiNoteNum)
     {
         int function;
-        switch (userMidiNote) {
+        switch (userMidiNoteNum) {
             case 60:
                 function = 0;
                 break;
@@ -78,14 +87,70 @@ public:
         return function;
     }
     
-    void deriveChord(int fucntion, int scale[], int inversion[], int chord[])
+    void deriveChord (int function, int scale[], int inversion[], int chordNotes[])
     {
-        //
+        for (int i = 0; i < 4; i++)
+        {
+            if (inversion[i] != 0)
+            {
+                int scaleIndex = (inversion[i] - 1 + function) % 7;
+                chordNotes[i] = (scale[scaleIndex]);
+            }
+            else
+            {
+                chordNotes[i] = 12; // note '12' will turn this voice off
+            }
+        }
     }
     
-    void getMidiNotesFromChord(int chord, int midiNotes)
+    void getMidiNotesFromChord (int chordNotes[], int chordMidiNotes[])
     {
-        //
+        for (int i = 0; i < 4; i++)
+        {
+            if (chordNotes[i] < 12)
+            {
+                chordMidiNotes[i] = chordNotes[i] + 48 + 12 * i;
+            }
+            else
+            {
+                chordMidiNotes[i] = 0;
+            }
+        }
+    }
+    
+    void addChordToMidiBuffer (juce::MidiMessage currentMessage, int chordMidiNotes[], float velocities[], int samplePos)
+    {
+        if (chordMidiNotes[0] > 0)
+        {
+            auto bassMidiMessage  = currentMessage;
+            bassMidiMessage.setNoteNumber (chordMidiNotes[0]);
+            bassMidiMessage.setVelocity (velocities[0]);
+            processedBuffer.addEvent (bassMidiMessage, samplePos);
+        }
+        
+        if (chordMidiNotes[1] > 0)
+        {
+            auto tenorMidiMessage  = currentMessage;
+            tenorMidiMessage.setNoteNumber (chordMidiNotes[1]);
+            tenorMidiMessage.setVelocity (velocities[1]);
+            processedBuffer.addEvent (tenorMidiMessage, samplePos);
+        }
+           
+        if (chordMidiNotes[2] > 0)
+        {
+            auto altoMidiMessage  = currentMessage;
+            altoMidiMessage.setNoteNumber (chordMidiNotes[2]);
+            altoMidiMessage.setVelocity (velocities[2]);
+            processedBuffer.addEvent (altoMidiMessage, samplePos);
+        }
+        
+        if (chordMidiNotes[3] > 0)
+        {
+            auto sopranoMidiMessage  = currentMessage;
+            sopranoMidiMessage.setNoteNumber (chordMidiNotes[3]);
+            sopranoMidiMessage.setVelocity (velocities[3]);
+            processedBuffer.addEvent (sopranoMidiMessage, samplePos);
+        }
     }
     
     juce::MidiBuffer processedBuffer;

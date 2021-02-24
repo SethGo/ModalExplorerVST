@@ -12,7 +12,8 @@
 #include "MixComponent.h"
 
 //==============================================================================
-MixComponent::MixComponent()
+MixComponent::MixComponent (ModalExplorerVSTAudioProcessor& p)
+: audioProcessor (p)
 {
     // Section heading
     addAndMakeVisible (sectionHeading);
@@ -26,11 +27,15 @@ MixComponent::MixComponent()
     mixSliderS.setValue (0.8f);
     mixSliderS.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 0, 0);
     
+    mixSliderSAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "MIXS", mixSliderS);
+    
     addAndMakeVisible (mixSliderA); // Alto
     mixSliderA.setSliderStyle (juce::Slider::LinearBar);
     mixSliderA.setRange (0.0f, 1.0f, 0.01f);
     mixSliderA.setValue (0.8f);
     mixSliderA.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 0, 0);
+    
+    mixSliderAAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "MIXA", mixSliderA);
     
     addAndMakeVisible (mixSliderT); // Tenor
     mixSliderT.setSliderStyle (juce::Slider::LinearBar);
@@ -38,11 +43,15 @@ MixComponent::MixComponent()
     mixSliderT.setValue (0.8f);
     mixSliderT.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 0, 0);
     
+    mixSliderTAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "MIXT", mixSliderT);
+    
     addAndMakeVisible (mixSliderB); // Bass
     mixSliderB.setSliderStyle (juce::Slider::LinearBar);
     mixSliderB.setRange (0.0f, 1.0f, 0.01f);
     mixSliderB.setValue (0.8f);
     mixSliderB.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 0, 0);
+    
+    mixSliderBAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "MIXB", mixSliderB);
 
 }
 

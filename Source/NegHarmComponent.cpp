@@ -15,7 +15,6 @@
 NegHarmComponent::NegHarmComponent(ModalExplorerVSTAudioProcessor& p)
 : audioProcessor (p)
 {
-    
     addAndMakeVisible (sectionHeading);
     sectionHeading.setText ("NEG-HARM", juce::NotificationType::dontSendNotification);
     sectionHeading.setJustificationType (juce::Justification::centred);
@@ -28,7 +27,6 @@ NegHarmComponent::NegHarmComponent(ModalExplorerVSTAudioProcessor& p)
     negHarmBtn.onClick = [this] { toggleNegHarm(); };
     
     negHarmBtnAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (audioProcessor.apvts, "NEG", negHarmBtn);
-
 }
 
 NegHarmComponent::~NegHarmComponent()
