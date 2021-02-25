@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "LooksAndFeels.h"
 
 //==============================================================================
 /*
@@ -33,6 +34,9 @@ private:
     juce::Label sectionHeading;
     juce::Slider rbKnob;
     juce::Label modeDisplay;
+    KnobLookAndFeel knobLookAndFeel;
+    BlueTextLookAndFeel blueTextLookAndFeel;
+    CustomLookAndFeel customLookAndFeel;
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> rbKnobAttachment;
     

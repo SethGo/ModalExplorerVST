@@ -18,11 +18,13 @@ InversionComponent::InversionComponent (ModalExplorerVSTAudioProcessor& p)
     // Section heading
     addAndMakeVisible (sectionHeading);
     sectionHeading.setText ("INVERSION", juce::dontSendNotification);
+    sectionHeading.setLookAndFeel (&blueTextLookAndFeel);
     sectionHeading.setJustificationType (juce::Justification::centred);
     
     // Inversion control knobs
     addAndMakeVisible (invKnobS); // Soprano
     invKnobS.setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    invKnobS.setLookAndFeel (&knobLookAndFeel);
     invKnobS.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobS.onValueChange = [this] { changeVoice(3); };
     
@@ -30,6 +32,7 @@ InversionComponent::InversionComponent (ModalExplorerVSTAudioProcessor& p)
 
     addAndMakeVisible (invKnobA); // Alto
     invKnobA.setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    invKnobA.setLookAndFeel (&knobLookAndFeel);
     invKnobA.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobA.onValueChange = [this] { changeVoice(2); };
     
@@ -37,6 +40,7 @@ InversionComponent::InversionComponent (ModalExplorerVSTAudioProcessor& p)
     
     addAndMakeVisible  (invKnobT); // Tenor
     invKnobT.setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    invKnobT.setLookAndFeel (&knobLookAndFeel);
     invKnobT.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobT.onValueChange = [this] { changeVoice(1); };
     
@@ -44,16 +48,31 @@ InversionComponent::InversionComponent (ModalExplorerVSTAudioProcessor& p)
     
     addAndMakeVisible (invKnobB); // Bass
     invKnobB.setSliderStyle (juce::Slider::RotaryVerticalDrag);
+    invKnobB.setLookAndFeel (&knobLookAndFeel);
     invKnobB.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
     invKnobB.onValueChange = [this] { changeVoice(0); };
     
     invKnobBAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "INVB", invKnobB);
     
     // Voice function labels
+    float font = 20.0f;
     addAndMakeVisible (invLabelS);;
+    invLabelS.setLookAndFeel (&customLookAndFeel);
+    invLabelS.setFont (font);
+    
     addAndMakeVisible (invLabelA);
+    invLabelA.setLookAndFeel (&customLookAndFeel);
+    invLabelA.setFont (font);
+    
     addAndMakeVisible (invLabelT);
+    invLabelT.setLookAndFeel (&customLookAndFeel);
+    invLabelT.setFont (font);
+    
     addAndMakeVisible (invLabelB);
+    invLabelB.setLookAndFeel (&customLookAndFeel);
+    invLabelB.setFont (font);
+    
+    changeVoice(0);
 }
 
 InversionComponent::~InversionComponent()
@@ -63,8 +82,8 @@ InversionComponent::~InversionComponent()
 void InversionComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
-    g.setColour(juce::Colours::white);
-    g.drawRect (area);
+    g.setColour (juce::Colour(123, 234, 243));
+    g.drawRoundedRectangle (area.toFloat().reduced(2), 10, 2);
 }
 
 void InversionComponent::resized()
@@ -72,23 +91,24 @@ void InversionComponent::resized()
     auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.08;
+    auto headingYOffset = getHeight() * 0.1;
     sectionHeading.setBounds (area.removeFromTop (headingYOffset));
     
     // Inversion knobs
-    auto voiceColumnXOffset = getWidth() / 3;
-    auto col1 = area.removeFromLeft (voiceColumnXOffset * 2);
+    auto voiceColumnXOffset = getWidth() * 0.4;
+    auto col1 = area.removeFromLeft (voiceColumnXOffset);
     auto voiceYOffset = (getHeight() - headingYOffset) / 4;
-    invKnobS.setBounds (col1.removeFromTop (voiceYOffset));
-    invKnobA.setBounds (col1.removeFromTop (voiceYOffset));
-    invKnobT.setBounds (col1.removeFromTop (voiceYOffset));
-    invKnobB.setBounds (col1);
+    int reducedAmount = 3;
+    invKnobS.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));
+    invKnobA.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));
+    invKnobT.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));
+    invKnobB.setBounds (col1.reduced (reducedAmount));
 
     // Voice function labels
-    invLabelS.setBounds (area.removeFromTop (voiceYOffset));
-    invLabelA.setBounds (area.removeFromTop (voiceYOffset));
-    invLabelT.setBounds (area.removeFromTop (voiceYOffset));
-    invLabelB.setBounds (area);
+    invLabelS.setBounds (area.removeFromTop (voiceYOffset).removeFromRight (voiceColumnXOffset));
+    invLabelA.setBounds (area.removeFromTop (voiceYOffset).removeFromRight (voiceColumnXOffset));
+    invLabelT.setBounds (area.removeFromTop (voiceYOffset).removeFromRight (voiceColumnXOffset));
+    invLabelB.setBounds (area.removeFromRight (voiceColumnXOffset));
 }
 
 void InversionComponent::changeVoice (int voice)

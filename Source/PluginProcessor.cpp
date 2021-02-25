@@ -132,6 +132,8 @@ bool ModalExplorerVSTAudioProcessor::isBusesLayoutSupported (const BusesLayout& 
 void ModalExplorerVSTAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     buffer.clear();
+    
+    // TODO: Make this run conditionally when user clicks something
     int scale[7];
     int inversion[4];
     float velocities[4];
@@ -230,7 +232,7 @@ void ModalExplorerVSTAudioProcessor::getScale (int scale[])
         int rawAlterationArray[7] = { 0, noteAlt2, noteAlt3, noteAlt4, noteAlt5, noteAlt6, noteAlt7 };
         for (int i = 1; i < 7; i++)
         {
-            alterationArray[i] = translateAlterationSliderToChromaticValue (rawAlterationArray[i]);
+            alterationArray[i] = rawAlterationArray[i] - 1;
         }
     }
 
@@ -270,25 +272,6 @@ void ModalExplorerVSTAudioProcessor::getInversion (int inversion[])
     inversion[1] = tenorVoiceFunction; // Tenor
     inversion[2] = altoVoiceFunction; // Alto
     inversion[3] = sopranoVoiceFunction; // Soprano
-}
-
-int ModalExplorerVSTAudioProcessor::translateAlterationSliderToChromaticValue (int alterationSliderValue)
-{
-    int chromaticValue = 0;
-    switch (alterationSliderValue) {
-        case 0: // Flat
-            chromaticValue = -1;
-            break;
-        case 1: // Natural
-            chromaticValue = 0;
-            break;
-        case 2: // Sharp
-            chromaticValue = 1;
-            break;
-        default:
-            break;
-    }
-    return chromaticValue;
 }
 
 void ModalExplorerVSTAudioProcessor::getVelocities (float velocities[])

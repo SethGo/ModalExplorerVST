@@ -16,7 +16,8 @@ NegHarmComponent::NegHarmComponent(ModalExplorerVSTAudioProcessor& p)
 : audioProcessor (p)
 {
     addAndMakeVisible (sectionHeading);
-    sectionHeading.setText ("NEG-HARM", juce::NotificationType::dontSendNotification);
+    sectionHeading.setText ("NEG-HRM", juce::NotificationType::dontSendNotification);
+    sectionHeading.setLookAndFeel (&blueTextLookAndFeel);
     sectionHeading.setJustificationType (juce::Justification::centred);
     
     // Neg-harm button
@@ -24,6 +25,7 @@ NegHarmComponent::NegHarmComponent(ModalExplorerVSTAudioProcessor& p)
     negHarmBtn.setClickingTogglesState (true);
     negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
     negHarmBtn.setButtonText ("off");
+    negHarmBtn.setLookAndFeel (&customLookAndFeel);
     negHarmBtn.onClick = [this] { toggleNegHarm(); };
     
     negHarmBtnAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (audioProcessor.apvts, "NEG", negHarmBtn);
@@ -36,8 +38,8 @@ NegHarmComponent::~NegHarmComponent()
 void NegHarmComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
-    g.setColour(juce::Colours::white);
-    g.drawRect (area);
+    g.setColour (juce::Colour(123, 234, 243));
+    g.drawRoundedRectangle (area.toFloat().reduced(2), 10, 2);
 }
 
 void NegHarmComponent::resized()
@@ -62,11 +64,13 @@ void NegHarmComponent::toggleNegHarm()
     if (negHarmOn)
     {
         negHarmBtn.setButtonText ("on");
-//        negHarmBtn.setToggleState (false, juce::NotificationType::dontSendNotification);
+        negHarmMode = true;
     }
     else
     {
         negHarmBtn.setButtonText ("off");
-//        negHarmBtn.setToggleState (true, juce::NotificationType::dontSendNotification);
+        negHarmMode = false;
     }
 }
+
+

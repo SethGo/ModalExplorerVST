@@ -25,19 +25,18 @@ VerticalTitleComponent::~VerticalTitleComponent()
 
 void VerticalTitleComponent::paint (juce::Graphics& g)
 {
+    g.setColour (juce::Colour(123, 234, 243));
     auto area = getLocalBounds();
-    g.setColour(juce::Colours::white);
-    g.drawRect (area);
+    auto scaleSection = area.removeFromTop (getHeight() * 0.45);
+    g.drawRoundedRectangle (scaleSection.toFloat().reduced(2), 10, 2);
+    g.drawRoundedRectangle (area.toFloat().reduced(2), 10, 2);;
     
-    g.drawLine(0, getHeight() * 0.35, getWidth(), getHeight() * 0.35);
-    
-    auto scaleXPos = getHeight() * -0.215f;
-    auto voicingXPos = getHeight() * -0.72f;
+    auto scaleXPos = getHeight() * -0.27f;
+    auto voicingXPos = getHeight() * -0.79f;
     float fontSize = getWidth() * 0.42f;
     auto textYPos = (getWidth() + (fontSize / 2)) / 2.0f;
     
     // Vertical text for SCALE and VOICING titles
-    g.setColour (juce::Colours::white);
     juce::GlyphArrangement ga;
     ga.addLineOfText (juce::Font (fontSize), "SCALE", scaleXPos, textYPos);
     ga.addLineOfText (juce::Font (fontSize), "VOICING", voicingXPos, textYPos);

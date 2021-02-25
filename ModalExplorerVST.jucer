@@ -27,14 +27,11 @@
             file="Source/VerticalTitleComponent.h"/>
       <FILE id="eof7cj" name="InversionComponent.cpp" compile="1" resource="0"
             file="Source/InversionComponent.cpp"/>
-      <FILE id="TyWPUz" name="ChordComponent.cpp" compile="1" resource="0"
-            file="Source/ChordComponent.cpp"/>
-      <FILE id="MU6bAV" name="ChordComponent.h" compile="0" resource="0"
-            file="Source/ChordComponent.h"/>
       <FILE id="NnijNn" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="GapqzT" name="MixComponent.cpp" compile="1" resource="0"
             file="Source/MixComponent.cpp"/>
       <FILE id="uL9LI6" name="MixComponent.h" compile="0" resource="0" file="Source/MixComponent.h"/>
+      <FILE id="HJDA23" name="LooksAndFeels.h" compile="0" resource="0" file="Source/LooksAndFeels.h"/>
       <FILE id="Ds2VXY" name="OutputComponent.cpp" compile="1" resource="0"
             file="Source/OutputComponent.cpp"/>
       <FILE id="gKyGGS" name="OutputComponent.h" compile="0" resource="0"

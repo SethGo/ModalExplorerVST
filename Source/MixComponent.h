@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "LooksAndFeels.h"
 
 //==============================================================================
 /*
@@ -28,6 +29,8 @@ public:
 private:
     juce::Label sectionHeading;
     juce::Slider mixSliderS, mixSliderA, mixSliderT, mixSliderB;
+    CustomLookAndFeel customLookAndFeel;
+    BlueTextLookAndFeel blueTextLookAndFeel;
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderSAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> mixSliderAAttachment;

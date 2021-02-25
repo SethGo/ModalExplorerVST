@@ -16,10 +16,8 @@
 #include "RbComponent.h"
 #include "OutputComponent.h"
 #include "InversionComponent.h"
-#include "ChordComponent.h"
 #include "MixComponent.h"
-
-
+#include "LooksAndFeels.h"
 
 //==============================================================================
 /**
@@ -41,7 +39,6 @@ private:
     RbComponent rbComponent;
     VerticalTitleComponent verticalTitleComponent;
     OutputComponent outputComponent;
-    ChordComponent chordComponent;
     MixComponent mixComponent;
     
     ModalExplorerVSTAudioProcessor& audioProcessor;

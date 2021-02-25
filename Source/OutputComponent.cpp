@@ -18,12 +18,14 @@ OutputComponent::OutputComponent (ModalExplorerVSTAudioProcessor& p)
     // Section heading
     addAndMakeVisible (sectionHeading);
     sectionHeading.setText ("OUTPUT", juce::NotificationType::dontSendNotification);
+    sectionHeading.setLookAndFeel (&blueTextLookAndFeel);
     sectionHeading.setJustificationType (juce::Justification::centred);
     
     // Output knob
     addAndMakeVisible (outputKnob);
     outputKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     outputKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    outputKnob.setLookAndFeel (&knobLookAndFeel);
     
     outputKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "OUT", outputKnob);
 
@@ -36,8 +38,8 @@ OutputComponent::~OutputComponent()
 void OutputComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
-    g.setColour(juce::Colours::white);
-    g.drawRect (area);
+    g.setColour (juce::Colour(123, 234, 243));
+    g.drawRoundedRectangle (area.toFloat().reduced(2), 10, 2);
 }
 
 void OutputComponent::resized()

@@ -39,6 +39,7 @@ public:
                 deriveChord (function, scale, inversion, chordNotes);
                 getMidiNotesFromChord (chordNotes, chordMidiNotes);
                 addChordToMidiBuffer (currentMessage, chordMidiNotes, velocities, samplePos);
+                // need to find some way to ensure all midi notes get turned off when key is released
             }
         }
     }
@@ -109,7 +110,7 @@ public:
         {
             if (chordNotes[i] < 12)
             {
-                chordMidiNotes[i] = chordNotes[i] + 48 + 12 * i;
+                chordMidiNotes[i] = chordNotes[i] + 36 + 12 * i; // note + (middle C - 1 octave) + (one octave * voice)
             }
             else
             {

@@ -18,18 +18,22 @@ RbComponent::RbComponent(ModalExplorerVSTAudioProcessor& p)
     // Section heading
     addAndMakeVisible (sectionHeading);
     sectionHeading.setText ("RB MODE", juce::NotificationType::dontSendNotification);
+    sectionHeading.setLookAndFeel (&blueTextLookAndFeel);
     sectionHeading.setJustificationType (juce::Justification::centred);
     
     // RB knob
     addAndMakeVisible (rbKnob);
     rbKnob.setSliderStyle (juce::Slider::RotaryVerticalDrag);
     rbKnob.setTextBoxStyle (juce::Slider::NoTextBox, true, 0, 0);
+    rbKnob.setLookAndFeel (&knobLookAndFeel);
     rbKnob.onValueChange = [this] { changeRbMode(); };
     rbKnobAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RB", rbKnob);
     
     // Mode status display (to be made dynamic eventually)
     addAndMakeVisible (modeDisplay);
     modeDisplay.setText ("off", juce::dontSendNotification);
+    modeDisplay.setLookAndFeel (&customLookAndFeel);
+    modeDisplay.setFont (16);
     modeDisplay.setJustificationType (juce::Justification::centred);
 
 }
@@ -41,8 +45,8 @@ RbComponent::~RbComponent()
 void RbComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds();
-    g.setColour(juce::Colours::white);
-    g.drawRect (area);
+    g.setColour (juce::Colour(123, 234, 243));
+    g.drawRoundedRectangle (area.toFloat().reduced(2), 10, 2);;
 }
 
 void RbComponent::resized()

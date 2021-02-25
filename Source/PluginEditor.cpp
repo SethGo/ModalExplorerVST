@@ -19,10 +19,9 @@ ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (Moda
     addAndMakeVisible (rbComponent);
     addAndMakeVisible (verticalTitleComponent);
     addAndMakeVisible (outputComponent);
-    addAndMakeVisible (chordComponent);
     addAndMakeVisible (mixComponent);
     
-    setSize (750, 500);
+    setSize (750, 430);
 }
 
 ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
@@ -32,43 +31,39 @@ ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
 //==============================================================================
 void ModalExplorerVSTAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    
+    g.fillAll (juce::Colour(5, 41, 66));
 }
 
 void ModalExplorerVSTAudioProcessorEditor::resized()
 {
-    // Change "Section" to "Component"
+    int reducedAmount = 2.0f;
     auto area = getLocalBounds();
     
     // Vertical title component
     auto scaleComponentLabelXOffset = getWidth() * 0.06;
-    verticalTitleComponent.setBounds (area.removeFromLeft (scaleComponentLabelXOffset));
+    verticalTitleComponent.setBounds (area.removeFromLeft (scaleComponentLabelXOffset).reduced (reducedAmount));
     
     // Scale Component
-    auto scaleComponentYOffset = getHeight() * 0.35;
+    auto scaleComponentYOffset = getHeight() * 0.45;
     auto topRow = area.removeFromTop (scaleComponentYOffset);
     auto scaleComponentXOffset = (getWidth()  - scaleComponentLabelXOffset) * 0.65;
-    scaleSelectionComponent.setBounds (topRow.removeFromLeft (scaleComponentXOffset).removeFromTop (scaleComponentYOffset));
+    scaleSelectionComponent.setBounds (topRow.removeFromLeft (scaleComponentXOffset).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
     
     // Neg-harm Component
     auto thirdOfRemainingTopRowSpace = (getWidth() - scaleComponentLabelXOffset - scaleComponentXOffset) / 3;
-    negHarmComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset));
+    negHarmComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
     
     // RB mode Component
-    rbComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset));
+    rbComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
     
     // Output knob Component
-    outputComponent.setBounds (topRow);
+    outputComponent.setBounds (topRow.reduced (reducedAmount));
     
     // Inversion Component
-    auto chordComponentProportionToInvAndMixComponents = 0.349;
-    auto invComponentXOffset = (getWidth() - scaleComponentLabelXOffset) * chordComponentProportionToInvAndMixComponents;
-    inversionComponent.setBounds (area.removeFromLeft (invComponentXOffset));
+    auto inversionToMixProportion = 0.3;
+    auto invComponentXOffset = (getWidth() - scaleComponentLabelXOffset) * inversionToMixProportion;
+    inversionComponent.setBounds (area.removeFromLeft (invComponentXOffset).reduced (reducedAmount));
     
-    // Chord display Component
-    auto chordComponentXOffset = (getWidth() - scaleComponentLabelXOffset - invComponentXOffset * 2);
-    chordComponent.setBounds (area.removeFromLeft (chordComponentXOffset));
-
     // Mix Component
-    mixComponent.setBounds (area);
+    mixComponent.setBounds (area.reduced (reducedAmount));
 }
