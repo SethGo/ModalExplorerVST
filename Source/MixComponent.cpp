@@ -73,19 +73,19 @@ void MixComponent::paint (juce::Graphics& g)
 
 void MixComponent::resized()
 {
-    auto area = getLocalBounds().reduced (2);
+    auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.1;
+    auto headingYOffset = getHeight() * 0.15;
     sectionHeading.setBounds (area.removeFromTop(headingYOffset));
     
     // Mix Sliders
     auto reduceX = getWidth() * 0.05;
-    auto reduceY = getWidth() * 0.025;
+    auto reduceY = getHeight() * 0.05;
     auto mixSliderYOffset = (getHeight() - headingYOffset) / 4;
     mixSliderS.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
     mixSliderA.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
     mixSliderT.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
-    mixSliderB.setBounds (area.reduced (reduceX, reduceY));
+    mixSliderB.setBounds (area.removeFromTop (mixSliderYOffset).reduced (reduceX, reduceY));
 
 }

@@ -23,6 +23,10 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    std::string verticalTitle;
+    void setVerticalTitle (std::string title);
+
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VerticalTitleComponent)

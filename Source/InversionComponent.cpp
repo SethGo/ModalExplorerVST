@@ -91,14 +91,14 @@ void InversionComponent::resized()
     auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.1;
+    auto headingYOffset = getHeight() * 0.15;
     sectionHeading.setBounds (area.removeFromTop (headingYOffset));
     
     // Inversion knobs
     auto voiceColumnXOffset = getWidth() * 0.4;
     auto col1 = area.removeFromLeft (voiceColumnXOffset);
-    auto voiceYOffset = (getHeight() - headingYOffset) / 4;
     int reducedAmount = 3;
+    auto voiceYOffset = (getHeight() - headingYOffset - reducedAmount) / 4;
     invKnobS.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));
     invKnobA.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));
     invKnobT.setBounds (col1.removeFromTop (voiceYOffset).reduced (reducedAmount));

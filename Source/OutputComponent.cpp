@@ -47,11 +47,11 @@ void OutputComponent::resized()
     auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.33f;
+    auto headingYOffset = getHeight() * 0.15;
     sectionHeading.setBounds (area.removeFromTop (headingYOffset));
     
     // Output knob
-    area.removeFromBottom (getHeight() * 0.33f);
+    area.removeFromBottom (headingYOffset);
     outputKnob.setBounds (area);
 
 }

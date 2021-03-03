@@ -110,7 +110,7 @@ public:
         {
             if (chordNotes[i] < 12)
             {
-                chordMidiNotes[i] = chordNotes[i] + 36 + 12 * i; // note + (middle C - 1 octave) + (one octave * voice)
+                chordMidiNotes[i] = chordNotes[i] + 36 + 12 * i; // note + (middle C - 2 octave) + (one octave * voice)
             }
             else
             {

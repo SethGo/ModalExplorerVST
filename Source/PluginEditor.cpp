@@ -11,17 +11,24 @@
 
 //==============================================================================
 ModalExplorerVSTAudioProcessorEditor::ModalExplorerVSTAudioProcessorEditor (ModalExplorerVSTAudioProcessor& p)
-: AudioProcessorEditor (&p), inversionComponent(p), scaleSelectionComponent(p), negHarmComponent (p), rbComponent(p), outputComponent (p), mixComponent(p), audioProcessor (p)
+: AudioProcessorEditor (&p), inversionComponent(p), scaleSelectionComponent(p), negHarmComponent (p), rbComponent (p), outputComponent (p), mixComponent(p), audioProcessor (p)
 {
-    addAndMakeVisible (inversionComponent);
+    addAndMakeVisible (verticalTitleComponentScale);
+    verticalTitleComponentScale.setVerticalTitle ("SCALE");
+    addAndMakeVisible (verticalTitleComponentVoicing);
+    verticalTitleComponentVoicing.setVerticalTitle ("VOICING");
+    
+    // Top row
     addAndMakeVisible (scaleSelectionComponent);
     addAndMakeVisible (negHarmComponent);
     addAndMakeVisible (rbComponent);
-    addAndMakeVisible (verticalTitleComponent);
+    
+    // Bottom row
+    addAndMakeVisible (inversionComponent);
     addAndMakeVisible (outputComponent);
     addAndMakeVisible (mixComponent);
     
-    setSize (750, 430);
+    setSize (750, 460);
 }
 
 ModalExplorerVSTAudioProcessorEditor::~ModalExplorerVSTAudioProcessorEditor()
@@ -39,30 +46,33 @@ void ModalExplorerVSTAudioProcessorEditor::resized()
     int reducedAmount = 2.0f;
     auto area = getLocalBounds();
     
-    // Vertical title component
-    auto scaleComponentLabelXOffset = getWidth() * 0.06;
-    verticalTitleComponent.setBounds (area.removeFromLeft (scaleComponentLabelXOffset).reduced (reducedAmount));
+    // Top Row vertical title
+    auto topRowYOffset = getHeight() * 0.45;
+    auto topRow = area.removeFromTop (topRowYOffset);
+    auto verticalTitleXOffset = getWidth() * 0.06;
+    verticalTitleComponentScale.setBounds (topRow.removeFromLeft (verticalTitleXOffset).reduced (reducedAmount));
     
     // Scale Component
-    auto scaleComponentYOffset = getHeight() * 0.45;
-    auto topRow = area.removeFromTop (scaleComponentYOffset);
-    auto scaleComponentXOffset = (getWidth()  - scaleComponentLabelXOffset) * 0.65;
-    scaleSelectionComponent.setBounds (topRow.removeFromLeft (scaleComponentXOffset).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
+    auto scaleComponentXOffset = (getWidth()  - verticalTitleXOffset) * 0.65;
+    scaleSelectionComponent.setBounds (topRow.removeFromLeft (scaleComponentXOffset).removeFromTop (topRowYOffset).reduced (reducedAmount));
     
     // Neg-harm Component
-    auto thirdOfRemainingTopRowSpace = (getWidth() - scaleComponentLabelXOffset - scaleComponentXOffset) / 3;
-    negHarmComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
+    auto thirdOfRemainingTopRowSpace = (getWidth() - verticalTitleXOffset - scaleComponentXOffset) / 2;
+    negHarmComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (topRowYOffset).reduced (reducedAmount));
     
     // RB mode Component
-    rbComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (scaleComponentYOffset).reduced (reducedAmount));
+    rbComponent.setBounds (topRow.removeFromLeft (thirdOfRemainingTopRowSpace).removeFromTop (topRowYOffset).reduced (reducedAmount));
     
-    // Output knob Component
-    outputComponent.setBounds (topRow.reduced (reducedAmount));
+    // Bottom row vertical title
+    verticalTitleComponentVoicing.setBounds (area.removeFromLeft (verticalTitleXOffset).reduced (reducedAmount));
     
     // Inversion Component
     auto inversionToMixProportion = 0.3;
-    auto invComponentXOffset = (getWidth() - scaleComponentLabelXOffset) * inversionToMixProportion;
+    auto invComponentXOffset = (getWidth() - verticalTitleXOffset) * inversionToMixProportion;
     inversionComponent.setBounds (area.removeFromLeft (invComponentXOffset).reduced (reducedAmount));
+    
+    // Output knob Component
+    outputComponent.setBounds (area.removeFromRight (thirdOfRemainingTopRowSpace).reduced (reducedAmount));
     
     // Mix Component
     mixComponent.setBounds (area.reduced (reducedAmount));

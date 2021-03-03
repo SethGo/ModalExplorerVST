@@ -47,13 +47,13 @@ void NegHarmComponent::resized()
     auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.33f;
+    auto headingYOffset = getHeight() * 0.15f;
     sectionHeading.setBounds (area.removeFromTop(headingYOffset));
     
     // Neg-harm button
-    area.removeFromBottom (getHeight() * 0.33f);
+    area.removeFromBottom (getHeight() * 0.2f);
     auto reduceAmountX = getWidth() * 0.18f;
-    auto reduceAmountY = getHeight() * 0.03f;
+    auto reduceAmountY = getHeight() * 0.15f;
     negHarmBtn.setBounds (area.reduced (reduceAmountX, reduceAmountY));
 }
 

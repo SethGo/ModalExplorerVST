@@ -37,7 +37,8 @@ private:
     ScaleSelectionComponent scaleSelectionComponent;
     NegHarmComponent negHarmComponent;
     RbComponent rbComponent;
-    VerticalTitleComponent verticalTitleComponent;
+    VerticalTitleComponent verticalTitleComponentScale;
+    VerticalTitleComponent verticalTitleComponentVoicing;
     OutputComponent outputComponent;
     MixComponent mixComponent;
     

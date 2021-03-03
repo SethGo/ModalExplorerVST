@@ -54,11 +54,11 @@ void RbComponent::resized()
     auto area = getLocalBounds();
     
     // Section heading
-    auto headingYOffset = getHeight() * 0.33f;
+    auto headingYOffset = getHeight() * 0.15f;
     sectionHeading.setBounds (area.removeFromTop (headingYOffset));
 
     // Mode status display
-    modeDisplay.setBounds (area.removeFromBottom (getHeight() * 0.33f));
+    modeDisplay.setBounds (area.removeFromBottom (headingYOffset * 2));
     
     // RB knob
     rbKnob.setBounds (area);
