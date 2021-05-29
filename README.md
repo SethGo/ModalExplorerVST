@@ -6,4 +6,4 @@
 - Play complex harmony with a single key press.
 - Send MIDI to another channel in a DAW to record, compose, or just have fun!
 
-#### Please enjoy a fully functional JavaScript version in the browser [here](https://sethgory.com/modalexplorer.html)
+#### If you don't have a DAW that can use VST3, Please enjoy a fully functional JavaScript version in the browser [here](https://sethgory.com/modalexplorer.html)
